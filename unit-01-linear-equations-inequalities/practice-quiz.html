@@ -118,7 +118,9 @@
   .qinput{
     padding:.55rem .7rem; border:1px solid var(--line); border-radius:10px; background:var(--ground-sunken);
     color:var(--ink); font-family:var(--font-mono); width:8rem; min-height:2.75rem;
+    -moz-appearance:textfield;
   }
+  .qinput::-webkit-outer-spin-button, .qinput::-webkit-inner-spin-button{-webkit-appearance:none; margin:0;}
   .qcard.correct .qinput, .qcard.correct .mc-btn.picked{border-color:var(--good); background:var(--good-soft);}
   .mc-list{display:grid; gap:.55rem;}
   @media (min-width:520px){ .mc-list{grid-template-columns:1fr 1fr;} }
@@ -382,7 +384,7 @@
         var row = document.createElement('div');
         row.className = 'qrow';
         var input = document.createElement('input');
-        input.type = 'text'; input.inputMode='decimal'; input.className='qinput'; input.placeholder='x = ?';
+        input.type = 'number'; input.className='qinput'; input.placeholder='x = ?';
         var checkBtn = document.createElement('button');
         checkBtn.className = 'btn'; checkBtn.textContent = 'Check';
         row.appendChild(input); row.appendChild(checkBtn);
