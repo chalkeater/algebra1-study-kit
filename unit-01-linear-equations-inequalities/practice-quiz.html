@@ -121,6 +121,7 @@
     -moz-appearance:textfield;
   }
   .qinput::-webkit-outer-spin-button, .qinput::-webkit-inner-spin-button{-webkit-appearance:none; margin:0;}
+  .sign-btn{width:2.75rem; padding:.5rem; font-size:1rem; font-weight:800;}
   .qcard.correct .qinput, .qcard.correct .mc-btn.picked{border-color:var(--good); background:var(--good-soft);}
   .mc-list{display:grid; gap:.55rem;}
   @media (min-width:520px){ .mc-list{grid-template-columns:1fr 1fr;} }
@@ -383,17 +384,25 @@
       if(q.type==='numeric'){
         var row = document.createElement('div');
         row.className = 'qrow';
+        var signBtn = document.createElement('button');
+        signBtn.type = 'button'; signBtn.className='btn sign-btn'; signBtn.textContent='±';
+        signBtn.setAttribute('aria-label', 'Toggle negative sign');
         var input = document.createElement('input');
         input.type = 'number'; input.className='qinput'; input.placeholder='x = ?';
         var checkBtn = document.createElement('button');
         checkBtn.className = 'btn'; checkBtn.textContent = 'Check';
-        row.appendChild(input); row.appendChild(checkBtn);
+        signBtn.addEventListener('click', function(){
+          if(answered) return;
+          input.value = input.value.charAt(0) === '-' ? input.value.slice(1) : '-' + input.value;
+          input.focus();
+        });
+        row.appendChild(signBtn); row.appendChild(input); row.appendChild(checkBtn);
         card.appendChild(row);
         function tryAnswer(){
           if(answered) return;
           var v = parseFloat(input.value);
           if(isNaN(v)) return;
-          if(Math.abs(v - q.answer) < 1e-6){ input.disabled=true; checkBtn.disabled=true; lockCorrect(); }
+          if(Math.abs(v - q.answer) < 1e-6){ input.disabled=true; checkBtn.disabled=true; signBtn.disabled=true; lockCorrect(); }
           else { markWrong(); }
         }
         checkBtn.addEventListener('click', tryAnswer);
