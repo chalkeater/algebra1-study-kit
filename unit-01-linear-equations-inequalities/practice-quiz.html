@@ -335,7 +335,17 @@
   var BAD_MSGS = ['Ehh, that ain\'t it, chief.','L take — run it back.','Not quite, bestie. Recheck your steps.','That\'s giving wrong-answer energy.','Mid attempt. Try again.','Negative, ghost rider. Try again.'];
   function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
 
-  var score = 0, streak = 0, best = 0;
+  var PROGRESS_KEY = 'algebra-quiz-progress:' + location.pathname;
+  var progress = null;
+  try { progress = JSON.parse(localStorage.getItem(PROGRESS_KEY)); } catch(e){}
+  if(!progress || typeof progress !== 'object') progress = {score:0, streak:0, answered:{}};
+  if(!progress.answered) progress.answered = {};
+
+  function saveProgress(){
+    try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress)); } catch(e){}
+  }
+
+  var score = progress.score||0, streak = progress.streak||0, best = 0;
   try { best = parseInt(localStorage.getItem('algebra-quiz-best')||'0',10) || 0; } catch(e){}
   document.getElementById('score-total').textContent = QUESTIONS.length;
   document.getElementById('streak-best').textContent = best;
@@ -360,6 +370,7 @@
   }
 
   var root2 = document.getElementById('quiz-root');
+  var qIndex = 0;
   CONCEPTS.forEach(function(c){
     var section = document.createElement('section');
     section.className = 'qconcept';
@@ -369,6 +380,8 @@
     section.appendChild(head);
 
     QUESTIONS.filter(function(q){ return q.concept===c.n; }).forEach(function(q, qi){
+      var myIndex = qIndex++;
+      var saved = progress.answered[myIndex];
       var card = document.createElement('div');
       card.className = 'qcard';
       var answered = false;
@@ -381,17 +394,23 @@
       var feedback = document.createElement('div');
       feedback.className = 'feedback';
 
-      function lockCorrect(){
+      function lockCorrect(persistedValue){
         answered = true;
         card.classList.add('correct');
-        score++; streak++;
-        updateScorebar();
+        if(persistedValue===undefined){
+          score++; streak++;
+          updateScorebar();
+          progress.score = score; progress.streak = streak;
+          saveProgress();
+        }
         feedback.className = 'feedback good';
         feedback.textContent = '✅ ' + pick(GOOD_MSGS);
       }
       function markWrong(){
         streak = 0;
         updateScorebar();
+        progress.streak = streak;
+        saveProgress();
         card.classList.add('shake');
         setTimeout(function(){ card.classList.remove('shake'); }, 320);
         feedback.className = 'feedback bad';
@@ -419,11 +438,20 @@
           if(answered) return;
           var v = parseFloat(input.value);
           if(isNaN(v)) return;
-          if(Math.abs(v - q.answer) < 1e-6){ input.disabled=true; checkBtn.disabled=true; signBtn.disabled=true; lockCorrect(); }
+          if(Math.abs(v - q.answer) < 1e-6){
+            input.disabled=true; checkBtn.disabled=true; signBtn.disabled=true;
+            progress.answered[myIndex] = {type:'numeric', value:v};
+            lockCorrect();
+          }
           else { markWrong(); }
         }
         checkBtn.addEventListener('click', tryAnswer);
         input.addEventListener('keydown', function(e){ if(e.key==='Enter') tryAnswer(); });
+        if(saved && saved.type==='numeric'){
+          input.value = saved.value;
+          input.disabled = true; checkBtn.disabled = true; signBtn.disabled = true;
+          lockCorrect(saved.value);
+        }
       } else if(q.type==='mc'){
         var list = document.createElement('div');
         list.className = 'mc-list';
@@ -436,6 +464,7 @@
             if(ci===q.correct){
               btn.classList.add('correct-pick');
               Array.prototype.forEach.call(list.children, function(b){ b.disabled = true; });
+              progress.answered[myIndex] = {type:'mc', choice:ci};
               lockCorrect();
             } else {
               btn.classList.add('wrong-pick');
@@ -445,6 +474,11 @@
           list.appendChild(btn);
         });
         card.appendChild(list);
+        if(saved && saved.type==='mc'){
+          list.children[saved.choice].classList.add('correct-pick');
+          Array.prototype.forEach.call(list.children, function(b){ b.disabled = true; });
+          lockCorrect(saved.choice);
+        }
       }
 
       card.appendChild(feedback);
@@ -472,7 +506,8 @@
   updateScorebar();
 
   document.getElementById('reset-quiz').addEventListener('click', function(){
-    if(confirm('Reset your score and streak for this quiz?')){
+    if(confirm('Reset your score, streak, and saved answers for this quiz?')){
+      try { localStorage.removeItem(PROGRESS_KEY); } catch(e){}
       location.reload();
     }
   });
