@@ -644,20 +644,27 @@
     {left:[T(6,true),T(-2,true),T(5,false)], right:[T(29,false)]},
     {left:[T(3,true),T(2,true),T(-7,false)], right:[T(23,false)]},
     {left:[T(9,true),T(-4,true),T(-6,false)], right:[T(14,false)]},
-    {left:[T(2,true),T(5,true),T(-8,false)], right:[T(13,false)]}
+    {left:[T(2,true),T(5,true),T(-8,false)], right:[T(13,false)]},
+    {left:[T(3,true),T(2,true),T(-4,false)], right:[T(12,false)]},
+    {left:[T(0.5,true),T(1.5,true),T(-2,false)], right:[T(7,false)]},
+    {left:[T(0.25,true),T(1.75,true),T(3,false)], right:[T(8,false)]}
   ];
   var POOL3 = [
     {left:[T(7,true),T(-3,false)], right:[T(3,true),T(21,false)]},
     {left:[T(5,true),T(4,false)], right:[T(2,true),T(19,false)]},
     {left:[T(9,true),T(-10,false)], right:[T(4,true),T(15,false)]},
     {left:[G(5,[T(1,true),T(2,false)])], right:[T(5,true),T(10,false)]},
-    {left:[T(1,true),T(7,false)], right:[T(1,true),T(-2,false)]}
+    {left:[T(1,true),T(7,false)], right:[T(1,true),T(-2,false)]},
+    {left:[T(3,true),T(1,false)], right:[T(0.5,true),T(9,false)]},
+    {left:[T(2.25,true),T(1,false)], right:[T(0.25,true),T(6,false)]}
   ];
   var POOL4 = [
     {left:[G(3,[T(2,true),T(-4,false)])], right:[T(18,false)]},
     {left:[G(-2,[T(1,true),T(5,false)])], right:[T(10,false)]},
     {left:[G(4,[T(1,true),T(-3,false)]),T(2,false)], right:[T(30,false)]},
-    {left:[G(-4,[T(3,false),T(-1,true)])], right:[T(2,true),T(16,false)]}
+    {left:[G(-4,[T(3,false),T(-1,true)])], right:[T(2,true),T(16,false)]},
+    {left:[G(5,[T(0.4,true),T(-2,false)])], right:[T(7,false)]},
+    {left:[G(-2,[T(2.5,true),T(-1,false)])], right:[T(13,false)]}
   ];
   var labPools = {1:POOL1, 2:POOL2, 3:POOL3, 4:POOL4};
   var labState = {};
@@ -743,7 +750,12 @@
     ], final:'r = d / t'},
     {formula:'C = 2πr', solveFor:'r', steps:[
       {display:'C = 2πr', choices:['Divide both sides by 2π','Multiply both sides by 2π','Subtract 2π from both sides'], correct:0, result:'C/(2π) = r'}
-    ], final:'r = C / (2π)'}
+    ], final:'r = C / (2π)'},
+    {formula:'P = 2(l + w)', solveFor:'w', steps:[
+      {display:'P = 2(l + w)', choices:['Distribute the 2','Divide both sides by 2','Subtract l from both sides'], correct:0, result:'P = 2l + 2w'},
+      {display:'P = 2l + 2w', choices:['Subtract 2l from both sides','Divide both sides by 2l','Add 2l to both sides'], correct:0, result:'P − 2l = 2w'},
+      {display:'P − 2l = 2w', choices:['Divide both sides by 2','Subtract 2 from both sides','Multiply both sides by 2'], correct:0, result:'(P − 2l)/2 = w'}
+    ], final:'w = (P − 2l) / 2'}
   ];
   var litIndex = 0, litStep = 0;
   function renderLitStep(){

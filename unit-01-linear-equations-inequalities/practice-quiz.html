@@ -184,7 +184,7 @@
   <div class="hero-inner">
     <p class="hero-eyebrow">Practice Quiz · Instant Feedback</p>
     <h1>Prove You Actually<br>Got It</h1>
-    <p>25 questions, all 8 concepts. Answer, get instant feedback, peek at the steps if you're stuck. Streak resets on a miss — no pressure, just vibes and algebra.</p>
+    <p>33 questions, all 8 concepts. Answer, get instant feedback, peek at the steps if you're stuck. Streak resets on a miss — no pressure, just vibes and algebra.</p>
     <div class="hero-actions">
       <button class="btn" id="theme-toggle" type="button">🌓 Theme</button>
       <button class="btn" id="reset-quiz" type="button">🔁 Reset quiz</button>
@@ -249,12 +249,22 @@
       steps:['3x + 4x − 8 = 34','7x − 8 = 34','7x = 42','x = 6']},
     {concept:2, type:'numeric', prompt:'10 − 2x + 5x = 25. Sneaky one — the x isn\'t first. Solve for x.', answer:5,
       steps:['10 − 2x + 5x = 25','3x + 10 = 25','3x = 15','x = 5']},
+    {concept:2, type:'numeric', prompt:'3x + 2x − 4 = 12. Combine, then solve — don\'t assume the answer is a whole number.', answer:3.2,
+      steps:['3x + 2x − 4 = 12','5x − 4 = 12','5x = 16','x = 3.2']},
+    {concept:2, type:'numeric', prompt:'0.5x + 1.5x − 2 = 7. Decimal coefficients still combine the same way.', answer:4.5,
+      steps:['0.5x + 1.5x − 2 = 7','2x − 2 = 7','2x = 9','x = 4.5']},
+    {concept:2, type:'numeric', prompt:'0.25x + 1.75x + 3 = 8. What\'s x?', answer:2.5,
+      steps:['0.25x + 1.75x + 3 = 8','2x + 3 = 8','2x = 5','x = 2.5']},
 
     // ---- Concept 3 ----
     {concept:3, type:'numeric', prompt:'7x − 3 = 3x + 21. Solve it.', answer:6,
       steps:['7x − 3 = 3x + 21','4x − 3 = 21','4x = 24','x = 6']},
     {concept:3, type:'numeric', prompt:'5x + 4 = 2x + 19. Go.', answer:5,
       steps:['5x + 4 = 2x + 19','3x + 4 = 19','3x = 15','x = 5']},
+    {concept:3, type:'numeric', prompt:'3x + 1 = 0.5x + 9. x-terms on both sides AND a decimal coefficient.', answer:3.2,
+      steps:['3x + 1 = 0.5x + 9','2.5x + 1 = 9','2.5x = 8','x = 3.2']},
+    {concept:3, type:'numeric', prompt:'2.25x + 1 = 0.25x + 6. What\'s x?', answer:2.5,
+      steps:['2.25x + 1 = 0.25x + 6','2x + 1 = 6','2x = 5','x = 2.5']},
     {concept:3, type:'mc', prompt:'5(x + 2) = 5x + 10. What\'s the deal?',
       choices:['x = 0','No solution','Infinite solutions','x = 10'], correct:2,
       steps:['5(x+2) = 5x+10','5x + 10 = 5x + 10','10 = 10 — always true','→ infinite solutions']},
@@ -269,6 +279,10 @@
       steps:['−2(x+5) = 10','−2x − 10 = 10','−2x = 20','x = −10']},
     {concept:4, type:'numeric', prompt:'4(x − 3) + 2 = 30.', answer:10,
       steps:['4(x−3)+2 = 30','4x − 12 + 2 = 30','4x − 10 = 30','4x = 40','x = 10']},
+    {concept:4, type:'numeric', prompt:'5(0.4x − 2) = 7. Decimal inside the parentheses this time.', answer:8.5,
+      steps:['5(0.4x−2) = 7','2x − 10 = 7','2x = 17','x = 8.5']},
+    {concept:4, type:'numeric', prompt:'−2(2.5x − 1) = 13. Negative out front — watch both signs.', answer:-2.2,
+      steps:['−2(2.5x−1) = 13','−5x + 2 = 13','−5x = 11','x = −2.2']},
 
     // ---- Concept 5 ----
     {concept:5, type:'mc', prompt:'Solve A = ½bh for h. What\'s h?',
@@ -280,6 +294,9 @@
     {concept:5, type:'mc', prompt:'Solve d = rt for t.',
       choices:['t = d/r','t = r/d','t = dr','t = d − r'], correct:0,
       steps:['d = rt','t = d/r']},
+    {concept:5, type:'mc', prompt:'Solve P = 2(l + w) for w. Distribute first.',
+      choices:['w = P − 2l','w = (P − 2l)/2','w = (P − l)/2','w = 2P − l'], correct:1,
+      steps:['P = 2(l + w)','P = 2l + 2w','P − 2l = 2w','w = (P − 2l)/2']},
 
     // ---- Concept 6 ----
     {concept:6, type:'mc', prompt:'−5 < 2x + 1 ≤ 9. Solve for x.',
