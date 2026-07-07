@@ -131,7 +131,37 @@
   }
   .mc-btn.correct-pick{background:var(--good-soft); border-color:var(--good); color:var(--good); font-weight:700;}
   .mc-btn.wrong-pick{background:var(--bad-soft); border-color:var(--bad); color:var(--bad); font-weight:700;}
+
+  .check-list{display:flex; flex-direction:column; gap:.5rem;}
+  .check-item{
+    display:flex; align-items:flex-start; gap:.6rem; text-align:left; width:100%;
+    padding:.65rem .8rem; border:1px solid var(--line); background:var(--ground-sunken);
+    border-radius:10px; cursor:pointer; font-size:.92rem; color:var(--ink); font-family:inherit;
+  }
+  .check-item .box{
+    flex:none; width:1.3rem; height:1.3rem; margin-top:.05rem; border:2px solid var(--ink-faint); border-radius:5px;
+    display:flex; align-items:center; justify-content:center; font-size:.85rem; font-weight:800; line-height:1;
+  }
+  .check-item.picked{border-color:var(--accent);}
+  .check-item.picked .box{background:var(--accent); border-color:var(--accent); color:#F4FFFE;}
+  .check-item.picked .box::after{content:'✓';}
+  .check-item.resolved-true{background:var(--good-soft); border-color:var(--good);}
+  .check-item.resolved-true .box{background:var(--good); border-color:var(--good); color:#fff;}
+  .check-item.resolved-true .box::after{content:'✓';}
+  .check-item.resolved-false .box{background:transparent; border-color:var(--ink-faint); color:var(--ink-faint);}
+  .check-item.resolved-false .box::after{content:'✕';}
+  .check-submit{margin-top:.2rem;}
   .mc-btn[disabled]{cursor:default;}
+  .graph-list{display:grid; gap:.6rem; grid-template-columns:repeat(2,1fr);}
+  @media (min-width:520px){ .graph-list{grid-template-columns:repeat(4,1fr);} }
+  .graph-btn{
+    padding:.4rem; border:2px solid var(--line); border-radius:10px; background:var(--ground-sunken);
+    color:var(--ink); cursor:pointer; min-height:2.75rem;
+  }
+  .graph-btn svg{width:100%; height:auto; display:block;}
+  .graph-btn.correct-pick{border-color:var(--good); background:var(--good-soft);}
+  .graph-btn.wrong-pick{border-color:var(--bad); background:var(--bad-soft);}
+  .graph-btn[disabled]{cursor:default;}
   .feedback{margin-top:.6rem; font-weight:700; font-size:.92rem;}
   .feedback.good{color:var(--good);}
   .feedback.bad{color:var(--bad);}
@@ -184,7 +214,7 @@
   <div class="hero-inner">
     <p class="hero-eyebrow">Practice Quiz · Instant Feedback</p>
     <h1>Prove You Actually<br>Got It</h1>
-    <p>33 questions, all 8 concepts. Answer, get instant feedback, peek at the steps if you're stuck. Streak resets on a miss — no pressure, just vibes and algebra.</p>
+    <p>47 questions, all 9 concepts. Answer, get instant feedback, peek at the steps if you're stuck. Streak resets on a miss — no pressure, just vibes and algebra.</p>
     <div class="hero-actions">
       <button class="btn" id="theme-toggle" type="button">🌓 Theme</button>
       <button class="btn" id="reset-quiz" type="button">🔁 Reset quiz</button>
@@ -230,7 +260,8 @@
     {n:5, name:'Literal Equations'},
     {n:6, name:'Compound Inequalities'},
     {n:7, name:'Graphing Two-Variable Inequalities'},
-    {n:8, name:'Modeling With Inequalities'}
+    {n:8, name:'Modeling With Inequalities'},
+    {n:9, name:'Comparing Functions (Same Output)'}
   ];
 
   var QUESTIONS = [
@@ -255,6 +286,26 @@
       steps:['0.5x + 1.5x − 2 = 7','2x − 2 = 7','2x = 9','x = 4.5']},
     {concept:2, type:'numeric', prompt:'0.25x + 1.75x + 3 = 8. What\'s x?', answer:2.5,
       steps:['0.25x + 1.75x + 3 = 8','2x + 3 = 8','2x = 5','x = 2.5']},
+    {concept:2, type:'mc', prompt:'⅚x + 3 + ⅙x = 9. What\'s the resulting equation after combining the like x-terms (the first step)?',
+      choices:['x + 3 = 9','⅙x + 3 = 9','⅚x + 3 = 9 − ⅙x','x = 6'], correct:0,
+      steps:['⅚x + ⅙x = ⁶⁄₆x = x','combine the fraction coefficients first — don\'t solve yet','x + 3 = 9']},
+    {concept:2, type:'mc', prompt:'¾y + 2 + ¼y = 10. What\'s the resulting equation after combining the like y-terms (the first step)?',
+      choices:['y + 2 = 10','½y + 2 = 10','¾y + 2 = 10 − ¼y','y = 8'], correct:0,
+      steps:['¾y + ¼y = ⁴⁄₄y = y','combine the fraction coefficients first — don\'t solve yet','y + 2 = 10']},
+    {concept:2, type:'mc', prompt:'½x + 3 + ¼x = 11. What\'s the resulting equation after combining the like x-terms (the first step)?',
+      choices:['¾x + 3 = 11','¼x + 3 = 11','³⁄₆x + 3 = 11','x = 8'], correct:0,
+      steps:['½x + ¼x = ²⁄₄x + ¼x = ¾x','fractions need a common denominator before combining','¾x + 3 = 11']},
+    {concept:2, type:'mc', prompt:'A booster club needs to sell b bracelets to hit a $250 goal, modeled by 5b − 20 = 250. Since b is a number of bracelets sold, which statement about the solution must be true?',
+      choices:['It must be a positive whole number — you can\'t sell a negative or fractional bracelet.','It must be negative, since bracelets cost money.','It has to be less than 20.','It cannot be a whole number.'], correct:0,
+      steps:['5b − 20 = 250','5b = 270','b = 54 — a positive whole number, which makes sense for a bracelet count']},
+    {concept:2, type:'checkbox', prompt:'Marcus solved 4x + 3x − 2 = 19. Step 1: 7x − 2 = 19. Step 2: 7x = 21. Step 3: x = −3. Check all statements that are true.',
+      statements:[
+        {text:'In Step 1, he correctly combined 4x and 3x into 7x.', correct:true},
+        {text:'In Step 2, he correctly added 2 to both sides (19 + 2 = 21).', correct:true},
+        {text:'In Step 3, dividing 21 by 7 gives x = −3.', correct:false},
+        {text:'The correct solution is x = 3, not x = −3.', correct:true}
+      ],
+      steps:['7x − 2 = 19 (combine 4x + 3x)','7x = 21 (add 2 to both sides)','x = 3 (21 ÷ 7 = 3 — Marcus made a sign error and got −3 by mistake)']},
 
     // ---- Concept 3 ----
     {concept:3, type:'numeric', prompt:'7x − 3 = 3x + 21. Solve it.', answer:6,
@@ -308,6 +359,12 @@
     {concept:6, type:'mc', prompt:'Which phrase means AND (squeeze into one range)?',
       choices:['"You must be at least 12 and under 15"','"Practice is Tuesday or Thursday"','Both of these','Neither of these'], correct:0,
       steps:['"AND" = both conditions true at once → one squeezed range.','"OR" = either condition true → possibly two separate pieces.']},
+    {concept:6, type:'mc', prompt:'A cable must be longer than 12 cm but no longer than 12.2 cm to fit the frame. Which inequality represents the valid lengths, x?',
+      choices:['12 < x ≤ 12.2','12 ≤ x < 12.2','12 > x ≥ 12.2','x < 12 or x ≥ 12.2'], correct:0,
+      steps:['"longer than 12" → 12 < x (strict, 12 itself doesn\'t count)','"no longer than 12.2" → x ≤ 12.2 (inclusive, 12.2 is fine)','combine (AND): 12 < x ≤ 12.2']},
+    {concept:6, type:'mc', prompt:'To ride the coaster, a guest must be at least 48 inches tall but under 76 inches tall. Which inequality represents the valid heights, h?',
+      choices:['48 ≤ h < 76','48 < h ≤ 76','h ≤ 48 or h > 76','48 < h < 76'], correct:0,
+      steps:['"at least 48" → h ≥ 48 (inclusive, 48 itself counts)','"under 76" → h < 76 (strict, 76 itself doesn\'t count)','combine (AND): 48 ≤ h < 76']},
 
     // ---- Concept 7 ----
     {concept:7, type:'mc', prompt:'2x + y > 3. Solid or dashed line? Which side shaded?',
@@ -328,12 +385,94 @@
       steps:['170 ≥ 180?','170 is NOT ≥ 180','→ falls short by $10']},
     {concept:8, type:'mc', prompt:'Which inequality models "raise at least $180 selling $4 wristbands (x) and $6 tickets (y)"?',
       choices:['4x + 6y ≥ 180','4x + 6y ≤ 180','4x + 6y = 180','4x + 6y > 180'], correct:0,
-      steps:['"at least" → ≥','price × quantity, summed, ≥ goal','→ 4x + 6y ≥ 180']}
+      steps:['"at least" → ≥','price × quantity, summed, ≥ goal','→ 4x + 6y ≥ 180']},
+    {concept:8, type:'graph', prompt:'A youth theater charges $3 for lawn seats (x) and $5 for reserved seats (y). The show needs to bring in more than $15 to cover costs. Which graph shows the possible combinations of tickets sold? (Not all points on the graph fit the real-world scenario.)',
+      choices:[
+        {m:-0.6, b:3, dashed:true, shadeAbove:false},
+        {m:-0.6, b:3, dashed:false, shadeAbove:true},
+        {m:-0.6, b:3, dashed:true, shadeAbove:true},
+        {m:0.6, b:3, dashed:true, shadeAbove:true}
+      ], correct:2,
+      steps:['3x + 5y > 15','5y > 15 − 3x','y > 3 − 0.6x','strict ">" → dashed line, shade above']},
+    {concept:8, type:'graph', prompt:'A charity race sells $2 raffle tickets (x) and $6 sponsor pledges (y). The team wants to collect at least $24. Which graph shows the possible combinations? (Not all points on the graph fit the real-world scenario.)',
+      choices:[
+        {m:-0.333, b:4, dashed:false, shadeAbove:true},
+        {m:-0.333, b:4, dashed:true, shadeAbove:true},
+        {m:-0.333, b:4, dashed:false, shadeAbove:false},
+        {m:0.333, b:4, dashed:false, shadeAbove:true}
+      ], correct:0,
+      steps:['2x + 6y ≥ 24','6y ≥ 24 − 2x','y ≥ 4 − ⅓x','"≥" → solid line, shade above']},
+
+    // ---- Concept 9 ----
+    {concept:9, type:'numeric', prompt:'f(x) = −0.5x + 2 and g(x) = 2x − 3. What input x makes f(x) = g(x)?', answer:2,
+      steps:['f(x) = g(x)','−0.5x + 2 = 2x − 3','5 = 2.5x','x = 2']},
+    {concept:9, type:'numeric', prompt:'f(x) = 3x − 1 and g(x) = −2x + 14. What input x makes f(x) = g(x)?', answer:3,
+      steps:['f(x) = g(x)','3x − 1 = −2x + 14','5x = 15','x = 3']},
+    {concept:9, type:'numeric', prompt:'f(x) = −x + 6 and g(x) = 4x − 14. What input x makes f(x) = g(x)?', answer:4,
+      steps:['f(x) = g(x)','−x + 6 = 4x − 14','20 = 5x','x = 4']},
+    {concept:9, type:'mc', prompt:'f(x) values: (−2,−7) (−1,−4) (0,−1) (1,2) (2,5). g(x) values: (−2,5) (−1,4) (0,3) (1,2) (2,1). At which x does f(x) = g(x)?',
+      choices:['x = −2','x = 0','x = 1','x = 2'], correct:2,
+      steps:['Scan both tables for a matching output at the same x','At x = 1: f(1) = 2 and g(1) = 2','f(1) = g(1) ✓']},
+    {concept:9, type:'checkbox', prompt:'g(x) = −3x + 1 and h(x) = −5 (a constant function). Check all statements that are true.',
+      statements:[
+        {text:'h(x) has a constant output of −5.', correct:true},
+        {text:'As x increases, g(x) increases.', correct:false},
+        {text:'g(x) is greater than −5 for x values less than 2.', correct:true},
+        {text:'h(x) is less than −5 for x values greater than 2.', correct:false},
+        {text:'The input value for which g(x) = h(x) is x = 2.', correct:true}
+      ],
+      steps:['h(x) is constant — always −5, no matter what x is','g(x) has slope −3, so it decreases as x increases (not increases)','g(x) = h(x): −3x + 1 = −5 → −3x = −6 → x = 2','for x < 2, g(x) > −5; for x > 2, g(x) < −5 — but h(x) never changes, it\'s always exactly −5']}
   ];
 
   var GOOD_MSGS = ['Bet. That\'s correct. 🏐','No cap, you nailed it.','That\'s a W — certified correct.','Ate that. 💯','Correct. Main character energy.','Big brain move. Correct!','Locked in. Let\'s go.'];
   var BAD_MSGS = ['Ehh, that ain\'t it, chief.','L take — run it back.','Not quite, bestie. Recheck your steps.','That\'s giving wrong-answer energy.','Mid attempt. Try again.','Negative, ghost rider. Try again.'];
   function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+  function svgGraphChoice(m, b, dashed, shadeAbove){
+    var DOM = 5, SCALE = 200/(2*DOM);
+    function px(x){ return (x+DOM)*SCALE; }
+    function py(y){ return (DOM-y)*SCALE; }
+    function f(p){ return p.y - (m*p.x + b); }
+    function inside(p){ return shadeAbove ? f(p) >= -1e-9 : f(p) <= 1e-9; }
+    function intersect(p1,p2){
+      var f1=f(p1), f2=f(p2), t=f1/(f1-f2);
+      return {x:p1.x+t*(p2.x-p1.x), y:p1.y+t*(p2.y-p1.y)};
+    }
+    var corners = [{x:-DOM,y:-DOM},{x:DOM,y:-DOM},{x:DOM,y:DOM},{x:-DOM,y:DOM}];
+    var clipped = [];
+    for(var i=0;i<corners.length;i++){
+      var cur=corners[i], nxt=corners[(i+1)%corners.length];
+      var curIn=inside(cur), nxtIn=inside(nxt);
+      if(nxtIn){ if(!curIn) clipped.push(intersect(cur,nxt)); clipped.push(nxt); }
+      else if(curIn){ clipped.push(intersect(cur,nxt)); }
+    }
+    var polyPts = clipped.map(function(p){ return px(p.x).toFixed(1)+','+py(p.y).toFixed(1); }).join(' ');
+
+    function within(v){ return v>=-DOM-1e-9 && v<=DOM+1e-9; }
+    var cands = [];
+    var yLeft = m*(-DOM)+b; if(within(yLeft)) cands.push({x:-DOM,y:yLeft});
+    var yRight = m*DOM+b; if(within(yRight)) cands.push({x:DOM,y:yRight});
+    if(m!==0){
+      var xBot=(-DOM-b)/m; if(within(xBot)) cands.push({x:xBot,y:-DOM});
+      var xTop=(DOM-b)/m; if(within(xTop)) cands.push({x:xTop,y:DOM});
+    }
+    var linePts = [];
+    cands.forEach(function(c){
+      if(!linePts.some(function(u){ return Math.abs(u.x-c.x)<1e-6 && Math.abs(u.y-c.y)<1e-6; })) linePts.push(c);
+    });
+    linePts = linePts.slice(0,2);
+
+    var svg = '<svg viewBox="0 0 200 200" aria-hidden="true">';
+    svg += '<rect x="1" y="1" width="198" height="198" fill="none" stroke="currentColor" stroke-opacity=".3" stroke-width="1.5"/>';
+    if(polyPts) svg += '<polygon points="'+polyPts+'" fill="#3c6edc" fill-opacity=".35"/>';
+    svg += '<line x1="'+px(-DOM)+'" y1="'+py(0)+'" x2="'+px(DOM)+'" y2="'+py(0)+'" stroke="currentColor" stroke-opacity=".6" stroke-width="1.5"/>';
+    svg += '<line x1="'+px(0)+'" y1="'+py(-DOM)+'" x2="'+px(0)+'" y2="'+py(DOM)+'" stroke="currentColor" stroke-opacity=".6" stroke-width="1.5"/>';
+    if(linePts.length===2){
+      svg += '<line x1="'+px(linePts[0].x).toFixed(1)+'" y1="'+py(linePts[0].y).toFixed(1)+'" x2="'+px(linePts[1].x).toFixed(1)+'" y2="'+py(linePts[1].y).toFixed(1)+'" stroke="#1a3fb0" stroke-width="4"'+(dashed?' stroke-dasharray="10,7"':'')+'/>';
+    }
+    svg += '</svg>';
+    return svg;
+  }
 
   var PROGRESS_KEY = 'algebra-quiz-progress:' + location.pathname;
   var progress = null;
@@ -478,6 +617,81 @@
           list.children[saved.choice].classList.add('correct-pick');
           Array.prototype.forEach.call(list.children, function(b){ b.disabled = true; });
           lockCorrect(saved.choice);
+        }
+      } else if(q.type==='graph'){
+        var glist = document.createElement('div');
+        glist.className = 'graph-list';
+        q.choices.forEach(function(gopt, gi){
+          var gbtn = document.createElement('button');
+          gbtn.type = 'button';
+          gbtn.className = 'graph-btn';
+          gbtn.innerHTML = svgGraphChoice(gopt.m, gopt.b, gopt.dashed, gopt.shadeAbove);
+          gbtn.setAttribute('aria-label', 'Graph option '+(gi+1));
+          gbtn.addEventListener('click', function(){
+            if(answered) return;
+            if(gi===q.correct){
+              gbtn.classList.add('correct-pick');
+              Array.prototype.forEach.call(glist.children, function(b){ b.disabled = true; });
+              progress.answered[myIndex] = {type:'graph', choice:gi};
+              lockCorrect();
+            } else {
+              gbtn.classList.add('wrong-pick');
+              markWrong();
+            }
+          });
+          glist.appendChild(gbtn);
+        });
+        card.appendChild(glist);
+        if(saved && saved.type==='graph'){
+          glist.children[saved.choice].classList.add('correct-pick');
+          Array.prototype.forEach.call(glist.children, function(b){ b.disabled = true; });
+          lockCorrect(saved.choice);
+        }
+      } else if(q.type==='checkbox'){
+        var clist = document.createElement('div');
+        clist.className = 'check-list';
+        var picked = q.statements.map(function(){ return false; });
+        function resolveChecklist(){
+          Array.prototype.forEach.call(clist.children, function(item, si){
+            item.classList.remove('picked');
+            item.classList.add(q.statements[si].correct ? 'resolved-true' : 'resolved-false');
+            item.disabled = true;
+          });
+          checkSubmit.disabled = true;
+        }
+        q.statements.forEach(function(st, si){
+          var item = document.createElement('button');
+          item.type = 'button';
+          item.className = 'check-item';
+          var box = document.createElement('span'); box.className = 'box';
+          var text = document.createElement('span'); text.className = 'check-text'; text.textContent = st.text;
+          item.appendChild(box); item.appendChild(text);
+          item.addEventListener('click', function(){
+            if(answered) return;
+            picked[si] = !picked[si];
+            item.classList.toggle('picked', picked[si]);
+          });
+          clist.appendChild(item);
+        });
+        card.appendChild(clist);
+        var checkSubmit = document.createElement('button');
+        checkSubmit.type = 'button'; checkSubmit.className = 'btn check-submit'; checkSubmit.textContent = 'Check';
+        card.appendChild(checkSubmit);
+        checkSubmit.addEventListener('click', function(){
+          if(answered) return;
+          var allMatch = q.statements.every(function(st, si){ return picked[si] === st.correct; });
+          if(allMatch){
+            resolveChecklist();
+            progress.answered[myIndex] = {type:'checkbox', picked: picked.slice()};
+            lockCorrect();
+          } else {
+            markWrong();
+          }
+        });
+        if(saved && saved.type==='checkbox'){
+          picked = saved.picked.slice();
+          resolveChecklist();
+          lockCorrect(saved.picked);
         }
       }
 
