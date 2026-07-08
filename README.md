@@ -21,9 +21,13 @@ five self-contained HTML files.
    Filter by concept, mark each card "know it" or "still learning" (it
    remembers), shuffle, and swipe through on a phone — built for quick
    drilling on the go, not sitting at a desk.
-5. **`practice-quiz.html`** — Self-grading quiz covering every concept, with
-   instant feedback, a score/streak tracker, and a "show steps" reveal on
-   every question.
+5. **`practice-quiz.html`** — Self-grading quiz covering every concept, in
+   two modes. Practice mode: instant feedback, score/streak tracker, "show
+   steps" reveal on every question. **Exam mode** (added unit 2): no feedback
+   or steps until a final Submit — a dress rehearsal for the real test, with
+   a per-concept score breakdown at the end. Also has a **Print worksheet**
+   button that lays out every question (answer key on the last page) for one
+   full pass on paper.
 
 All five are plain HTML/CSS/JS with no external dependencies (fonts are
 embedded as base64 so they work fully offline) — just open any file in a
@@ -37,6 +41,11 @@ work well as Claude Artifacts if you want a shareable link.
   variable on one side, variables on both sides, the distributive property,
   literal equations, compound inequalities, graphing two-variable
   inequalities, modeling with two-variable inequalities.
+- **`unit-02-sets-and-triangle-angles/`** — sets and elements, subsets,
+  union and intersection with Venn diagrams, sets applied to probability
+  and geometry, the triangle angle-sum theorem, and the proofs of why the
+  interior angles sum to 180° (rearranging onto a straight line; parallel
+  lines and alternate interior angles).
 
 ## Starting the next unit
 

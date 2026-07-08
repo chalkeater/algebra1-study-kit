@@ -1,6 +1,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Miriam's Algebra 1 — Study Kit Index</title>
+<title>Sets &amp; Triangle Angles — The Playground</title>
 <style>
   @font-face{
     font-family:'Anton'; font-style:normal; font-weight:400; font-display:swap;
@@ -16,6 +16,8 @@
     --line:#D5E1DE;
     --accent:#0F7A78; --accent-strong:#095452; --accent-soft:#DFF1EF;
     --gold:#C9821A; --gold-soft:#FBEBCC;
+    --good:#2E7D32; --good-soft:#E4F3E1; --bad:#B23A3A; --bad-soft:#FBE6E6;
+    --net:#0E1B1E;
     --radius:16px;
     --shadow:0 1px 2px rgba(14,27,30,.06), 0 10px 28px -14px rgba(14,27,30,.2);
     --font-display:'Anton', impact, sans-serif;
@@ -29,6 +31,7 @@
       --ink:#E9F3F1; --ink-soft:#A6BEBB; --ink-faint:#6E8583; --line:#213231;
       --accent:#2FC7C0; --accent-strong:#8FE6E1; --accent-soft:#123230;
       --gold:#E0AC52; --gold-soft:#332711;
+      --good:#5FBD5F; --good-soft:#163A18; --bad:#F0685F; --bad-soft:#3B1616;
       --shadow:0 1px 2px rgba(0,0,0,.35), 0 10px 28px -14px rgba(0,0,0,.55);
     }
   }
@@ -37,6 +40,7 @@
     --ink:#E9F3F1; --ink-soft:#A6BEBB; --ink-faint:#6E8583; --line:#213231;
     --accent:#2FC7C0; --accent-strong:#8FE6E1; --accent-soft:#123230;
     --gold:#E0AC52; --gold-soft:#332711;
+    --good:#5FBD5F; --good-soft:#163A18; --bad:#F0685F; --bad-soft:#3B1616;
     --shadow:0 1px 2px rgba(0,0,0,.35), 0 10px 28px -14px rgba(0,0,0,.55);
   }
   :root[data-theme="light"]{
@@ -44,6 +48,7 @@
     --ink:#0E1B1E; --ink-soft:#48595C; --ink-faint:#7C8C8C; --line:#D5E1DE;
     --accent:#0F7A78; --accent-strong:#095452; --accent-soft:#DFF1EF;
     --gold:#C9821A; --gold-soft:#FBEBCC;
+    --good:#2E7D32; --good-soft:#E4F3E1; --bad:#B23A3A; --bad-soft:#FBE6E6;
     --shadow:0 1px 2px rgba(14,27,30,.06), 0 10px 28px -14px rgba(14,27,30,.2);
   }
   *{box-sizing:border-box;}
@@ -52,217 +57,872 @@
     font-size:16px; line-height:1.5; -webkit-font-smoothing:antialiased;
   }
   ::selection{background:var(--gold-soft); color:var(--ink);}
-  a{color:inherit;}
-  button:focus-visible, a:focus-visible{outline:3px solid var(--gold); outline-offset:2px;}
+  button, input, select{font-family:inherit; font-size:1rem;}
+  button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible{
+    outline:3px solid var(--gold); outline-offset:2px;
+  }
 
-  header.hero{padding:2.4rem clamp(1rem,4vw,2.5rem) 1.6rem; border-bottom:1px solid var(--line);}
-  .hero-inner{max-width:1040px; margin:0 auto;}
-  .hero-eyebrow{font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; font-weight:700; color:var(--accent-strong); margin:0 0 .4rem;}
+  /* ---- Hero with net motif ---- */
+  header.hero{
+    position:relative; overflow:hidden;
+    padding: 2.4rem clamp(1rem,4vw,2.5rem) 1.6rem;
+    border-bottom:1px solid var(--line);
+    background:
+      linear-gradient(var(--ground-raised), var(--ground-raised)) padding-box;
+  }
+  header.hero canvas.net{
+    position:absolute; inset:0; width:100%; height:100%; opacity:.5; pointer-events:none;
+  }
+  .hero-inner{position:relative; max-width:1180px; margin:0 auto;}
+  .hero-eyebrow{
+    font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; font-weight:700;
+    color:var(--accent-strong); margin:0 0 .4rem;
+  }
   header.hero h1{
     font-family:var(--font-display); font-weight:400; text-transform:uppercase; letter-spacing:.01em;
-    font-size:clamp(2.1rem,5vw,3.2rem); line-height:.95; margin:0 0 .5rem; text-wrap:balance;
+    font-size:clamp(2.1rem,4.6vw,3.3rem); line-height:.95; margin:0 0 .5rem; text-wrap:balance;
   }
-  header.hero p{color:var(--ink-soft); max-width:60ch; margin:0; font-size:1.03rem;}
+  header.hero p{font-size:1.05rem; color:var(--ink-soft); max-width:56ch; margin:0;}
   .hero-actions{margin-top:1rem;}
+
+  /* ---- Tab / station nav ---- */
+  nav.stations{
+    position:sticky; top:0; z-index:20; background:var(--ground); border-bottom:1px solid var(--line);
+    overflow-x:auto; -webkit-overflow-scrolling:touch;
+  }
+  nav.stations .row{
+    display:flex; gap:.35rem; max-width:1180px; margin:0 auto; padding:.6rem clamp(1rem,4vw,2.5rem);
+  }
+  .tab{
+    flex:none; border:1px solid var(--line); background:var(--ground-raised); color:var(--ink-soft);
+    padding:.5rem .85rem; border-radius:999px; font-weight:700; font-size:.82rem; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; gap:.4rem; white-space:nowrap; min-height:2.75rem;
+  }
+  .tab .tn{font-family:var(--font-mono); color:var(--ink-faint); font-size:.72rem;}
+  .tab.active{background:var(--accent); color:#F4FFFE; border-color:var(--accent);}
+  .tab.active .tn{color:#DFFFFD;}
+
+  main{max-width:1180px; margin:0 auto; padding:1.8rem clamp(1rem,4vw,2.5rem) 4rem;}
+  .station{display:none;}
+  .station.active{display:block; animation: fadein .25s ease;}
+  @keyframes fadein{ from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;} }
+  @media (prefers-reduced-motion: reduce){ .station.active{animation:none;} }
+
+  .station-head{margin-bottom:1.1rem;}
+  .station-head h2{
+    font-family:var(--font-display); font-weight:400; text-transform:uppercase; font-size:1.7rem; margin:0 0 .3rem;
+  }
+  .station-head p{color:var(--ink-soft); margin:0; max-width:68ch;}
+
+  .card{
+    background:var(--ground-raised); border:1px solid var(--line); border-radius:var(--radius);
+    padding:1.3rem 1.4rem; box-shadow:var(--shadow); margin-bottom:1rem;
+  }
+
+  /* equation lab */
+  .eq-display{
+    font-family:var(--font-mono); font-size:1.5rem; background:var(--ground-sunken);
+    border-radius:10px; padding:1rem 1.2rem; text-align:center; letter-spacing:.02em;
+  }
+  .problem-bar{display:flex; align-items:center; gap:1rem; flex-wrap:wrap; justify-content:space-between;}
+  .problem-bar .eq-display{flex:1; min-width:240px;}
+  .controls{display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1rem; align-items:center;}
   .btn{
     border:1px solid var(--line); background:var(--ground-raised); color:var(--ink);
-    padding:.5rem .9rem; border-radius:999px; font-size:.82rem; font-weight:600; cursor:pointer; box-shadow:var(--shadow);
-    min-height:2.75rem; display:inline-flex; align-items:center; justify-content:center;
+    padding:.55rem .9rem; border-radius:10px; font-size:.85rem; font-weight:600; cursor:pointer;
+    box-shadow:var(--shadow); min-height:2.75rem; display:inline-flex; align-items:center; justify-content:center;
   }
+  .btn.primary{background:var(--accent); border-color:var(--accent); color:#F4FFFE;}
+  .btn.ghost{background:transparent; box-shadow:none;}
+  .btn.gold{background:var(--gold); border-color:var(--gold); color:#241a02;}
+  .numin{
+    width:5.5rem; padding:.5rem .6rem; border:1px solid var(--line); border-radius:10px;
+    background:var(--ground-raised); color:var(--ink); font-family:var(--font-mono);
+  }
+  .log{
+    margin-top:.8rem; max-height:120px; overflow-y:auto; font-size:.82rem; color:var(--ink-faint);
+    display:flex; flex-direction:column; gap:.2rem;
+  }
+  .log-line::before{content:"→ "; color:var(--accent-strong);}
+  .celebrate{
+    margin-top:.9rem; padding:.8rem 1rem; border-radius:10px; background:var(--good-soft); color:var(--good);
+    font-weight:700;
+  }
+  .celebrate.bad{background:var(--bad-soft); color:var(--bad);}
 
-  main{max-width:1040px; margin:0 auto; padding:2rem clamp(1rem,4vw,2.5rem) 4rem;}
+  /* literal lab */
+  .lit-formula{font-size:.85rem; color:var(--ink-faint); font-weight:700; text-transform:uppercase; letter-spacing:.06em;}
+  .lit-display{
+    font-family:var(--font-mono); font-size:1.7rem; text-align:center; padding:1.2rem; background:var(--ground-sunken);
+    border-radius:10px; margin:.6rem 0 1rem;
+  }
+  .lit-choices{display:grid; gap:.6rem;}
+  @media (min-width:560px){ .lit-choices{grid-template-columns:1fr 1fr 1fr;} }
+  .btn.choice{width:100%; text-align:left; padding:.8rem .9rem; justify-content:flex-start;}
+  .btn.choice.wrong-flash{background:var(--bad-soft); border-color:var(--bad); color:var(--bad);}
+  @keyframes shake{ 0%,100%{transform:translateX(0);} 25%{transform:translateX(-4px);} 75%{transform:translateX(4px);} }
+  .shake-wrong{animation:shake .3s ease;}
+  @media (prefers-reduced-motion: reduce){ .shake-wrong{animation:none;} }
 
-  .unit-block{margin-bottom:2.4rem;}
-  .unit-head{display:flex; align-items:baseline; gap:.9rem; flex-wrap:wrap; margin-bottom:.4rem;}
-  .unit-badge{
-    font-family:var(--font-mono); font-size:.72rem; font-weight:700; letter-spacing:.06em;
-    background:var(--accent); color:#F4FFFE; padding:.25rem .6rem; border-radius:6px;
-  }
-  .unit-head h2{
-    font-family:var(--font-display); font-weight:400; text-transform:uppercase; font-size:1.5rem; margin:0;
-  }
-  .unit-desc{color:var(--ink-faint); font-size:.88rem; margin:.2rem 0 1.1rem; max-width:70ch;}
+  /* inequality lab */
+  .marker-editors{display:grid; gap:1rem; grid-template-columns:1fr; margin-bottom:.8rem;}
+  @media (min-width:640px){ .marker-editors{grid-template-columns:1fr 1fr;} }
+  .marker-editor{background:var(--ground-sunken); border-radius:10px; padding:.8rem .9rem;}
+  .marker-editor .label{font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-faint); margin-bottom:.5rem;}
+  .marker-editor .row{display:flex; gap:.5rem; flex-wrap:wrap; align-items:center;}
+  .marker-editor select{padding:.4rem .5rem; border-radius:8px; border:1px solid var(--line); background:var(--ground-raised); color:var(--ink);}
+  .numline-wrap{margin:.6rem 0;}
+  .numline-title{font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-faint); margin-bottom:.3rem;}
+  svg text{font-family:var(--font-mono);}
+  .feedback{margin-top:.6rem; padding:.7rem 1rem; border-radius:10px; font-weight:700;}
+  .feedback.good{background:var(--good-soft); color:var(--good);}
+  .feedback.bad{background:var(--bad-soft); color:var(--bad);}
 
-  .card-grid{display:grid; gap:1rem; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));}
-  .card{
-    display:flex; flex-direction:column;
-    background:var(--ground-raised); border:1px solid var(--line); border-radius:var(--radius);
-    box-shadow:var(--shadow); transition:transform .15s ease, border-color .15s ease;
-  }
-  .card:hover{transform:translateY(-2px); border-color:var(--accent);}
-  .card-main{
-    display:flex; flex-direction:column; gap:.5rem;
-    padding:1.2rem 1.3rem 1rem; text-decoration:none; color:var(--ink); flex:1;
-  }
-  .card-icon{font-size:1.6rem; line-height:1;}
-  .card-title{font-family:var(--font-display); font-weight:400; text-transform:uppercase; font-size:1.05rem; letter-spacing:.01em;}
-  .card-desc{color:var(--ink-soft); font-size:.85rem; line-height:1.45; flex:1;}
-  .card-foot{
-    display:flex; align-items:center; justify-content:space-between; gap:.6rem;
-    padding:.7rem 1.3rem; border-top:1px solid var(--line);
-  }
-  .card-file{font-family:var(--font-mono); font-size:.72rem; color:var(--ink-faint);}
+  /* graph lab */
+  .graph-layout{display:flex; gap:1.4rem; flex-wrap:wrap; align-items:flex-start;}
+  canvas.plot{background:var(--ground-sunken); border-radius:12px; touch-action:none; cursor:crosshair; max-width:100%;}
+  .graph-side{flex:1; min-width:220px;}
+  .readout{font-size:.9rem; color:var(--ink-soft); margin-top:.6rem;}
+  .readout .pt{font-family:var(--font-mono);}
+  .legend{display:flex; gap:1rem; flex-wrap:wrap; font-size:.82rem; color:var(--ink-faint); margin-top:.6rem;}
+  .legend span{display:inline-flex; align-items:center; gap:.35rem;}
+  .dot{width:.7rem; height:.7rem; border-radius:50%; display:inline-block;}
 
-  .next-unit{
-    border:1px dashed var(--line); border-radius:var(--radius); padding:1.2rem 1.3rem;
-    color:var(--ink-faint); font-size:.88rem; text-align:center;
+  /* modeling lab */
+  .slider-row{margin-bottom:1rem;}
+  .slider-row label{display:flex; justify-content:space-between; font-size:.9rem; font-weight:600; margin-bottom:.3rem;}
+  .slider-row output{font-family:var(--font-mono); color:var(--accent-strong);}
+  input[type="range"]{width:100%; accent-color:var(--accent);}
+  .status-pill{
+    display:inline-flex; align-items:center; gap:.4rem; padding:.5rem 1rem; border-radius:999px;
+    font-weight:700; font-size:.9rem; margin-top:.4rem;
   }
+  .status-pill.good{background:var(--good-soft); color:var(--good);}
+  .status-pill.bad{background:var(--bad-soft); color:var(--bad);}
+  .total-line{font-family:var(--font-mono); font-size:1.05rem; margin-top:.5rem;}
 
   footer{text-align:center; color:var(--ink-faint); font-size:.78rem; padding:1.5rem;}
+
+  .site-nav{
+    display:flex; align-items:center; gap:.5rem; overflow-x:auto;
+    padding:.5rem clamp(1rem,4vw,2.5rem); border-bottom:1px solid var(--line);
+    background:var(--ground-sunken); -webkit-overflow-scrolling:touch; scrollbar-width:none;
+  }
+  .site-nav::-webkit-scrollbar{display:none;}
+  .site-nav a{
+    flex:none; display:inline-flex; align-items:center; justify-content:center; white-space:nowrap;
+    padding:.5rem .85rem; border-radius:999px; font-size:.78rem; font-weight:700;
+    text-decoration:none; color:var(--ink-soft); min-height:2.75rem;
+  }
+  .site-nav a.home{color:var(--accent-strong); background:var(--ground-raised); border:1px solid var(--line); box-shadow:var(--shadow);}
+  .site-nav a.page:hover{color:var(--ink);}
+  .site-nav a.page.active{background:var(--accent); color:#F4FFFE;}
 </style>
 
+<style>
+  /* ---- Unit 2 station additions ---- */
+  .chip-grid{display:flex; flex-wrap:wrap; gap:.5rem; margin:.8rem 0;}
+  .chip-el{
+    min-width:2.75rem; min-height:2.75rem; padding:.4rem .7rem; border-radius:10px;
+    border:2px solid var(--line); background:var(--ground-sunken); color:var(--ink);
+    font-family:var(--font-mono); font-size:1rem; font-weight:700; cursor:pointer;
+  }
+  .chip-el.in{border-color:var(--accent); background:var(--accent-soft); color:var(--accent-strong);}
+  .venn-wrap{max-width:420px;}
+  .venn-wrap svg{width:100%; height:auto; display:block; background:var(--ground-sunken); border:1px solid var(--line); border-radius:12px; cursor:pointer;}
+  .region-label{font-weight:700;}
+  .prob-grid{display:grid; gap:1.2rem; grid-template-columns:1fr;}
+  @media (min-width:760px){ .prob-grid{grid-template-columns:1fr 1fr;} }
+  .prob-readout{font-family:var(--font-mono); font-size:.95rem; display:flex; flex-direction:column; gap:.35rem; margin-top:.6rem;}
+  .prob-readout b{color:var(--accent-strong);}
+  .tri-wrap{max-width:440px;}
+  .tri-wrap svg{width:100%; height:auto; display:block; background:var(--ground-sunken); border:1px solid var(--line); border-radius:12px;}
+  .tri-readout{font-family:var(--font-mono); font-size:1.05rem; margin-top:.5rem;}
+  .tri-class{margin-top:.3rem; font-weight:700; color:var(--accent-strong);}
+  .proof-wrap{max-width:460px;}
+  .proof-wrap svg{width:100%; height:auto; display:block; background:var(--ground-sunken); border:1px solid var(--line); border-radius:12px;}
+  .angle-hit{cursor:pointer;}
+  .angle-hit circle{fill:var(--ground-raised); stroke:var(--line); stroke-width:2;}
+  .angle-hit text{font-weight:700; fill:var(--ink);}
+  .angle-hit.glow-good circle{fill:var(--good-soft); stroke:var(--good);}
+  .angle-hit.glow-bad circle{fill:var(--bad-soft); stroke:var(--bad);}
+  .angle-hit.glow-target circle{fill:var(--gold-soft); stroke:var(--gold);}
+</style>
+
+<nav class="site-nav" aria-label="Unit navigation">
+  <a class="home" href="../index.html">&larr; Index</a>
+  <a class="page" href="study-guide.html">Study Guide</a>
+  <a class="page" href="concept-explainers.html">Explainer</a>
+  <a class="page active" href="playground.html">Playground</a>
+  <a class="page" href="flashcards.html">Flashcards</a>
+  <a class="page" href="practice-quiz.html">Quiz</a>
+</nav>
+
 <header class="hero">
+  <canvas class="net" id="net-canvas"></canvas>
   <div class="hero-inner">
-    <p class="hero-eyebrow">Study Kit Index</p>
-    <h1>Miriam's Algebra 1</h1>
-    <p>One row per unit test. Each unit gets the same five pieces: a study guide for during the test, an explainer for before it, a playground to practice in, flashcards to drill on the go, and a quiz to prove it stuck.</p>
+    <p class="hero-eyebrow">The Playground · Learn By Touching It</p>
+    <h1>6 Stations.<br>One Skill Each.</h1>
+    <p>Pick a station below. Build the sets yourself, click the Venn regions yourself, bend the triangle yourself — you're not reading about the math, you're doing it.</p>
     <div class="hero-actions">
       <button class="btn" id="theme-toggle" type="button">🌓 Theme</button>
     </div>
   </div>
 </header>
 
+<nav class="stations" aria-label="Station picker">
+  <div class="row" id="tab-row">
+    <button class="tab active" data-station="1"><span class="tn">01</span> Set Sorter</button>
+    <button class="tab" data-station="2"><span class="tn">02</span> Subsets</button>
+    <button class="tab" data-station="3"><span class="tn">03</span> Venn Regions</button>
+    <button class="tab" data-station="4"><span class="tn">04</span> Probability</button>
+    <button class="tab" data-station="5"><span class="tn">05</span> Triangle Lab</button>
+    <button class="tab" data-station="6"><span class="tn">06</span> The Proof</button>
+  </div>
+</nav>
+
 <main>
 
-  <section class="unit-block">
-    <div class="unit-head">
-      <span class="unit-badge">Unit 1</span>
-      <h2>Linear Equations &amp; Inequalities</h2>
+  <!-- STATION 1 -->
+  <section class="station active" id="st1">
+    <div class="station-head">
+      <h2>Station 1 — Set Sorter</h2>
+      <p>Set-builder notation is a tryout rule. Tap every number that passes the rule to build the set in roster form, then check it. Watch for elements that pass the rule but aren't in U!</p>
     </div>
-    <p class="unit-desc">Solving equations, variable on one side, variables on both sides, the distributive property, literal equations, compound inequalities, graphing and modeling two-variable inequalities.</p>
-    <div class="card-grid">
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/study-guide.html">
-          <span class="card-icon">📘</span>
-          <span class="card-title">Study Guide</span>
-          <span class="card-desc">Open-notes reference — one worked example per concept. Use this one during the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">study-guide.html</span>
-        </div>
+    <div class="card">
+      <div class="lit-formula">Build this set (U = {1, 2, 3, … , 12})</div>
+      <div class="eq-display" id="sort-rule"></div>
+      <div class="chip-grid" id="sort-chips"></div>
+      <div class="feedback" id="sort-feedback" hidden></div>
+      <div class="controls">
+        <button class="btn primary" id="sort-check">✓ Check my set</button>
+        <button class="btn ghost" id="sort-new">🔄 New rule</button>
       </div>
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/concept-explainers.html">
-          <span class="card-icon">🧠</span>
-          <span class="card-title">The Explainer</span>
-          <span class="card-desc">ELI5 deep-dive with volleyball analogies, the "why," and common mistakes. Read this before the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">concept-explainers.html</span>
-        </div>
+    </div>
+  </section>
+
+  <!-- STATION 2 -->
+  <section class="station" id="st2">
+    <div class="station-head">
+      <h2>Station 2 — Subset or Not?</h2>
+      <p>Two sets walk onto the court. Decide the relationship: does one fit completely inside the other, or neither? Remember the test: <em>every</em> element, no exceptions.</p>
+    </div>
+    <div class="card">
+      <div class="lit-display" id="sub-pair"></div>
+      <div class="lit-choices">
+        <button class="btn choice" id="sub-ba" type="button">B ⊆ A — every B is an A</button>
+        <button class="btn choice" id="sub-ab" type="button">A ⊆ B — every A is a B</button>
+        <button class="btn choice" id="sub-neither" type="button">Neither is a subset of the other</button>
       </div>
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/playground.html">
-          <span class="card-icon">🏐</span>
-          <span class="card-title">The Playground</span>
-          <span class="card-desc">8 hands-on stations — drive an equation solver, build a graph, test points, drag sliders.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">playground.html</span>
-        </div>
+      <div class="feedback" id="sub-feedback" hidden></div>
+      <div class="controls">
+        <button class="btn ghost" id="sub-new">🔄 New pair</button>
       </div>
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/practice-quiz.html">
-          <span class="card-icon">🎯</span>
-          <span class="card-title">Practice Quiz</span>
-          <span class="card-desc">33 questions, instant feedback, score + streak tracker. Prove you've got it.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">practice-quiz.html</span>
-        </div>
+    </div>
+  </section>
+
+  <!-- STATION 3 -->
+  <section class="station" id="st3">
+    <div class="station-head">
+      <h2>Station 3 — Venn Region Explorer</h2>
+      <p>Read the clue, then <b>click the region</b> of the Venn diagram where that element must live. Regions: I = A only · II = both · III = B only · IV = neither.</p>
+    </div>
+    <div class="card">
+      <div class="lit-formula" id="venn-prompt"></div>
+      <div class="venn-wrap">
+        <svg id="venn-svg" viewBox="0 0 360 220" aria-label="Clickable Venn diagram">
+          <rect x="4" y="4" width="352" height="212" fill="none" stroke="currentColor" stroke-opacity=".4" stroke-width="2" rx="10"/>
+          <text x="330" y="28" font-size="15" fill="currentColor" font-weight="bold">U</text>
+          <circle id="venn-ca" cx="140" cy="112" r="70" fill="var(--accent)" fill-opacity=".15" stroke="var(--accent)" stroke-width="2.5" pointer-events="none"/>
+          <circle id="venn-cb" cx="228" cy="112" r="70" fill="var(--gold)" fill-opacity=".18" stroke="var(--gold)" stroke-width="2.5" pointer-events="none"/>
+          <text x="92" y="50" font-size="14" fill="currentColor" font-weight="bold" pointer-events="none">Set A</text>
+          <text x="236" y="50" font-size="14" fill="currentColor" font-weight="bold" pointer-events="none">Set B</text>
+          <text x="98" y="118" font-size="16" fill="currentColor" pointer-events="none" class="region-label">I</text>
+          <text x="177" y="118" font-size="16" fill="currentColor" pointer-events="none" class="region-label">II</text>
+          <text x="258" y="118" font-size="16" fill="currentColor" pointer-events="none" class="region-label">III</text>
+          <text x="316" y="200" font-size="16" fill="currentColor" pointer-events="none" class="region-label">IV</text>
+          <circle id="venn-dot" r="7" fill="var(--bad)" stroke="#fff" stroke-width="2" visibility="hidden" pointer-events="none"/>
+        </svg>
       </div>
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/flashcards.html">
-          <span class="card-icon">🃏</span>
-          <span class="card-title">Flashcards</span>
-          <span class="card-desc">32 tap-to-flip cards by concept. Swipe through on your phone, mark what's still shaky.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">flashcards.html</span>
+      <div class="feedback" id="venn-feedback" hidden></div>
+      <div class="controls">
+        <button class="btn ghost" id="venn-new">🔄 New clue</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATION 4 -->
+  <section class="station" id="st4">
+    <div class="station-head">
+      <h2>Station 4 — Probability Machine</h2>
+      <p>A class of students, two teams. Drag the sliders to decide how many students live in each Venn region, and watch every probability update live. Notice P(A ∪ B) is <em>never</em> P(A) + P(B) when the overlap isn't zero.</p>
+    </div>
+    <div class="card">
+      <div class="prob-grid">
+        <div>
+          <div class="slider-row">
+            <label><span>🏐 Volleyball only (region I)</span> <output id="prob-oa">6</output></label>
+            <input type="range" id="prob-a" min="0" max="15" value="6" step="1">
+          </div>
+          <div class="slider-row">
+            <label><span>🏐+👟 Both teams (region II)</span> <output id="prob-ob">4</output></label>
+            <input type="range" id="prob-b" min="0" max="15" value="4" step="1">
+          </div>
+          <div class="slider-row">
+            <label><span>👟 Track only (region III)</span> <output id="prob-oc">5</output></label>
+            <input type="range" id="prob-c" min="0" max="15" value="5" step="1">
+          </div>
+          <div class="slider-row">
+            <label><span>🙅 Neither (region IV)</span> <output id="prob-od">5</output></label>
+            <input type="range" id="prob-d" min="0" max="15" value="5" step="1">
+          </div>
+        </div>
+        <div>
+          <div class="venn-wrap">
+            <svg viewBox="0 0 360 200" aria-label="Venn diagram with live student counts">
+              <rect x="4" y="4" width="352" height="192" fill="none" stroke="currentColor" stroke-opacity=".4" stroke-width="2" rx="10"/>
+              <circle cx="140" cy="102" r="64" fill="var(--accent)" fill-opacity=".15" stroke="var(--accent)" stroke-width="2.5"/>
+              <circle cx="222" cy="102" r="64" fill="var(--gold)" fill-opacity=".18" stroke="var(--gold)" stroke-width="2.5"/>
+              <text x="96" y="44" font-size="13" fill="currentColor" font-weight="bold">Volleyball</text>
+              <text x="232" y="44" font-size="13" fill="currentColor" font-weight="bold">Track</text>
+              <text id="pv-a" x="104" y="108" font-size="17" fill="currentColor" text-anchor="middle" font-weight="bold">6</text>
+              <text id="pv-b" x="181" y="108" font-size="17" fill="currentColor" text-anchor="middle" font-weight="bold">4</text>
+              <text id="pv-c" x="258" y="108" font-size="17" fill="currentColor" text-anchor="middle" font-weight="bold">5</text>
+              <text id="pv-d" x="322" y="182" font-size="17" fill="currentColor" text-anchor="middle" font-weight="bold">5</text>
+            </svg>
+          </div>
+          <div class="prob-readout">
+            <span>Total students n(U) = <b id="pr-total"></b></span>
+            <span>P(volleyball) = <b id="pr-pa"></b></span>
+            <span>P(track) = <b id="pr-pb"></b></span>
+            <span>P(both) = P(V ∩ T) = <b id="pr-pab"></b></span>
+            <span>P(either) = P(V ∪ T) = <b id="pr-paub"></b></span>
+            <span>P(V) + P(T) = <b id="pr-sum"></b> ← see the double-count?</span>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="unit-block">
-    <div class="unit-head">
-      <span class="unit-badge">Unit 2</span>
-      <h2>Sets, Venn Diagrams &amp; Triangle Angles</h2>
+  <!-- STATION 5 -->
+  <section class="station" id="st5">
+    <div class="station-head">
+      <h2>Station 5 — Triangle Lab</h2>
+      <p>Drag angles A and B and watch angle C spend whatever's left of the 180° budget — it has no choice. The triangle redraws with the real angles, and the classification updates live (notice when it flips acute → right → obtuse).</p>
     </div>
-    <p class="unit-desc">Sets and elements, subsets, union and intersection with Venn diagrams, sets applied to probability and geometry, the triangle angle-sum theorem, and the two proofs of why the angles always make 180°.</p>
-    <div class="card-grid">
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/study-guide.html">
-          <span class="card-icon">📘</span>
-          <span class="card-title">Study Guide</span>
-          <span class="card-desc">Open-notes reference — one worked example per concept. Use this one during the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">study-guide.html</span>
+    <div class="card">
+      <div class="prob-grid">
+        <div>
+          <div class="slider-row">
+            <label><span>Angle A</span> <output id="tri-oa">60°</output></label>
+            <input type="range" id="tri-a" min="15" max="150" value="60" step="1">
+          </div>
+          <div class="slider-row">
+            <label><span>Angle B</span> <output id="tri-ob">60°</output></label>
+            <input type="range" id="tri-b" min="15" max="150" value="60" step="1">
+          </div>
+          <div class="tri-readout" id="tri-sum"></div>
+          <div class="tri-class" id="tri-class"></div>
         </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/concept-explainers.html">
-          <span class="card-icon">🧠</span>
-          <span class="card-title">The Explainer</span>
-          <span class="card-desc">ELI5 deep-dive with volleyball analogies, the "why," and common mistakes. Read this before the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">concept-explainers.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/playground.html">
-          <span class="card-icon">🏐</span>
-          <span class="card-title">The Playground</span>
-          <span class="card-desc">6 hands-on stations — build sets, click Venn regions, bend a live triangle, run the 180° proof yourself.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">playground.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/practice-quiz.html">
-          <span class="card-icon">🎯</span>
-          <span class="card-title">Practice Quiz</span>
-          <span class="card-desc">30 questions, two modes: instant-feedback practice and a no-hints exam mode. Plus a printable worksheet.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">practice-quiz.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/flashcards.html">
-          <span class="card-icon">🃏</span>
-          <span class="card-title">Flashcards</span>
-          <span class="card-desc">35 tap-to-flip cards by concept. Swipe through on your phone, mark what's still shaky.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">flashcards.html</span>
+        <div class="tri-wrap">
+          <svg id="tri-svg" viewBox="0 0 360 240" aria-label="Triangle that redraws to match the chosen angles">
+            <polygon id="tri-poly" points="" fill="var(--accent)" fill-opacity=".14" stroke="var(--accent)" stroke-width="3"/>
+            <text id="tri-la" font-size="15" fill="currentColor" text-anchor="middle"></text>
+            <text id="tri-lb" font-size="15" fill="currentColor" text-anchor="middle"></text>
+            <text id="tri-lc" font-size="15" fill="currentColor" text-anchor="middle"></text>
+          </svg>
         </div>
       </div>
     </div>
   </section>
 
-  <div class="next-unit">Unit 3 shows up here once the next test is announced.</div>
+  <!-- STATION 6 -->
+  <section class="station" id="st6">
+    <div class="station-head">
+      <h2>Station 6 — The Proof, In Your Hands</h2>
+      <p><b>This is the concept that cost points on the section quiz — spend real time here.</b> Part 1: drag the slider to tear the three angles off the triangle and line them up. Part 2: click angles in the parallel-line figure to find the congruent pairs that make the proof legal.</p>
+    </div>
+    <div class="card">
+      <h3 style="margin:.2rem 0 .6rem; font-size:1rem;">Part 1 — Rearrange the angles</h3>
+      <div class="proof-wrap">
+        <svg id="proof-svg" viewBox="0 0 460 300" aria-label="Animation of a triangle's three angles rearranging onto a straight line"></svg>
+      </div>
+      <div class="slider-row" style="max-width:460px; margin-top:.8rem;">
+        <label><span>Tear &amp; rearrange</span> <output id="proof-out">triangle</output></label>
+        <input type="range" id="proof-t" min="0" max="100" value="0" step="1">
+      </div>
+      <div class="feedback good" id="proof-msg" hidden>The three angles exactly fill the straight line — a straight angle is 180°, so A + B + C = 180°. That's the whole proof. 🎉</div>
+      <div class="controls">
+        <button class="btn ghost" id="proof-new">🔄 New triangle</button>
+      </div>
+    </div>
+    <div class="card">
+      <h3 style="margin:.2rem 0 .6rem; font-size:1rem;">Part 2 — Find the congruent angle (the "Z" pattern)</h3>
+      <div class="lit-formula" id="z-prompt"></div>
+      <div class="proof-wrap">
+        <svg id="z-svg" viewBox="0 0 460 260" aria-label="Triangle between two parallel lines with clickable angles">
+          <line x1="14" y1="48" x2="446" y2="48" stroke="currentColor" stroke-width="2.5"/>
+          <polygon points="446,48 434,42 434,54" fill="currentColor"/><polygon points="14,48 26,42 26,54" fill="currentColor"/>
+          <line x1="14" y1="212" x2="446" y2="212" stroke="currentColor" stroke-width="2.5"/>
+          <polygon points="446,212 434,206 434,218" fill="currentColor"/><polygon points="14,212 26,206 26,218" fill="currentColor"/>
+          <polygon points="218,48 98,212 366,212" fill="var(--accent)" fill-opacity=".12" stroke="var(--accent)" stroke-width="2.5"/>
+          <g class="angle-hit" data-angle="D"><circle cx="166" cy="30" r="16"/><text x="166" y="35" text-anchor="middle" font-size="14">D</text></g>
+          <g class="angle-hit" data-angle="C"><circle cx="218" cy="76" r="16"/><text x="218" y="81" text-anchor="middle" font-size="14">C</text></g>
+          <g class="angle-hit" data-angle="E"><circle cx="272" cy="30" r="16"/><text x="272" y="35" text-anchor="middle" font-size="14">E</text></g>
+          <g class="angle-hit" data-angle="B"><circle cx="128" cy="192" r="16"/><text x="128" y="197" text-anchor="middle" font-size="14">B</text></g>
+          <g class="angle-hit" data-angle="A"><circle cx="334" cy="192" r="16"/><text x="334" y="197" text-anchor="middle" font-size="14">A</text></g>
+        </svg>
+      </div>
+      <div class="feedback" id="z-feedback" hidden></div>
+      <div class="controls">
+        <button class="btn ghost" id="z-new">🔄 New question</button>
+      </div>
+    </div>
+  </section>
 
 </main>
 
-<footer>Miriam's Algebra 1 · Study Kit Index</footer>
+<footer>Miriam's Algebra 1 · Unit 2 Playground</footer>
 
 <script>
-  (function(){
-    var root = document.documentElement;
-    var toggle = document.getElementById('theme-toggle');
-    var stored = null;
-    try { stored = localStorage.getItem('algebra-theme'); } catch(e){}
-    if (stored) root.setAttribute('data-theme', stored);
-    toggle.addEventListener('click', function(){
-      var current = root.getAttribute('data-theme');
-      var next = current === 'dark' ? 'light' : 'dark';
-      if (!current){ next = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark'; }
-      root.setAttribute('data-theme', next);
-      try { localStorage.setItem('algebra-theme', next); } catch(e){}
+(function(){
+  "use strict";
+
+  /* ================= THEME + TABS ================= */
+  var root = document.documentElement;
+  var themeToggle = document.getElementById('theme-toggle');
+  var stored = null;
+  try { stored = localStorage.getItem('algebra-theme'); } catch(e){}
+  if (stored) root.setAttribute('data-theme', stored);
+  themeToggle.addEventListener('click', function(){
+    var current = root.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    if (!current){ next = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark'; }
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('algebra-theme', next); } catch(e){}
+  });
+
+  document.querySelectorAll('.tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+      document.querySelectorAll('.station').forEach(function(s){ s.classList.remove('active'); });
+      tab.classList.add('active');
+      document.getElementById('st'+tab.getAttribute('data-station')).classList.add('active');
     });
+  });
+
+  /* ================= NET BACKGROUND ================= */
+  (function(){
+    var canvas = document.getElementById('net-canvas');
+    if(!canvas || !canvas.getContext) return;
+    function draw(){
+      var w = canvas.offsetWidth, h = canvas.offsetHeight;
+      canvas.width = w; canvas.height = h;
+      var ctx = canvas.getContext('2d');
+      ctx.clearRect(0,0,w,h);
+      ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--line').trim() || '#ccc';
+      ctx.lineWidth = 1;
+      var gap = 34;
+      for(var x=0; x<w+gap; x+=gap){ ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x-14,h); ctx.stroke(); }
+      for(var y=0; y<h+gap; y+=gap){ ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(w,y+6); ctx.stroke(); }
+    }
+    draw();
+    window.addEventListener('resize', draw);
+    new MutationObserver(draw).observe(document.documentElement, {attributes:true, attributeFilter:['data-theme']});
   })();
+
+  /* ================= STATION 1: SET SORTER ================= */
+  (function(){
+    var U = [1,2,3,4,5,6,7,8,9,10,11,12];
+    var RULES = [
+      {text:'{x | x ∈ U and x is even}', test:function(n){ return n%2===0; }},
+      {text:'{x | x ∈ U and x is odd}', test:function(n){ return n%2===1; }},
+      {text:'{x | x ∈ U and x is a multiple of 3}', test:function(n){ return n%3===0; }},
+      {text:'{x | x ∈ U and x is a multiple of 4}', test:function(n){ return n%4===0; }},
+      {text:'{x | x ∈ U and x > 7}', test:function(n){ return n>7; }},
+      {text:'{x | x ∈ U and x < 5}', test:function(n){ return n<5; }},
+      {text:'{x | x ∈ U and x is a perfect square}', test:function(n){ return n===1||n===4||n===9; }},
+      {text:'{x | x ∈ U and x is a multiple of 13}', test:function(){ return false; }} // sneaky: ∅
+    ];
+    var ruleEl = document.getElementById('sort-rule');
+    var chipsEl = document.getElementById('sort-chips');
+    var fb = document.getElementById('sort-feedback');
+    var rule = null, picked = {}, lastIdx = -1;
+
+    function newRule(){
+      var i;
+      do { i = Math.floor(Math.random()*RULES.length); } while(i===lastIdx);
+      lastIdx = i;
+      rule = RULES[i];
+      picked = {};
+      ruleEl.textContent = rule.text;
+      fb.hidden = true;
+      chipsEl.innerHTML = '';
+      U.forEach(function(n){
+        var b = document.createElement('button');
+        b.type='button'; b.className='chip-el'; b.textContent=n;
+        b.addEventListener('click', function(){
+          picked[n] = !picked[n];
+          b.classList.toggle('in', !!picked[n]);
+          fb.hidden = true;
+        });
+        chipsEl.appendChild(b);
+      });
+    }
+    document.getElementById('sort-check').addEventListener('click', function(){
+      var missing = [], extra = [];
+      U.forEach(function(n){
+        var should = rule.test(n), did = !!picked[n];
+        if(should && !did) missing.push(n);
+        if(!should && did) extra.push(n);
+      });
+      fb.hidden = false;
+      if(!missing.length && !extra.length){
+        var roster = U.filter(rule.test);
+        fb.className = 'feedback good';
+        fb.textContent = '✅ Exactly right — the roster form is {' + (roster.length? roster.join(', ') : ' ') + '}' + (roster.length? '.' : ' … which is the EMPTY SET ∅. Sneaky, right?');
+      } else {
+        fb.className = 'feedback bad';
+        var parts = [];
+        if(missing.length) parts.push(missing.join(', ') + (missing.length>1?' pass':' passes') + ' the rule but aren\'t tapped');
+        if(extra.length) parts.push(extra.join(', ') + ' ' + (extra.length>1?'don\'t':'doesn\'t') + ' pass the rule');
+        fb.textContent = '❌ Not yet: ' + parts.join(' · ');
+      }
+    });
+    document.getElementById('sort-new').addEventListener('click', newRule);
+    newRule();
+  })();
+
+  /* ================= STATION 2: SUBSET OR NOT ================= */
+  (function(){
+    var PAIRS = [
+      {a:'animals', b:'mammals', rel:'ba', why:'Every mammal is an animal — B fits completely inside A.'},
+      {a:'quadrilaterals', b:'squares', rel:'ba', why:'Every square is a quadrilateral (4 sides!), so B ⊆ A.'},
+      {a:'isosceles triangles', b:'equilateral triangles', rel:'ba', why:'Isosceles = at least 2 equal sides. Equilateral has 3, so it always qualifies: E ⊆ I.'},
+      {a:'squares', b:'rectangles', rel:'ab', why:'Careful — every SQUARE is a rectangle, not the other way. So A ⊆ B here.'},
+      {a:'multiples of 6', b:'even numbers', rel:'ab', why:'Every multiple of 6 is even (6 = 2 × 3), so A ⊆ B. But 4 is even and not a multiple of 6.'},
+      {a:'polygons', b:'circles', rel:'no', why:'A circle has no straight sides — it\'s not a polygon. The sets don\'t overlap at all.'},
+      {a:'even numbers', b:'odd numbers', rel:'no', why:'No number is both even and odd — completely separate sets.'},
+      {a:'right triangles', b:'isosceles triangles', rel:'no', why:'Trick one! They OVERLAP (90-45-45 is both) but neither contains the other — 90-60-30 is right but not isosceles, and 60-60-60 is isosceles but not right.'},
+      {a:'{1, 2, 3, 4, 5}', b:'{2, 4}', rel:'ba', why:'2 and 4 are both in A — every element of B made it.'},
+      {a:'{2, 4}', b:'{2, 4, 6}', rel:'ab', why:'Every element of A (2 and 4) is in B, but B\'s 6 isn\'t in A — so A ⊆ B.'}
+    ];
+    var pairEl = document.getElementById('sub-pair');
+    var fb = document.getElementById('sub-feedback');
+    var cur = null, lastIdx = -1;
+    var btns = {ba: document.getElementById('sub-ba'), ab: document.getElementById('sub-ab'), no: document.getElementById('sub-neither')};
+
+    function newPair(){
+      var i;
+      do { i = Math.floor(Math.random()*PAIRS.length); } while(i===lastIdx);
+      lastIdx = i;
+      cur = PAIRS[i];
+      pairEl.innerHTML = 'A = {' + cur.a.replace(/[{}]/g,'') + '} &nbsp;·&nbsp; B = {' + cur.b.replace(/[{}]/g,'') + '}';
+      fb.hidden = true;
+      Object.keys(btns).forEach(function(k){ btns[k].classList.remove('wrong-flash'); });
+    }
+    function answer(k){
+      fb.hidden = false;
+      if(k === cur.rel){
+        fb.className = 'feedback good';
+        fb.textContent = '✅ ' + cur.why;
+      } else {
+        fb.className = 'feedback bad';
+        fb.textContent = '❌ Run the test again: is EVERY element of one set automatically in the other?';
+        btns[k].classList.add('wrong-flash');
+        setTimeout(function(){ btns[k].classList.remove('wrong-flash'); }, 320);
+      }
+    }
+    btns.ba.addEventListener('click', function(){ answer('ba'); });
+    btns.ab.addEventListener('click', function(){ answer('ab'); });
+    btns.no.addEventListener('click', function(){ answer('no'); });
+    document.getElementById('sub-new').addEventListener('click', newPair);
+    newPair();
+  })();
+
+  /* ================= STATION 3: VENN REGION EXPLORER ================= */
+  (function(){
+    var CLUES = [
+      {text:'k ∈ A ∩ B. Click k\'s most specific region.', region:2, why:'A ∩ B is exactly the overlap — region II.'},
+      {text:'m ∈ A, but m ∉ B. Where does m live?', region:1, why:'In A\'s circle but outside the overlap — region I.'},
+      {text:'p ∈ B, but p ∉ A. Where does p live?', region:3, why:'In B\'s circle but outside the overlap — region III.'},
+      {text:'w ∈ U, but w ∉ A ∪ B. Where does w live?', region:4, why:'The union covers I+II+III, so w is outside both circles — region IV.'},
+      {text:'A = {volleyball team}, B = {track team}. Where does someone who does BOTH sports live?', region:2, why:'Both teams at once = the overlap — region II.'},
+      {text:'A = {volleyball team}, B = {track team}. Where does a student who does NEITHER sport live?', region:4, why:'Still in the school (inside U), outside both circles — region IV.'},
+      {text:'A = {black animals}, B = {cats}. Where does an orange cat live?', region:3, why:'It\'s a cat (in B) but not black (not in A) — region III.'},
+      {text:'A = {black animals}, B = {cats}. Where does a black cat live?', region:2, why:'Black ✓ and cat ✓ — both circles at once, region II.'}
+    ];
+    var svg = document.getElementById('venn-svg');
+    var dot = document.getElementById('venn-dot');
+    var promptEl = document.getElementById('venn-prompt');
+    var fb = document.getElementById('venn-feedback');
+    var cur = null, lastIdx = -1;
+    var A = {x:140, y:112, r:70}, B = {x:228, y:112, r:70};
+    var ROMAN = ['','I','II','III','IV'];
+
+    function newClue(){
+      var i;
+      do { i = Math.floor(Math.random()*CLUES.length); } while(i===lastIdx);
+      lastIdx = i;
+      cur = CLUES[i];
+      promptEl.textContent = cur.text;
+      fb.hidden = true;
+      dot.setAttribute('visibility','hidden');
+    }
+    svg.addEventListener('click', function(e){
+      var rect = svg.getBoundingClientRect();
+      var x = (e.clientX - rect.left) * (360 / rect.width);
+      var y = (e.clientY - rect.top) * (220 / rect.height);
+      var inA = Math.hypot(x-A.x, y-A.y) <= A.r;
+      var inB = Math.hypot(x-B.x, y-B.y) <= B.r;
+      var region = inA && inB ? 2 : inA ? 1 : inB ? 3 : 4;
+      dot.setAttribute('cx', x.toFixed(1)); dot.setAttribute('cy', y.toFixed(1));
+      dot.setAttribute('visibility','visible');
+      fb.hidden = false;
+      if(region === cur.region){
+        dot.setAttribute('fill','var(--good)');
+        fb.className = 'feedback good';
+        fb.textContent = '✅ Region ' + ROMAN[region] + '. ' + cur.why;
+      } else {
+        dot.setAttribute('fill','var(--bad)');
+        fb.className = 'feedback bad';
+        fb.textContent = '❌ You clicked region ' + ROMAN[region] + '. Think about which circles the element MUST be inside, then try again.';
+      }
+    });
+    document.getElementById('venn-new').addEventListener('click', newClue);
+    newClue();
+  })();
+
+  /* ================= STATION 4: PROBABILITY MACHINE ================= */
+  (function(){
+    var ids = ['a','b','c','d'];
+    function frac(n, d){
+      if(d===0) return '—';
+      function gcd(a,b){ return b ? gcd(b, a%b) : a; }
+      var g = gcd(n,d) || 1;
+      var s = n + '/' + d;
+      if(g > 1 && n>0) s += ' = ' + (n/g) + '/' + (d/g);
+      return s;
+    }
+    function update(){
+      var v = {};
+      ids.forEach(function(k){
+        v[k] = parseInt(document.getElementById('prob-'+k).value, 10);
+        document.getElementById('prob-o'+k).textContent = v[k];
+      });
+      document.getElementById('pv-a').textContent = v.a;
+      document.getElementById('pv-b').textContent = v.b;
+      document.getElementById('pv-c').textContent = v.c;
+      document.getElementById('pv-d').textContent = v.d;
+      var total = v.a + v.b + v.c + v.d;
+      document.getElementById('pr-total').textContent = total;
+      document.getElementById('pr-pa').textContent = frac(v.a + v.b, total);
+      document.getElementById('pr-pb').textContent = frac(v.c + v.b, total);
+      document.getElementById('pr-pab').textContent = frac(v.b, total);
+      document.getElementById('pr-paub').textContent = frac(v.a + v.b + v.c, total);
+      document.getElementById('pr-sum').textContent = total===0 ? '—' : (v.a + v.b) + '/' + total + ' + ' + (v.c + v.b) + '/' + total + ' = ' + (v.a + 2*v.b + v.c) + '/' + total;
+    }
+    ids.forEach(function(k){ document.getElementById('prob-'+k).addEventListener('input', update); });
+    update();
+  })();
+
+  /* ================= STATION 5: TRIANGLE LAB ================= */
+  (function(){
+    var sa = document.getElementById('tri-a'), sb = document.getElementById('tri-b');
+    var poly = document.getElementById('tri-poly');
+    var la = document.getElementById('tri-la'), lb = document.getElementById('tri-lb'), lc = document.getElementById('tri-lc');
+    var D2R = Math.PI/180;
+
+    function update(changed){
+      var A = parseInt(sa.value,10), B = parseInt(sb.value,10);
+      if(A + B > 165){ // keep C ≥ 15°
+        if(changed==='a') B = 165 - A; else A = 165 - B;
+        sa.value = A; sb.value = B;
+      }
+      var C = 180 - A - B;
+      document.getElementById('tri-oa').textContent = A + '°';
+      document.getElementById('tri-ob').textContent = B + '°';
+      document.getElementById('tri-sum').textContent = A + '° + ' + B + '° + C = 180°  →  C = ' + C + '°';
+      var cls = [];
+      var mx = Math.max(A,B,C);
+      cls.push(mx > 90 ? 'obtuse' : mx === 90 ? 'RIGHT' : 'acute');
+      if(A===B && B===C) cls.push('equilateral');
+      else if(A===B || B===C || A===C) cls.push('isosceles');
+      else cls.push('scalene');
+      document.getElementById('tri-class').textContent = 'Classification: ' + cls.join(' + ') + ' triangle';
+
+      // vertices: L(0,0), R(base,0), apex from angles A (at L) and B (at R); then fit uniformly (angles preserved)
+      var base = 100;
+      var tA = Math.tan(A*D2R), tB = Math.tan(B*D2R);
+      // handle >90° angles: tan negative → intersection still works with line formulas
+      var x = (tA*0 + tB*base) / (tA + tB);
+      var y = tA * x; // height above base (positive)
+      if(!isFinite(x) || !isFinite(y)){ x = base/2; y = 1000; }
+      var pts = [{x:0, y:0}, {x:base, y:0}, {x:x, y:y}];
+      var minX = Math.min(pts[0].x, pts[1].x, pts[2].x), maxX = Math.max(pts[0].x, pts[1].x, pts[2].x);
+      var minY = 0, maxY = y;
+      var w = maxX - minX, h = maxY - minY;
+      var pad = 34, W = 360, H = 240;
+      var s = Math.min((W - 2*pad) / w, (H - 2*pad) / h);
+      function px(p){ return pad + (p.x - minX) * s + (W - 2*pad - w*s)/2; }
+      function py(p){ return H - pad - (p.y - minY) * s; } // flip y
+      poly.setAttribute('points', pts.map(function(p){ return px(p).toFixed(1)+','+py(p).toFixed(1); }).join(' '));
+      // labels: pull each label toward the triangle's centroid so they sit inside-ish
+      var gx = (px(pts[0])+px(pts[1])+px(pts[2]))/3, gy = (py(pts[0])+py(pts[1])+py(pts[2]))/3;
+      function place(el, p, txt){
+        var X = px(p), Y = py(p);
+        var dx = gx - X, dy = gy - Y;
+        var len = Math.hypot(dx,dy) || 1;
+        el.setAttribute('x', (X + dx/len*26).toFixed(1));
+        el.setAttribute('y', (Y + dy/len*26 + 5).toFixed(1));
+        el.textContent = txt;
+      }
+      place(la, pts[0], 'A=' + A + '°');
+      place(lb, pts[1], 'B=' + B + '°');
+      place(lc, pts[2], 'C=' + C + '°');
+    }
+    sa.addEventListener('input', function(){ update('a'); });
+    sb.addEventListener('input', function(){ update('b'); });
+    update();
+  })();
+
+  /* ================= STATION 6a: REARRANGE PROOF ================= */
+  (function(){
+    var svg = document.getElementById('proof-svg');
+    var slider = document.getElementById('proof-t');
+    var out = document.getElementById('proof-out');
+    var msg = document.getElementById('proof-msg');
+    var COLORS = ['var(--accent)','var(--gold)','var(--bad)'];
+    var D2R = Math.PI/180;
+    var tri = null;
+
+    function randTriangle(){
+      var A = 30 + Math.floor(Math.random()*71);           // 30..100
+      var B = 25 + Math.floor(Math.random()*Math.min(71, 140-A)); // keep C ≥ 15
+      return {A:A, B:B, C:180-A-B};
+    }
+    function vertices(t){
+      // base L(70,190) R(390,190), apex from angles (fit not needed — cap height)
+      var L = {x:80, y:180}, R = {x:380, y:180};
+      var tA = Math.tan(t.A*D2R), tB = Math.tan(t.B*D2R);
+      var base = R.x - L.x;
+      var x = (tB*base) / (tA + tB);
+      var h = tA * x;
+      var maxH = 150;
+      if(h > maxH){ // uniform-scale the triangle down, keep base centered
+        var s = maxH / h;
+        var cx = (L.x + R.x)/2;
+        L = {x: cx - base*s/2, y:180}; R = {x: cx + base*s/2, y:180};
+        x = x*s; h = maxH;
+      }
+      return [ {x:L.x, y:L.y}, {x:R.x, y:R.y}, {x:L.x + x, y:L.y - h} ];
+    }
+    function angDeg(from, to){ return Math.atan2(-(to.y-from.y), to.x-from.x) / D2R; }
+    function norm(a){ a = a % 360; if(a < 0) a += 360; return a; }
+    function sectorPath(cx, cy, r, start, sweep){
+      var a0 = start*D2R, a1 = (start+sweep)*D2R;
+      var x0 = cx + r*Math.cos(a0), y0 = cy - r*Math.sin(a0);
+      var x1 = cx + r*Math.cos(a1), y1 = cy - r*Math.sin(a1);
+      var large = sweep > 180 ? 1 : 0;
+      return 'M '+cx.toFixed(1)+' '+cy.toFixed(1)+' L '+x0.toFixed(1)+' '+y0.toFixed(1)
+        + ' A '+r+' '+r+' 0 '+large+' 0 '+x1.toFixed(1)+' '+y1.toFixed(1)+' Z';
+    }
+    function lerp(a, b, t){ return a + (b-a)*t; }
+    function lerpAngle(a, b, t){
+      var d = norm(b - a);
+      if(d > 180) d -= 360;
+      return a + d*t;
+    }
+
+    function build(){
+      tri = randTriangle();
+      render();
+    }
+    function render(){
+      var t = parseInt(slider.value,10)/100;
+      out.textContent = t===0 ? 'triangle' : t===1 ? 'straight line!' : Math.round(t*100)+'%';
+      msg.hidden = t < 1;
+      var V = vertices(tri);
+      var names = ['A','B','C'];
+      var angles = [tri.A, tri.B, tri.C];
+      // interior sector at each vertex: from direction to one neighbor, sweeping CCW to the other
+      var wedges = [];
+      for(var i=0;i<3;i++){
+        var P = V[(i+1)%3], Q = V[(i+2)%3];
+        var aP = norm(angDeg(V[i], P)), aQ = norm(angDeg(V[i], Q));
+        var start = (Math.abs(norm(aQ - aP) - angles[i]) < 0.5) ? aP : aQ;
+        wedges.push({src:{x:V[i].x, y:V[i].y, start:start}, theta:angles[i]});
+      }
+      // targets: side by side on a line at y=262, anchored at one shared point, filling 180° from the left
+      var anchor = {x:230, y:262};
+      var cum = 180;
+      for(var j=0;j<3;j++){
+        cum -= wedges[j].theta;
+        wedges[j].dst = {x:anchor.x, y:anchor.y, start:cum};
+      }
+      var html = '';
+      // the triangle outline (fades as pieces tear away)
+      html += '<polygon points="'+V.map(function(p){return p.x.toFixed(1)+','+p.y.toFixed(1);}).join(' ')
+        +'" fill="none" stroke="currentColor" stroke-opacity="'+(0.75 - 0.45*t).toFixed(2)+'" stroke-width="2.5" stroke-dasharray="'+(t>0?'6,5':'none')+'"/>';
+      // the destination line
+      html += '<line x1="30" y1="262" x2="430" y2="262" stroke="currentColor" stroke-opacity=".8" stroke-width="2.5"/>'
+        +'<polygon points="430,262 418,256 418,268" fill="currentColor"/><polygon points="30,262 42,256 42,268" fill="currentColor"/>';
+      for(var k=0;k<3;k++){
+        var w = wedges[k];
+        var cx = lerp(w.src.x, w.dst.x, t), cy = lerp(w.src.y, w.dst.y, t);
+        var st = lerpAngle(w.src.start, w.dst.start, t);
+        html += '<path d="'+sectorPath(cx, cy, 30, st, w.theta)+'" fill="'+COLORS[k]+'" fill-opacity=".55" stroke="'+COLORS[k]+'" stroke-width="2"/>';
+        var mid = (st + w.theta/2)*D2R;
+        var lx = cx + 46*Math.cos(mid), ly = cy - 46*Math.sin(mid);
+        html += '<text x="'+lx.toFixed(1)+'" y="'+(ly+5).toFixed(1)+'" font-size="14" fill="currentColor" text-anchor="middle" font-weight="bold">'+names[k]+'='+wedges[k].theta+'°</text>';
+      }
+      if(t===1){
+        html += '<text x="230" y="292" font-size="14" fill="currentColor" text-anchor="middle">'+tri.A+'° + '+tri.B+'° + '+tri.C+'° = 180° — a straight angle ✓</text>';
+      }
+      svg.innerHTML = html;
+    }
+    slider.addEventListener('input', render);
+    document.getElementById('proof-new').addEventListener('click', function(){ slider.value = 0; build(); });
+    build();
+  })();
+
+  /* ================= STATION 6b: Z-PATTERN CLICKER ================= */
+  (function(){
+    var QUESTIONS = [
+      {ask:'Click the angle congruent to angle A (bottom right).', target:'E', why:'A ≅ E — alternate interior angles along transversal CA (the "Z" pattern). This is what lets angle A "move" to the top line in the proof.'},
+      {ask:'Click the angle congruent to angle B (bottom left).', target:'D', why:'B ≅ D — alternate interior angles along transversal CB. The other leg of the proof.'},
+      {ask:'D, C, and E sit together on the top line. What do they add up to? Click C if you know.', target:'C', why:'They fill a straight line: D + C + E = 180°. Since D ≅ B and E ≅ A, that means A + B + C = 180° — the theorem!'}
+    ];
+    var promptEl = document.getElementById('z-prompt');
+    var fb = document.getElementById('z-feedback');
+    var hits = document.querySelectorAll('#z-svg .angle-hit');
+    var cur = 0;
+
+    function setQuestion(i){
+      cur = i % QUESTIONS.length;
+      promptEl.textContent = QUESTIONS[cur].ask;
+      fb.hidden = true;
+      hits.forEach(function(h){ h.classList.remove('glow-good','glow-bad','glow-target'); });
+    }
+    hits.forEach(function(h){
+      h.addEventListener('click', function(){
+        var q = QUESTIONS[cur];
+        hits.forEach(function(x){ x.classList.remove('glow-good','glow-bad'); });
+        fb.hidden = false;
+        if(h.getAttribute('data-angle') === q.target){
+          h.classList.add('glow-good');
+          fb.className = 'feedback good';
+          fb.textContent = '✅ ' + q.why;
+        } else {
+          h.classList.add('glow-bad');
+          fb.className = 'feedback bad';
+          fb.textContent = '❌ Not that one. Trace the "Z": alternate interior angles sit on OPPOSITE sides of the slanted side, BETWEEN the two parallel lines.';
+        }
+      });
+    });
+    document.getElementById('z-new').addEventListener('click', function(){ setQuestion(cur+1); });
+    setQuestion(0);
+  })();
+
+})();
 </script>

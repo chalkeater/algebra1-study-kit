@@ -1,6 +1,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Miriam's Algebra 1 — Study Kit Index</title>
+<title>Sets &amp; Triangle Angles — Flashcards</title>
 <style>
   @font-face{
     font-family:'Anton'; font-style:normal; font-weight:400; font-display:swap;
@@ -16,6 +16,7 @@
     --line:#D5E1DE;
     --accent:#0F7A78; --accent-strong:#095452; --accent-soft:#DFF1EF;
     --gold:#C9821A; --gold-soft:#FBEBCC;
+    --good:#2E7D32; --good-soft:#E4F3E1; --bad:#B23A3A; --bad-soft:#FBE6E6;
     --radius:16px;
     --shadow:0 1px 2px rgba(14,27,30,.06), 0 10px 28px -14px rgba(14,27,30,.2);
     --font-display:'Anton', impact, sans-serif;
@@ -29,6 +30,7 @@
       --ink:#E9F3F1; --ink-soft:#A6BEBB; --ink-faint:#6E8583; --line:#213231;
       --accent:#2FC7C0; --accent-strong:#8FE6E1; --accent-soft:#123230;
       --gold:#E0AC52; --gold-soft:#332711;
+      --good:#5FBD5F; --good-soft:#163A18; --bad:#F0685F; --bad-soft:#3B1616;
       --shadow:0 1px 2px rgba(0,0,0,.35), 0 10px 28px -14px rgba(0,0,0,.55);
     }
   }
@@ -37,6 +39,7 @@
     --ink:#E9F3F1; --ink-soft:#A6BEBB; --ink-faint:#6E8583; --line:#213231;
     --accent:#2FC7C0; --accent-strong:#8FE6E1; --accent-soft:#123230;
     --gold:#E0AC52; --gold-soft:#332711;
+    --good:#5FBD5F; --good-soft:#163A18; --bad:#F0685F; --bad-soft:#3B1616;
     --shadow:0 1px 2px rgba(0,0,0,.35), 0 10px 28px -14px rgba(0,0,0,.55);
   }
   :root[data-theme="light"]{
@@ -44,6 +47,7 @@
     --ink:#0E1B1E; --ink-soft:#48595C; --ink-faint:#7C8C8C; --line:#D5E1DE;
     --accent:#0F7A78; --accent-strong:#095452; --accent-soft:#DFF1EF;
     --gold:#C9821A; --gold-soft:#FBEBCC;
+    --good:#2E7D32; --good-soft:#E4F3E1; --bad:#B23A3A; --bad-soft:#FBE6E6;
     --shadow:0 1px 2px rgba(14,27,30,.06), 0 10px 28px -14px rgba(14,27,30,.2);
   }
   *{box-sizing:border-box;}
@@ -52,217 +56,420 @@
     font-size:16px; line-height:1.5; -webkit-font-smoothing:antialiased;
   }
   ::selection{background:var(--gold-soft); color:var(--ink);}
-  a{color:inherit;}
-  button:focus-visible, a:focus-visible{outline:3px solid var(--gold); outline-offset:2px;}
+  button, input{font-family:inherit; font-size:1rem;}
+  button:focus-visible, input:focus-visible{outline:3px solid var(--gold); outline-offset:2px;}
 
-  header.hero{padding:2.4rem clamp(1rem,4vw,2.5rem) 1.6rem; border-bottom:1px solid var(--line);}
-  .hero-inner{max-width:1040px; margin:0 auto;}
+  header.hero{
+    padding:2.2rem clamp(1rem,4vw,2.5rem) 1.4rem; border-bottom:1px solid var(--line);
+  }
+  .hero-inner{max-width:900px; margin:0 auto;}
   .hero-eyebrow{font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; font-weight:700; color:var(--accent-strong); margin:0 0 .4rem;}
   header.hero h1{
-    font-family:var(--font-display); font-weight:400; text-transform:uppercase; letter-spacing:.01em;
-    font-size:clamp(2.1rem,5vw,3.2rem); line-height:.95; margin:0 0 .5rem; text-wrap:balance;
+    font-family:var(--font-display); font-weight:400; text-transform:uppercase;
+    font-size:clamp(2rem,5.5vw,3rem); line-height:.95; margin:0 0 .5rem; text-wrap:balance;
   }
-  header.hero p{color:var(--ink-soft); max-width:60ch; margin:0; font-size:1.03rem;}
-  .hero-actions{margin-top:1rem;}
+  header.hero p{color:var(--ink-soft); max-width:56ch; margin:0; font-size:1.03rem;}
+  .hero-actions{margin-top:.9rem;}
   .btn{
     border:1px solid var(--line); background:var(--ground-raised); color:var(--ink);
     padding:.5rem .9rem; border-radius:999px; font-size:.82rem; font-weight:600; cursor:pointer; box-shadow:var(--shadow);
     min-height:2.75rem; display:inline-flex; align-items:center; justify-content:center;
   }
+  .deck-controls{max-width:900px; margin:0 auto; padding:.9rem clamp(1rem,4vw,2.5rem) 0;}
+  .filter-row{display:flex; gap:.5rem; overflow-x:auto; padding-bottom:.5rem; -webkit-overflow-scrolling:touch; scrollbar-width:none;}
+  .filter-row::-webkit-scrollbar{display:none;}
+  .tab{
+    flex:none; border:1px solid var(--line); background:var(--ground-raised); color:var(--ink-soft);
+    padding:.5rem .85rem; border-radius:999px; font-weight:700; font-size:.82rem; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; gap:.4rem; white-space:nowrap; min-height:2.75rem;
+  }
+  .tab .tn{font-family:var(--font-mono); color:var(--ink-faint); font-size:.72rem;}
+  .tab.active{background:var(--accent); color:#F4FFFE; border-color:var(--accent);}
+  .tab.active .tn{color:#DFFFFD;}
+  .status-row{display:flex; gap:.5rem; margin-top:.55rem; flex-wrap:wrap;}
+  .status-row .tab{font-size:.78rem; padding:.4rem .75rem; min-height:2.4rem;}
 
-  main{max-width:1040px; margin:0 auto; padding:2rem clamp(1rem,4vw,2.5rem) 4rem;}
+  .progress-wrap{
+    max-width:900px; margin:0 auto; padding:.9rem clamp(1rem,4vw,2.5rem) 0;
+    display:flex; align-items:center; gap:.7rem; flex-wrap:wrap;
+  }
+  .progress-count{font-size:.85rem; font-weight:700; color:var(--ink-soft); white-space:nowrap;}
+  .progress-count b{color:var(--accent-strong); font-family:var(--font-mono);}
+  .progress-track{
+    flex:1; min-width:120px; height:8px; border-radius:999px;
+    background:var(--ground-sunken); border:1px solid var(--line); overflow:hidden;
+  }
+  .progress-fill{height:100%; background:var(--accent); border-radius:999px; transition:width .25s ease;}
+  .stat-chip{font-size:.78rem; font-weight:700; padding:.3rem .6rem; border-radius:999px; white-space:nowrap; font-family:var(--font-mono);}
+  .stat-chip.know{background:var(--good-soft); color:var(--good);}
+  .stat-chip.learning{background:var(--gold-soft); color:var(--gold);}
 
-  .unit-block{margin-bottom:2.4rem;}
-  .unit-head{display:flex; align-items:baseline; gap:.9rem; flex-wrap:wrap; margin-bottom:.4rem;}
-  .unit-badge{
-    font-family:var(--font-mono); font-size:.72rem; font-weight:700; letter-spacing:.06em;
-    background:var(--accent); color:#F4FFFE; padding:.25rem .6rem; border-radius:6px;
-  }
-  .unit-head h2{
-    font-family:var(--font-display); font-weight:400; text-transform:uppercase; font-size:1.5rem; margin:0;
-  }
-  .unit-desc{color:var(--ink-faint); font-size:.88rem; margin:.2rem 0 1.1rem; max-width:70ch;}
+  main{max-width:640px; margin:0 auto; padding:1.6rem clamp(1rem,4vw,2.5rem) 3rem;}
 
-  .card-grid{display:grid; gap:1rem; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));}
-  .card{
-    display:flex; flex-direction:column;
-    background:var(--ground-raised); border:1px solid var(--line); border-radius:var(--radius);
-    box-shadow:var(--shadow); transition:transform .15s ease, border-color .15s ease;
+  .stage{perspective:1600px; margin:0 auto; touch-action:pan-y;}
+  .flashcard{
+    position:relative; width:100%; min-height:320px; cursor:pointer;
+    transform-style:preserve-3d; transition:transform .5s cubic-bezier(.2,.8,.2,1);
   }
-  .card:hover{transform:translateY(-2px); border-color:var(--accent);}
-  .card-main{
-    display:flex; flex-direction:column; gap:.5rem;
-    padding:1.2rem 1.3rem 1rem; text-decoration:none; color:var(--ink); flex:1;
+  .flashcard.flipped{transform:rotateY(180deg);}
+  .card-face{
+    position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden;
+    display:flex; flex-direction:column; gap:1rem;
+    background:var(--ground-raised); border:1px solid var(--line); border-radius:20px;
+    box-shadow:var(--shadow); padding:1.8rem 1.6rem 2.6rem;
   }
-  .card-icon{font-size:1.6rem; line-height:1;}
-  .card-title{font-family:var(--font-display); font-weight:400; text-transform:uppercase; font-size:1.05rem; letter-spacing:.01em;}
-  .card-desc{color:var(--ink-soft); font-size:.85rem; line-height:1.45; flex:1;}
-  .card-foot{
-    display:flex; align-items:center; justify-content:space-between; gap:.6rem;
-    padding:.7rem 1.3rem; border-top:1px solid var(--line);
+  .card-face.back{transform:rotateY(180deg);}
+  .card-tag{font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; font-weight:700; color:var(--accent-strong);}
+  .card-body{flex:1; display:flex; align-items:center;}
+  .card-q{font-size:1.22rem; line-height:1.5; font-weight:600;}
+  .card-a{font-size:1.1rem; line-height:1.55; color:var(--ink-soft);}
+  .card-hint{
+    position:absolute; bottom:.9rem; left:0; right:0; text-align:center;
+    font-size:.7rem; color:var(--ink-faint); letter-spacing:.05em; text-transform:uppercase;
   }
-  .card-file{font-family:var(--font-mono); font-size:.72rem; color:var(--ink-faint);}
+  .card-mark{position:absolute; top:1.2rem; right:1.3rem; font-size:1.1rem;}
 
-  .next-unit{
-    border:1px dashed var(--line); border-radius:var(--radius); padding:1.2rem 1.3rem;
-    color:var(--ink-faint); font-size:.88rem; text-align:center;
+  .mark-row{display:flex; gap:.7rem; margin-top:1.3rem;}
+  .mark-row .btn{flex:1;}
+  .btn.learning-btn{border-color:var(--gold); color:var(--gold);}
+  .btn.know-btn{border-color:var(--good); color:var(--good);}
+
+  .nav-row{display:flex; align-items:center; justify-content:space-between; gap:.6rem; margin-top:1rem;}
+  .mark-row[hidden], .nav-row[hidden]{display:none;}
+
+  .empty-state{
+    text-align:center; padding:3.5rem 1.5rem; color:var(--ink-faint);
+    border:1px dashed var(--line); border-radius:20px; font-size:.95rem;
   }
+  .empty-state b{color:var(--ink-soft);}
+
+  @media (prefers-reduced-motion: reduce){ .flashcard{transition:none;} }
 
   footer{text-align:center; color:var(--ink-faint); font-size:.78rem; padding:1.5rem;}
+
+  .site-nav{
+    display:flex; align-items:center; gap:.5rem; overflow-x:auto;
+    padding:.5rem clamp(1rem,4vw,2.5rem); border-bottom:1px solid var(--line);
+    background:var(--ground-sunken); -webkit-overflow-scrolling:touch; scrollbar-width:none;
+  }
+  .site-nav::-webkit-scrollbar{display:none;}
+  .site-nav a{
+    flex:none; display:inline-flex; align-items:center; justify-content:center; white-space:nowrap;
+    padding:.5rem .85rem; border-radius:999px; font-size:.78rem; font-weight:700;
+    text-decoration:none; color:var(--ink-soft); min-height:2.75rem;
+  }
+  .site-nav a.home{color:var(--accent-strong); background:var(--ground-raised); border:1px solid var(--line); box-shadow:var(--shadow);}
+  .site-nav a.page:hover{color:var(--ink);}
+  .site-nav a.page.active{background:var(--accent); color:#F4FFFE;}
 </style>
+
+<nav class="site-nav" aria-label="Unit navigation">
+  <a class="home" href="../index.html">&larr; Index</a>
+  <a class="page" href="study-guide.html">Study Guide</a>
+  <a class="page" href="concept-explainers.html">Explainer</a>
+  <a class="page" href="playground.html">Playground</a>
+  <a class="page active" href="flashcards.html">Flashcards</a>
+  <a class="page" href="practice-quiz.html">Quiz</a>
+</nav>
 
 <header class="hero">
   <div class="hero-inner">
-    <p class="hero-eyebrow">Study Kit Index</p>
-    <h1>Miriam's Algebra 1</h1>
-    <p>One row per unit test. Each unit gets the same five pieces: a study guide for during the test, an explainer for before it, a playground to practice in, flashcards to drill on the go, and a quiz to prove it stuck.</p>
+    <p class="hero-eyebrow">Flashcards &middot; Quick Review</p>
+    <h1>Drill It Until It's Automatic</h1>
+    <p>Tap a card to flip it. Swipe or use the buttons to move on. Mark what you know — the deck remembers, so you can drill just what's still shaky.</p>
     <div class="hero-actions">
-      <button class="btn" id="theme-toggle" type="button">🌓 Theme</button>
+      <button class="btn" id="theme-toggle" type="button">&#127769; Theme</button>
     </div>
   </div>
 </header>
 
+<div class="deck-controls">
+  <div class="filter-row" id="concept-filter" role="tablist" aria-label="Filter by concept">
+    <button class="tab active" data-concept="all" type="button">All <span class="tn"></span></button>
+    <button class="tab" data-concept="1" type="button">01 Sets</button>
+    <button class="tab" data-concept="2" type="button">02 Subsets</button>
+    <button class="tab" data-concept="3" type="button">03 Union &amp; Inter.</button>
+    <button class="tab" data-concept="4" type="button">04 Probability</button>
+    <button class="tab" data-concept="5" type="button">05 Angle Sum</button>
+    <button class="tab" data-concept="6" type="button">06 The Proofs</button>
+  </div>
+  <div class="status-row" id="status-filter">
+    <button class="tab active" data-status="all" type="button">All cards</button>
+    <button class="tab" data-status="learning" type="button">&#8635; Still learning</button>
+    <button class="tab" data-status="know" type="button">&#10003; Known</button>
+  </div>
+</div>
+
+<div class="progress-wrap">
+  <span class="progress-count">Card <b id="pos-num">1</b> / <b id="pos-total">1</b></span>
+  <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+  <span class="stat-chip know">&#10003; <b id="know-count">0</b></span>
+  <span class="stat-chip learning">&#8635; <b id="learning-count">0</b></span>
+</div>
+
 <main>
-
-  <section class="unit-block">
-    <div class="unit-head">
-      <span class="unit-badge">Unit 1</span>
-      <h2>Linear Equations &amp; Inequalities</h2>
-    </div>
-    <p class="unit-desc">Solving equations, variable on one side, variables on both sides, the distributive property, literal equations, compound inequalities, graphing and modeling two-variable inequalities.</p>
-    <div class="card-grid">
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/study-guide.html">
-          <span class="card-icon">📘</span>
-          <span class="card-title">Study Guide</span>
-          <span class="card-desc">Open-notes reference — one worked example per concept. Use this one during the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">study-guide.html</span>
-        </div>
+  <div class="stage" id="stage">
+    <div class="flashcard" id="flashcard" tabindex="0" role="button" aria-label="Flashcard. Tap or press enter to flip.">
+      <div class="card-face front">
+        <span class="card-tag" id="tag-front">&nbsp;</span>
+        <span class="card-mark" id="mark-front"></span>
+        <div class="card-body"><p class="card-q" id="card-q"></p></div>
+        <span class="card-hint">Tap to flip</span>
       </div>
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/concept-explainers.html">
-          <span class="card-icon">🧠</span>
-          <span class="card-title">The Explainer</span>
-          <span class="card-desc">ELI5 deep-dive with volleyball analogies, the "why," and common mistakes. Read this before the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">concept-explainers.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/playground.html">
-          <span class="card-icon">🏐</span>
-          <span class="card-title">The Playground</span>
-          <span class="card-desc">8 hands-on stations — drive an equation solver, build a graph, test points, drag sliders.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">playground.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/practice-quiz.html">
-          <span class="card-icon">🎯</span>
-          <span class="card-title">Practice Quiz</span>
-          <span class="card-desc">33 questions, instant feedback, score + streak tracker. Prove you've got it.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">practice-quiz.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/flashcards.html">
-          <span class="card-icon">🃏</span>
-          <span class="card-title">Flashcards</span>
-          <span class="card-desc">32 tap-to-flip cards by concept. Swipe through on your phone, mark what's still shaky.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">flashcards.html</span>
-        </div>
+      <div class="card-face back">
+        <span class="card-tag" id="tag-back">&nbsp;</span>
+        <span class="card-mark" id="mark-back"></span>
+        <div class="card-body"><p class="card-a" id="card-a"></p></div>
+        <span class="card-hint">Tap to flip back</span>
       </div>
     </div>
-  </section>
+  </div>
 
-  <section class="unit-block">
-    <div class="unit-head">
-      <span class="unit-badge">Unit 2</span>
-      <h2>Sets, Venn Diagrams &amp; Triangle Angles</h2>
-    </div>
-    <p class="unit-desc">Sets and elements, subsets, union and intersection with Venn diagrams, sets applied to probability and geometry, the triangle angle-sum theorem, and the two proofs of why the angles always make 180°.</p>
-    <div class="card-grid">
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/study-guide.html">
-          <span class="card-icon">📘</span>
-          <span class="card-title">Study Guide</span>
-          <span class="card-desc">Open-notes reference — one worked example per concept. Use this one during the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">study-guide.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/concept-explainers.html">
-          <span class="card-icon">🧠</span>
-          <span class="card-title">The Explainer</span>
-          <span class="card-desc">ELI5 deep-dive with volleyball analogies, the "why," and common mistakes. Read this before the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">concept-explainers.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/playground.html">
-          <span class="card-icon">🏐</span>
-          <span class="card-title">The Playground</span>
-          <span class="card-desc">6 hands-on stations — build sets, click Venn regions, bend a live triangle, run the 180° proof yourself.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">playground.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/practice-quiz.html">
-          <span class="card-icon">🎯</span>
-          <span class="card-title">Practice Quiz</span>
-          <span class="card-desc">30 questions, two modes: instant-feedback practice and a no-hints exam mode. Plus a printable worksheet.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">practice-quiz.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/flashcards.html">
-          <span class="card-icon">🃏</span>
-          <span class="card-title">Flashcards</span>
-          <span class="card-desc">35 tap-to-flip cards by concept. Swipe through on your phone, mark what's still shaky.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">flashcards.html</span>
-        </div>
-      </div>
-    </div>
-  </section>
+  <div class="empty-state" id="empty-state" hidden>
+    Nothing here yet. <b>Still learning</b> and <b>Known</b> fill up as you mark cards — switch back to <b>All cards</b> to keep drilling.
+  </div>
 
-  <div class="next-unit">Unit 3 shows up here once the next test is announced.</div>
+  <div class="mark-row" id="mark-row">
+    <button class="btn learning-btn" id="mark-learning" type="button">&#8635; Still learning</button>
+    <button class="btn know-btn" id="mark-know" type="button">&#10003; Know it</button>
+  </div>
 
+  <div class="nav-row" id="nav-row">
+    <button class="btn" id="prev-btn" type="button" aria-label="Previous card">&lsaquo; Prev</button>
+    <button class="btn" id="shuffle-btn" type="button">&#128256; Shuffle</button>
+    <button class="btn" id="next-btn" type="button" aria-label="Next card">Next &rsaquo;</button>
+  </div>
 </main>
 
-<footer>Miriam's Algebra 1 · Study Kit Index</footer>
+<footer>Miriam's Algebra 1 &middot; Unit 2 Flashcards</footer>
 
 <script>
-  (function(){
-    var root = document.documentElement;
-    var toggle = document.getElementById('theme-toggle');
-    var stored = null;
-    try { stored = localStorage.getItem('algebra-theme'); } catch(e){}
-    if (stored) root.setAttribute('data-theme', stored);
-    toggle.addEventListener('click', function(){
-      var current = root.getAttribute('data-theme');
-      var next = current === 'dark' ? 'light' : 'dark';
-      if (!current){ next = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark'; }
-      root.setAttribute('data-theme', next);
-      try { localStorage.setItem('algebra-theme', next); } catch(e){}
+(function(){
+  "use strict";
+  var root = document.documentElement;
+  var themeToggle = document.getElementById('theme-toggle');
+  var stored = null;
+  try { stored = localStorage.getItem('algebra-theme'); } catch(e){}
+  if (stored) root.setAttribute('data-theme', stored);
+  themeToggle.addEventListener('click', function(){
+    var current = root.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    if (!current){ next = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark'; }
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('algebra-theme', next); } catch(e){}
+  });
+
+  var CONCEPTS = [
+    {n:1, name:'Sets & Elements'},
+    {n:2, name:'Subsets'},
+    {n:3, name:'Union & Intersection'},
+    {n:4, name:'Sets → Probability & Geometry'},
+    {n:5, name:'Triangle Angle Sum'},
+    {n:6, name:'Why 180° Works (The Proofs)'}
+  ];
+
+  var CARDS = [
+    {c:1, q:"What is a set? What is an element?", a:"A set is a collection of things (a roster). An element is one thing in it. x ∈ A means 'x is an element of set A' — x is on roster A."},
+    {c:1, q:"What is the universal set U?", a:"Everything under consideration — the biggest roster in the problem. Every other set in the problem lives inside U."},
+    {c:1, q:"What is the empty set ∅?", a:"The set with no elements at all — a roster with zero names. Also written { }. Example: 'triangles with four sides' = ∅."},
+    {c:1, q:"Is ∅ the same as {0}?", a:"No! {0} has one element (the number zero). ∅ has none. 'Nobody on the roster' ≠ 'a player named Zero.'"},
+    {c:1, q:"Read this out loud: A = {x | x ∈ U and x is even}", a:"'A is the set of all x SUCH THAT x is in U and x is even.' The bar | means 'such that' — everything after it is the membership rule."},
+    {c:1, q:"U = {1,...,10}. Roster form of {x | x ∈ U and x is a multiple of 3}?", a:"{3, 6, 9}. Walk through every element of U and keep the ones that pass the rule. (12 fails — it's not in U.)"},
+
+    {c:2, q:"What does B ⊆ A mean?", a:"B is a subset of A: EVERY element of B is also in A, no exceptions. On a Venn diagram, B's circle sits completely inside A's circle."},
+    {c:2, q:"A Venn diagram shows circle B entirely inside circle A. Which real-world pair fits?", a:"Something like A = {animals}, B = {mammals} — every mammal is an animal. The inside circle must be the more specific category."},
+    {c:2, q:"Why is every equilateral triangle also isosceles?", a:"Isosceles means AT LEAST two equal sides. An equilateral triangle has three equal sides, so it automatically has two. So E ⊆ I."},
+    {c:2, q:"Is every isosceles triangle equilateral?", a:"No — direction matters. A triangle with sides 5, 5, 8 is isosceles but not equilateral. E ⊆ I but I ⊄ E."},
+    {c:2, q:"What's the difference between ∈ and ⊆?", a:"∈ is for one element: 4 ∈ {2,4,6}. ⊆ is for a whole set fitting inside another: {4} ⊆ {2,4,6}."},
+    {c:2, q:"Two weird subset facts that are always true?", a:"∅ is a subset of every set (nobody on the roster = nobody can break the rule), and every set is a subset of itself."},
+
+    {c:3, q:"What is A ∩ B?", a:"The intersection — only the elements in BOTH A and B. The overlap of the two circles. Memory trick: ∩ looks like 'n' → iNtersection, 'in both.'"},
+    {c:3, q:"What is A ∪ B?", a:"The union — everything in either set (or both), each element listed only once. Memory trick: ∪ looks like 'u' → Union."},
+    {c:3, q:"Venn regions I, II, III, IV — what are they?", a:"I = in A only. II = the overlap (A ∩ B). III = in B only. IV = inside U but outside both circles."},
+    {c:3, q:"If k ∈ A ∩ B, what's the MOST specific location of k on the Venn diagram?", a:"Region II — exactly the overlap. Saying 'circle A' isn't specific enough; k is provably in both circles at once."},
+    {c:3, q:"A = {1,3,5,7,9}, B = {3,6,9,12}. What's A ∩ B? A ∪ B?", a:"A ∩ B = {3, 9}. A ∪ B = {1,3,5,6,7,9,12} — the 3 and 9 appear once each, not twice."},
+    {c:3, q:"Formula for counting a union?", a:"n(A ∪ B) = n(A) + n(B) − n(A ∩ B). Subtract the overlap because adding both rosters counts it twice."},
+
+    {c:4, q:"How do you turn a probability question into a set question?", a:"Sample space = U, event = a subset of U. P(event) = n(event) / n(U) — count the favorable set, divide by the total."},
+    {c:4, q:"One die roll: P(even AND greater than 4)?", a:"A = {2,4,6}, B = {5,6}. 'And' = intersection = {6}. P = 1/6."},
+    {c:4, q:"One die roll: P(even OR greater than 4)?", a:"'Or' = union = {2,4,5,6}. P = 4/6 = 2/3. NOT 5/6 — the 6 qualifies for both sets but only counts once."},
+    {c:4, q:"Can a triangle be both right AND isosceles?", a:"Yes — 90°, 45°, 45°. Shape categories are sets, and the sets R (right) and I (isosceles) genuinely overlap."},
+    {c:4, q:"Which two triangle sets can NEVER overlap?", a:"Equilateral and scalene — 3 equal sides vs. zero equal sides. Their intersection is ∅."},
+
+    {c:5, q:"What do the interior angles of ANY triangle add up to?", a:"Exactly 180°. Every triangle spends the same 180° budget across its three corners — no more, no less."},
+    {c:5, q:"Two angles are 58° and 61°. Third angle?", a:"180 − 58 − 61 = 61°."},
+    {c:5, q:"Could 50°, 60°, 75° be the interior angles of a triangle?", a:"Add them: 185 ≠ 180, so no. Always actually add — wrong options are designed to look close."},
+    {c:5, q:"Right triangle with one angle of 34°. What's the third angle?", a:"The right angle already spent 90, so the other two split 90: the answer is 90 − 34 = 56°."},
+    {c:5, q:"A triangle's angles are x, 2x, and 3x. Find them.", a:"x + 2x + 3x = 180 → 6x = 180 → x = 30. Angles: 30°, 60°, 90°. (Answer the ANGLES if asked, not just x.)"},
+    {c:5, q:"Isosceles triangle, vertex angle 38°. What are the base angles?", a:"Base angles are equal twins: (180 − 38) ÷ 2 = 71° each."},
+
+    {c:6, q:"THE proof question: why does rearranging a triangle's three angles onto a line prove they sum to 180°?", a:"Because together they form a straight angle, and a straight angle measures 180°. The answer is about the STRAIGHT LINE — not 'because triangles are 180°' (that's circular)."},
+    {c:6, q:"In the parallel-line proof, what line do you draw?", a:"A line through the top vertex, parallel to the triangle's bottom side — like the floor and the top of the net."},
+    {c:6, q:"What are alternate interior angles?", a:"When a transversal crosses two parallel lines: the angles on opposite sides of the transversal, between the parallel lines — the 'Z' pattern. They're congruent."},
+    {c:6, q:"In the proof, why does the angle at the top copy angle A at the bottom?", a:"The triangle's side is a transversal cutting two parallel lines, so the two angles are alternate interior angles — congruent, an exact copy."},
+    {c:6, q:"Angles of 99° and 22° sit on a straight line with angle A. Find A.", a:"A + 99 + 22 = 180 → A = 59°. Rearranged-angle diagrams are just 'straight line = 180' in a costume."},
+    {c:6, q:"Why are you 'allowed' to move the triangle's angles to the top vertex at all?", a:"The parallel line guarantees congruent copies (alternate interior angles) — each angle moves without changing size. That's the whole point of the construction."}
+  ];
+
+  CARDS.forEach(function(card, i){ card.id = card.c + '-' + i; });
+
+  var PROGRESS_KEY = 'algebra-flashcards-progress:' + location.pathname;
+  var progress = {};
+  try { progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}'); } catch(e){ progress = {}; }
+  function saveProgress(){
+    try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress)); } catch(e){}
+  }
+
+  var conceptFilter = 'all';
+  var statusFilter = 'all';
+  var deck = [];
+  var pos = 0;
+  var flipped = false;
+
+  var flashcard = document.getElementById('flashcard');
+  var tagFront = document.getElementById('tag-front');
+  var tagBack = document.getElementById('tag-back');
+  var markFront = document.getElementById('mark-front');
+  var markBack = document.getElementById('mark-back');
+  var cardQ = document.getElementById('card-q');
+  var cardA = document.getElementById('card-a');
+  var posNum = document.getElementById('pos-num');
+  var posTotal = document.getElementById('pos-total');
+  var progressFill = document.getElementById('progress-fill');
+  var knowCount = document.getElementById('know-count');
+  var learningCount = document.getElementById('learning-count');
+  var stage = document.getElementById('stage');
+  var emptyState = document.getElementById('empty-state');
+  var markRow = document.getElementById('mark-row');
+  var navRow = document.getElementById('nav-row');
+
+  function conceptName(n){
+    for (var i=0;i<CONCEPTS.length;i++){ if (CONCEPTS[i].n === n) return CONCEPTS[i].name; }
+    return '';
+  }
+
+  function markIcon(id){
+    var s = progress[id];
+    if (s === 'know') return '&#10003;';
+    if (s === 'learning') return '&#8635;';
+    return '';
+  }
+
+  function buildDeck(){
+    deck = CARDS.filter(function(card){
+      if (conceptFilter !== 'all' && card.c !== conceptFilter) return false;
+      if (statusFilter !== 'all' && progress[card.id] !== statusFilter) return false;
+      return true;
     });
-  })();
+    pos = 0;
+    render();
+  }
+
+  function shuffleDeck(){
+    for (var i = deck.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = deck[i]; deck[i] = deck[j]; deck[j] = tmp;
+    }
+    pos = 0;
+    render();
+  }
+
+  function updateCounts(){
+    var know = 0, learning = 0;
+    CARDS.forEach(function(card){
+      if (progress[card.id] === 'know') know++;
+      else if (progress[card.id] === 'learning') learning++;
+    });
+    knowCount.textContent = know;
+    learningCount.textContent = learning;
+  }
+
+  function render(){
+    updateCounts();
+    flipped = false;
+    flashcard.classList.remove('flipped');
+
+    if (!deck.length){
+      stage.hidden = true; markRow.hidden = true; navRow.hidden = true; emptyState.hidden = false;
+      posNum.textContent = '0'; posTotal.textContent = '0'; progressFill.style.width = '0%';
+      return;
+    }
+    stage.hidden = false; markRow.hidden = false; navRow.hidden = false; emptyState.hidden = true;
+
+    var card = deck[pos];
+    var tag = 'Concept ' + card.c + ' · ' + conceptName(card.c);
+    tagFront.textContent = tag;
+    tagBack.textContent = tag;
+    cardQ.textContent = card.q;
+    cardA.textContent = card.a;
+    markFront.innerHTML = markIcon(card.id);
+    markBack.innerHTML = markIcon(card.id);
+    posNum.textContent = String(pos + 1);
+    posTotal.textContent = String(deck.length);
+    progressFill.style.width = (((pos + 1) / deck.length) * 100) + '%';
+  }
+
+  function flip(){ flipped = !flipped; flashcard.classList.toggle('flipped', flipped); }
+
+  function next(){ if (!deck.length) return; pos = (pos + 1) % deck.length; render(); }
+  function prev(){ if (!deck.length) return; pos = (pos - 1 + deck.length) % deck.length; render(); }
+
+  function mark(status){
+    if (!deck.length) return;
+    var card = deck[pos];
+    progress[card.id] = status;
+    saveProgress();
+    next();
+  }
+
+  flashcard.addEventListener('click', function(){ if (!swiped) flip(); });
+  flashcard.addEventListener('keydown', function(e){
+    if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); flip(); }
+    else if (e.key === 'ArrowRight'){ next(); }
+    else if (e.key === 'ArrowLeft'){ prev(); }
+  });
+
+  var swiped = false, touchStartX = 0, touchStartY = 0, touchStartT = 0;
+  flashcard.addEventListener('touchstart', function(e){
+    swiped = false;
+    var t = e.changedTouches[0];
+    touchStartX = t.clientX; touchStartY = t.clientY; touchStartT = Date.now();
+  }, {passive:true});
+  flashcard.addEventListener('touchend', function(e){
+    var t = e.changedTouches[0];
+    var dx = t.clientX - touchStartX, dy = t.clientY - touchStartY;
+    var dt = Date.now() - touchStartT;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.2 && dt < 800){
+      swiped = true;
+      if (dx < 0) next(); else prev();
+    }
+  }, {passive:true});
+
+  document.getElementById('prev-btn').addEventListener('click', prev);
+  document.getElementById('next-btn').addEventListener('click', next);
+  document.getElementById('shuffle-btn').addEventListener('click', shuffleDeck);
+  document.getElementById('mark-know').addEventListener('click', function(){ mark('know'); });
+  document.getElementById('mark-learning').addEventListener('click', function(){ mark('learning'); });
+
+  document.getElementById('concept-filter').querySelector('.tn').textContent = CARDS.length;
+  document.querySelectorAll('#concept-filter .tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('#concept-filter .tab').forEach(function(t){ t.classList.remove('active'); });
+      tab.classList.add('active');
+      var v = tab.getAttribute('data-concept');
+      conceptFilter = v === 'all' ? 'all' : parseInt(v, 10);
+      buildDeck();
+    });
+  });
+  document.querySelectorAll('#status-filter .tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('#status-filter .tab').forEach(function(t){ t.classList.remove('active'); });
+      tab.classList.add('active');
+      statusFilter = tab.getAttribute('data-status');
+      buildDeck();
+    });
+  });
+
+  buildDeck();
+})();
 </script>
