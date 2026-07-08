@@ -296,6 +296,24 @@
   .recap td.f{font-family:var(--font-mono); white-space:nowrap;}
   .recap tr:last-child td{border-bottom:none;}
   .recap .wrap{overflow-x:auto;}
+  .symbol-recap{
+    margin-top:1rem; display:grid; gap:.7rem;
+  }
+  @media (min-width:680px){ .symbol-recap{grid-template-columns:repeat(3,1fr);} }
+  .symbol-card{
+    background:var(--ground-sunken); border:1px solid var(--line); border-radius:12px;
+    padding:.8rem .85rem;
+  }
+  .symbol-card .sym{
+    display:inline-flex; align-items:center; justify-content:center;
+    min-width:2.2rem; height:2.2rem; margin-bottom:.45rem; border-radius:8px;
+    background:var(--accent-soft); color:var(--accent-strong);
+    font-family:var(--font-mono); font-size:1.2rem; font-weight:800;
+  }
+  .symbol-card h3{
+    margin:0 0 .3rem; font-size:.92rem; color:var(--ink);
+  }
+  .symbol-card p{margin:0; color:var(--ink-soft); font-size:.85rem;}
 
   footer{
     grid-column:1/-1; text-align:center; padding:1.5rem; color:var(--ink-faint); font-size:.78rem;
@@ -581,6 +599,23 @@
             <tr><td>6</td><td>Why 180&deg;</td><td>angles rearrange onto a straight line</td><td class="f">alt. interior &ang;s + straight &ang; = 180&deg;</td></tr>
           </tbody>
         </table>
+      </div>
+      <div class="symbol-recap" aria-label="Test symbol explanations">
+        <div class="symbol-card">
+          <span class="sym">∩</span>
+          <h3>Intersection: A ∩ B</h3>
+          <p>The players on <b>both</b> rosters. If A is volleyball and B is track, A ∩ B is the athletes who play volleyball and run track.</p>
+        </div>
+        <div class="symbol-card">
+          <span class="sym">∪</span>
+          <h3>Union: A ∪ B</h3>
+          <p>Everyone on <b>either</b> roster. Volleyball players, track athletes, and two-sport athletes all count, but nobody gets listed twice.</p>
+        </div>
+        <div class="symbol-card">
+          <span class="sym">∈</span>
+          <h3>Element: x ∈ A</h3>
+          <p>One person is on one roster. If Miriam ∈ V, Miriam is an element of the volleyball team set V: her name is on that team list.</p>
+        </div>
       </div>
     </section>
 
