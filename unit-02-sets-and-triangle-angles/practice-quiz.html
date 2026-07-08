@@ -274,7 +274,7 @@
   <div class="hero-inner">
     <p class="hero-eyebrow">Practice Quiz · Two Modes</p>
     <h1>Prove You Actually<br>Got It</h1>
-    <p>30 questions, all 6 concepts. <b>Practice mode</b> gives instant feedback and step-by-step reveals. <b>Exam mode</b> is the dress rehearsal — no feedback until you submit, just like the real test. Do practice first, exam mode the night before, and print the worksheet for one pass on paper.</p>
+    <p>47 questions, all 6 concepts. <b>Practice mode</b> gives instant feedback and step-by-step reveals. <b>Exam mode</b> is the dress rehearsal — no feedback until you submit, just like the real test. Do practice first, exam mode the night before, and print the worksheet for one pass on paper.</p>
     <div class="hero-actions" style="display:flex; gap:.5rem; flex-wrap:wrap;">
       <button class="btn" id="theme-toggle" type="button">🌓 Theme</button>
       <button class="btn" id="exam-toggle" type="button">🎯 Exam mode</button>
@@ -399,6 +399,14 @@
         {text:'{2, 4, 6} is a set whose elements are all in U.', correct:true}
       ],
       steps:['∅ ⊆ every set, always','{0} has one element (zero); ∅ has none — not the same','U stops at 12, so 13 ∉ U','2, 4, and 6 are all on U\'s roster ✓']},
+    {concept:1, type:'mc', prompt:'Which of these is read "the set of all x such that x is in U and x is odd"?',
+      choices:['{x | x ∈ U and x is odd}','{x ∈ odd | U}','{odd x, some of U}','U = {x is odd}'], correct:0,
+      steps:['the braces say "the set of all x"','the bar | is pronounced "such that"','then the membership rule: x ∈ U and x is odd']},
+    {concept:1, type:'mc', prompt:'U = {all colors on the US flag}. Write U in roster form. (Sets aren\'t always numbers!)',
+      choices:['{red, white, blue}','{red, white}','{stars, stripes}','∅'], correct:0,
+      steps:['a set can hold anything — colors, animals, triangles','roster form just lists the elements','U = {red, white, blue}']},
+    {concept:1, type:'numeric', prompt:'U = {1, 2, 3, … , 20}. How many elements are in {x | x ∈ U and x is a multiple of 6}?', answer:3,
+      steps:['walk U: 6 ✓ 12 ✓ 18 ✓ (24 is past 20)','the set is {6, 12, 18}','3 elements']},
 
     // ---- Concept 2: Subsets ----
     {concept:2, type:'mc', prompt:'Which sets can be represented using this Venn diagram?', figure:'subset',
@@ -416,6 +424,17 @@
     {concept:2, type:'mc', prompt:'Every equilateral triangle is also…',
       choices:['isosceles','scalene','right','obtuse'], correct:0,
       steps:['equilateral: 3 equal sides and three 60° angles','3 equal sides means at least 2 equal sides → isosceles','60° angles are all acute — never right or obtuse']},
+    {concept:2, type:'checkbox', prompt:'A = {2, 4, 6, 8}, B = {4, 8}, C = {4, 5}. Check every TRUE statement.',
+      statements:[
+        {text:'B ⊆ A', correct:true},
+        {text:'C ⊆ A', correct:false},
+        {text:'4 ∈ C', correct:true},
+        {text:'B ⊆ C', correct:false}
+      ],
+      steps:['B: 4 ✓ and 8 ✓ are both in A → B ⊆ A','C: 5 ∉ A — one outsider breaks the subset promise','4 is on C\'s roster → 4 ∈ C','B\'s 8 isn\'t in C → B is not a subset of C']},
+    {concept:2, type:'mc', prompt:'A Venn diagram shows circle B entirely inside circle A. Which statement MUST be true?',
+      choices:['If x ∈ B, then x ∈ A','If x ∈ A, then x ∈ B','A and B have no elements in common','A ∪ B is empty'], correct:0,
+      steps:['B inside A = every element of B is also in A','that\'s exactly "if you\'re in B, you\'re automatically in A"','the reverse isn\'t guaranteed — A can have elements outside B']},
 
     // ---- Concept 3: Union & Intersection ----
     {concept:3, type:'mc', prompt:'If k ∈ A ∩ B, which is the MOST specific location of k on the Venn diagram?', figure:'regions',
@@ -431,6 +450,17 @@
     {concept:3, type:'mc', prompt:'On the four-region Venn diagram, A ∪ B covers which regions?', figure:'regions',
       choices:['I, II, and III','II only','I and III only','I, II, III, and IV'], correct:0,
       steps:['union = in either set (or both)','A only + both + B only = I + II + III','region IV is in NEITHER set, so it\'s left out']},
+    {concept:3, type:'mc', prompt:'A = {red, orange, yellow} and B = {yellow, green, blue}. What is A ∩ B?',
+      choices:['{yellow}','{red, orange, yellow, green, blue}','∅','{red, blue}'], correct:0,
+      steps:['∩ = on BOTH rosters','only yellow appears in both lists','A ∩ B = {yellow} — the big five-color list is the UNION, not the intersection']},
+    {concept:3, type:'mc', prompt:'Spirit week: C = {students in costume}, F = {students with face paint}. Which set is "everyone with a costume, face paint, or both"?',
+      choices:['C ∪ F','C ∩ F','C ⊆ F','U'], correct:0,
+      steps:['"or (or both)" = union','C ∪ F sweeps up regions I + II + III','C ∩ F would be ONLY the students rocking both']},
+    {concept:3, type:'numeric', prompt:'n(A) = 12, n(B) = 9, and n(A ∩ B) = 4. What is n(A ∪ B)? (No rosters this time — use the formula.)', answer:17,
+      steps:['n(A ∪ B) = n(A) + n(B) − n(A ∩ B)','= 12 + 9 − 4','= 17']},
+    {concept:3, type:'mc', prompt:'Suppose A ⊆ B. What is A ∩ B?',
+      choices:['A','B','∅','U'], correct:0,
+      steps:['every element of A is already in B','so "in both A and B" is just… "in A"','A ∩ B = A (subsets and intersections, working together)']},
 
     // ---- Concept 4: Sets → Probability & Geometry ----
     {concept:4, type:'mc', prompt:'You roll one die. A = {even} and B = {greater than 4}. What is P(A ∩ B)?',
@@ -447,6 +477,12 @@
     {concept:4, type:'mc', prompt:'Which triangle is in BOTH set R (right triangles) and set I (isosceles triangles)?',
       choices:['angles 90°, 45°, 45°','angles 90°, 60°, 30°','angles 60°, 60°, 60°','angles 100°, 40°, 40°'], correct:0,
       steps:['R ∩ I needs: one 90° angle AND two equal angles','90-45-45 has both ✓','90-60-30 is right but not isosceles; 60-60-60 is isosceles but not right; 100-40-40 is obtuse isosceles']},
+    {concept:4, type:'mc', prompt:'A spinner has 8 equal sections numbered 1–8. What is P(odd AND greater than 5)?',
+      choices:['1/8','2/8','3/8','5/8'], correct:0,
+      steps:['U = {1,…,8}, odd = {1,3,5,7}, greater than 5 = {6,7,8}','the intersection is just {7}','P = 1/8']},
+    {concept:4, type:'mc', prompt:'20 students, and 17 of them are in V ∪ T (on at least one team). One student is picked at random. What is P(she\'s on NEITHER team)?',
+      choices:['3/20','17/20','3/17','1/2'], correct:0,
+      steps:['"neither" = region IV = everyone outside the union','20 − 17 = 3 students','P = 3/20 — and note the denominator is all 20, not 17']},
 
     // ---- Concept 5: Triangle Angle Sum ----
     {concept:5, type:'numeric', prompt:'What is the value of B (in degrees)?', figure:['tri','47°','B°','62°'], answer:71,
@@ -468,6 +504,13 @@
         {text:'Every angle of an equilateral triangle is 60°.', correct:true}
       ],
       steps:['90+45+45 = 180 ✓','62×3 = 186 ✗ (the equal-angle version that works is 60-60-60)','two 90s already spend the whole budget with 0° left for the third corner — impossible','180 ÷ 3 = 60 ✓']},
+    {concept:5, type:'numeric', prompt:'A triangle\'s angles are (x + 10)°, (2x − 30)°, and x°. What is x?', answer:50,
+      steps:['(x+10) + (2x−30) + x = 180','4x − 20 = 180','4x = 200 → x = 50 (angles: 60°, 70°, 50° — check: they sum to 180 ✓)']},
+    {concept:5, type:'numeric', prompt:'All three angles of a triangle are equal. What is each angle (in degrees)?', answer:60,
+      steps:['3a = 180','a = 60°','that\'s the equilateral triangle — the ONLY equal-angle combo that works (sorry, 62-62-62)']},
+    {concept:5, type:'mc', prompt:'A ramp leans against a wall. The ramp meets the flat ground at 22°, and the wall meets the ground at 90°. What angle does the ramp make with the wall?',
+      choices:['68°','90°','112°','158°'], correct:0,
+      steps:['ramp + ground + wall form a triangle','22 + 90 + ? = 180','? = 68° — real-world setups are still just the 180° budget']},
 
     // ---- Concept 6: Why 180° Works (The Proofs) ----
     {concept:6, type:'mc', prompt:'Lines DE and AB are parallel. Which angles are congruent?', figure:'transversal',
@@ -483,7 +526,21 @@
       choices:['alternate interior angles','vertical angles','supplementary angles','the same angle'], correct:0,
       steps:['the triangle\'s side is a transversal across the two parallel lines','the two angles sit on opposite sides of it, between the parallels — the "Z" pattern','alternate interior angles of parallel lines are congruent — that\'s what lets each angle "move" to the top without changing size']},
     {concept:6, type:'numeric', prompt:'A triangle\'s three angles are rearranged onto a straight line. Two of them measure 64° and 71°. What is the third (in degrees)?', figure:['line','64°','?','71°'], answer:45,
-      steps:['straight line = 180°','64 + 71 = 135','third angle = 180 − 135 = 45°']}
+      steps:['straight line = 180°','64 + 71 = 135','third angle = 180 − 135 = 45°']},
+    {concept:6, type:'mc', prompt:'Two parallel lines are cut by a transversal. One of the two alternate interior angles measures 48°. What does the other one measure?',
+      choices:['48° — alternate interior angles are congruent','132°','90°','Not enough information'], correct:0,
+      steps:['parallel lines + transversal → alternate interior angles are CONGRUENT','congruent = exact same measure','48°. (132° is the supplementary-angle trap.)']},
+    {concept:6, type:'mc', prompt:'Fill in the blank: in the proof, the line drawn through the top vertex must be ______ the triangle\'s base — otherwise the angle copies aren\'t congruent.',
+      choices:['parallel to','perpendicular to','the same length as','tangent to'], correct:0,
+      steps:['alternate interior angles are only congruent when the two lines are PARALLEL','no parallel line → no congruent copies → the proof falls apart']},
+    {concept:6, type:'checkbox', prompt:'About the 180° proof — check every TRUE statement.',
+      statements:[
+        {text:'A straight angle measures 180°.', correct:true},
+        {text:'When the three angles are rearranged onto a line, they leave a small gap.', correct:false},
+        {text:'Alternate interior angles are congruent only when the lines are parallel.', correct:true},
+        {text:'The proof only works for right triangles.', correct:false}
+      ],
+      steps:['straight angle = 180° — the anchor of the whole proof','no gap, no overlap: they fit EXACTLY, which is why the sum is exactly 180','the parallel line is what guarantees the congruent copies','it works for every triangle — that\'s the whole point of a proof']}
   ];
 
   function figureSvg(f){
@@ -508,7 +565,7 @@
   var examToggle = document.getElementById('exam-toggle');
   var mode = 'practice';
 
-  var PROGRESS_KEY = 'algebra-quiz-progress:' + location.pathname;
+  var PROGRESS_KEY = 'algebra-quiz-progress:' + location.pathname + ':v2';
   var progress = null;
   try { progress = JSON.parse(localStorage.getItem(PROGRESS_KEY)); } catch(e){}
   if(!progress || typeof progress !== 'object') progress = {score:0, streak:0, answered:{}};
