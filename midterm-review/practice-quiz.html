@@ -1,6 +1,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Miriam's Algebra 1 — Study Kit Index</title>
+<title>Cumulative Review — Practice Quiz</title>
 <style>
   @font-face{
     font-family:'Anton'; font-style:normal; font-weight:400; font-display:swap;
@@ -16,6 +16,7 @@
     --line:#D5E1DE;
     --accent:#0F7A78; --accent-strong:#095452; --accent-soft:#DFF1EF;
     --gold:#C9821A; --gold-soft:#FBEBCC;
+    --good:#2E7D32; --good-soft:#E4F3E1; --bad:#B23A3A; --bad-soft:#FBE6E6;
     --radius:16px;
     --shadow:0 1px 2px rgba(14,27,30,.06), 0 10px 28px -14px rgba(14,27,30,.2);
     --font-display:'Anton', impact, sans-serif;
@@ -29,6 +30,7 @@
       --ink:#E9F3F1; --ink-soft:#A6BEBB; --ink-faint:#6E8583; --line:#213231;
       --accent:#2FC7C0; --accent-strong:#8FE6E1; --accent-soft:#123230;
       --gold:#E0AC52; --gold-soft:#332711;
+      --good:#5FBD5F; --good-soft:#163A18; --bad:#F0685F; --bad-soft:#3B1616;
       --shadow:0 1px 2px rgba(0,0,0,.35), 0 10px 28px -14px rgba(0,0,0,.55);
     }
   }
@@ -37,6 +39,7 @@
     --ink:#E9F3F1; --ink-soft:#A6BEBB; --ink-faint:#6E8583; --line:#213231;
     --accent:#2FC7C0; --accent-strong:#8FE6E1; --accent-soft:#123230;
     --gold:#E0AC52; --gold-soft:#332711;
+    --good:#5FBD5F; --good-soft:#163A18; --bad:#F0685F; --bad-soft:#3B1616;
     --shadow:0 1px 2px rgba(0,0,0,.35), 0 10px 28px -14px rgba(0,0,0,.55);
   }
   :root[data-theme="light"]{
@@ -44,6 +47,7 @@
     --ink:#0E1B1E; --ink-soft:#48595C; --ink-faint:#7C8C8C; --line:#D5E1DE;
     --accent:#0F7A78; --accent-strong:#095452; --accent-soft:#DFF1EF;
     --gold:#C9821A; --gold-soft:#FBEBCC;
+    --good:#2E7D32; --good-soft:#E4F3E1; --bad:#B23A3A; --bad-soft:#FBE6E6;
     --shadow:0 1px 2px rgba(14,27,30,.06), 0 10px 28px -14px rgba(14,27,30,.2);
   }
   *{box-sizing:border-box;}
@@ -52,257 +56,1671 @@
     font-size:16px; line-height:1.5; -webkit-font-smoothing:antialiased;
   }
   ::selection{background:var(--gold-soft); color:var(--ink);}
-  a{color:inherit;}
-  button:focus-visible, a:focus-visible{outline:3px solid var(--gold); outline-offset:2px;}
+  button, input{font-family:inherit; font-size:1rem;}
+  button:focus-visible, input:focus-visible{outline:3px solid var(--gold); outline-offset:2px;}
 
-  header.hero{padding:2.4rem clamp(1rem,4vw,2.5rem) 1.6rem; border-bottom:1px solid var(--line);}
-  .hero-inner{max-width:1040px; margin:0 auto;}
+  header.hero{
+    padding:2.2rem clamp(1rem,4vw,2.5rem) 1.4rem; border-bottom:1px solid var(--line);
+  }
+  .hero-inner{max-width:900px; margin:0 auto;}
   .hero-eyebrow{font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; font-weight:700; color:var(--accent-strong); margin:0 0 .4rem;}
   header.hero h1{
-    font-family:var(--font-display); font-weight:400; text-transform:uppercase; letter-spacing:.01em;
-    font-size:clamp(2.1rem,5vw,3.2rem); line-height:.95; margin:0 0 .5rem; text-wrap:balance;
+    font-family:var(--font-display); font-weight:400; text-transform:uppercase;
+    font-size:clamp(2rem,5.5vw,3rem); line-height:.95; margin:0 0 .5rem; text-wrap:balance;
   }
-  header.hero p{color:var(--ink-soft); max-width:60ch; margin:0; font-size:1.03rem;}
-  .hero-actions{margin-top:1rem;}
+  header.hero p{color:var(--ink-soft); max-width:56ch; margin:0; font-size:1.03rem;}
+  .hero-actions{margin-top:.9rem;}
   .btn{
     border:1px solid var(--line); background:var(--ground-raised); color:var(--ink);
     padding:.5rem .9rem; border-radius:999px; font-size:.82rem; font-weight:600; cursor:pointer; box-shadow:var(--shadow);
     min-height:2.75rem; display:inline-flex; align-items:center; justify-content:center;
   }
 
-  main{max-width:1040px; margin:0 auto; padding:2rem clamp(1rem,4vw,2.5rem) 4rem;}
-
-  .unit-block{margin-bottom:2.4rem;}
-  .unit-head{display:flex; align-items:baseline; gap:.9rem; flex-wrap:wrap; margin-bottom:.4rem;}
-  .unit-badge{
-    font-family:var(--font-mono); font-size:.72rem; font-weight:700; letter-spacing:.06em;
-    background:var(--accent); color:#F4FFFE; padding:.25rem .6rem; border-radius:6px;
+  .scorebar{position:sticky; top:0; z-index:30; background:var(--ground-raised); border-bottom:1px solid var(--line);}
+  .scorebar-inner{
+    max-width:900px; margin:0 auto; padding:.7rem clamp(1rem,4vw,2.5rem);
+    display:flex; align-items:center; gap:1rem; flex-wrap:wrap;
   }
-  .unit-head h2{
-    font-family:var(--font-display); font-weight:400; text-transform:uppercase; font-size:1.5rem; margin:0;
+  .chip{
+    font-size:.85rem; font-weight:700; background:var(--ground-sunken); padding:.35rem .7rem; border-radius:999px;
+    white-space:nowrap;
   }
-  .unit-desc{color:var(--ink-faint); font-size:.88rem; margin:.2rem 0 1.1rem; max-width:70ch;}
+  .chip b{color:var(--accent-strong); font-family:var(--font-mono);}
+  .chip .best{color:var(--ink-faint); font-weight:500; margin-left:.4rem;}
+  .chip .best b{color:var(--gold); font-family:var(--font-mono);}
+  .court-progress{flex:1; min-width:140px;}
+  .court-track{
+    position:relative; height:10px; border-radius:999px; background:var(--ground-sunken);
+    border:1px solid var(--line); overflow:visible;
+  }
+  .court-fill{
+    position:absolute; inset:0 auto 0 0; width:0%; background:var(--accent); border-radius:999px 0 0 999px; transition:width .3s ease;
+  }
+  .ball{position:absolute; top:50%; left:0%; transform:translate(-50%,-50%); font-size:1.1rem; transition:left .3s ease;}
 
-  .card-grid{display:grid; gap:1rem; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));}
-  .card{
-    display:flex; flex-direction:column;
+  main{max-width:900px; margin:0 auto; padding:1.6rem clamp(1rem,4vw,2.5rem) 4rem;}
+  .qconcept{margin-bottom:1.8rem;}
+  .qconcept-head{display:flex; align-items:center; gap:.7rem; margin-bottom:.7rem;}
+  .qconcept-head .badge{
+    font-family:var(--font-display); background:var(--accent); color:#F4FFFE; width:2.1rem; height:2.1rem;
+    border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1.05rem; flex:none;
+  }
+  .qconcept-head h2{font-family:var(--font-display); font-weight:400; text-transform:uppercase; font-size:1.25rem; margin:0;}
+
+  .qcard{
     background:var(--ground-raised); border:1px solid var(--line); border-radius:var(--radius);
-    box-shadow:var(--shadow); transition:transform .15s ease, border-color .15s ease;
+    padding:1.1rem 1.2rem; margin-bottom:.8rem; box-shadow:var(--shadow); transition:border-color .2s ease;
   }
-  .card:hover{transform:translateY(-2px); border-color:var(--accent);}
-  .card-main{
-    display:flex; flex-direction:column; gap:.5rem;
-    padding:1.2rem 1.3rem 1rem; text-decoration:none; color:var(--ink); flex:1;
+  .qcard.correct{border-color:var(--good);}
+  .qcard.incorrect-flash{border-color:var(--bad);}
+  .qprompt{font-size:1.02rem; margin:0 0 .8rem; font-weight:600;}
+  .qrow{display:flex; gap:.6rem; flex-wrap:wrap; align-items:center;}
+  .qinput{
+    padding:.55rem .7rem; border:1px solid var(--line); border-radius:10px; background:var(--ground-sunken);
+    color:var(--ink); font-family:var(--font-mono); width:8rem; min-height:2.75rem;
+    -moz-appearance:textfield;
   }
-  .card-icon{font-size:1.6rem; line-height:1;}
-  .card-title{font-family:var(--font-display); font-weight:400; text-transform:uppercase; font-size:1.05rem; letter-spacing:.01em;}
-  .card-desc{color:var(--ink-soft); font-size:.85rem; line-height:1.45; flex:1;}
-  .card-foot{
-    display:flex; align-items:center; justify-content:space-between; gap:.6rem;
-    padding:.7rem 1.3rem; border-top:1px solid var(--line);
+  .qinput::-webkit-outer-spin-button, .qinput::-webkit-inner-spin-button{-webkit-appearance:none; margin:0;}
+  .sign-btn{width:2.75rem; padding:.5rem; font-size:1rem; font-weight:800;}
+  .qcard.correct .qinput, .qcard.correct .mc-btn.picked{border-color:var(--good); background:var(--good-soft);}
+  .mc-list{display:grid; gap:.55rem;}
+  @media (min-width:520px){ .mc-list{grid-template-columns:1fr 1fr;} }
+  .mc-btn{
+    text-align:left; padding:.65rem .8rem; border:1px solid var(--line); background:var(--ground-sunken);
+    border-radius:10px; cursor:pointer; font-size:.92rem;
   }
-  .card-file{font-family:var(--font-mono); font-size:.72rem; color:var(--ink-faint);}
+  .mc-btn.correct-pick{background:var(--good-soft); border-color:var(--good); color:var(--good); font-weight:700;}
+  .mc-btn.wrong-pick{background:var(--bad-soft); border-color:var(--bad); color:var(--bad); font-weight:700;}
 
-  .next-unit{
-    border:1px dashed var(--line); border-radius:var(--radius); padding:1.2rem 1.3rem;
-    color:var(--ink-faint); font-size:.88rem; text-align:center;
+  .check-list{display:flex; flex-direction:column; gap:.5rem;}
+  .check-item{
+    display:flex; align-items:flex-start; gap:.6rem; text-align:left; width:100%;
+    padding:.65rem .8rem; border:1px solid var(--line); background:var(--ground-sunken);
+    border-radius:10px; cursor:pointer; font-size:.92rem; color:var(--ink); font-family:inherit;
   }
+  .check-item .box{
+    flex:none; width:1.3rem; height:1.3rem; margin-top:.05rem; border:2px solid var(--ink-faint); border-radius:5px;
+    display:flex; align-items:center; justify-content:center; font-size:.85rem; font-weight:800; line-height:1;
+  }
+  .check-item.picked{border-color:var(--accent);}
+  .check-item.picked .box{background:var(--accent); border-color:var(--accent); color:#F4FFFE;}
+  .check-item.picked .box::after{content:'✓';}
+  .check-item.resolved-true{background:var(--good-soft); border-color:var(--good);}
+  .check-item.resolved-true .box{background:var(--good); border-color:var(--good); color:#fff;}
+  .check-item.resolved-true .box::after{content:'✓';}
+  .check-item.resolved-false .box{background:transparent; border-color:var(--ink-faint); color:var(--ink-faint);}
+  .check-item.resolved-false .box::after{content:'✕';}
+  .check-submit{margin-top:.2rem;}
+  .mc-btn[disabled]{cursor:default;}
+  .graph-list{display:grid; gap:.6rem; grid-template-columns:repeat(2,1fr);}
+  @media (min-width:520px){ .graph-list{grid-template-columns:repeat(4,1fr);} }
+  .graph-btn{
+    padding:.4rem; border:2px solid var(--line); border-radius:10px; background:var(--ground-sunken);
+    color:var(--ink); cursor:pointer; min-height:2.75rem;
+  }
+  .graph-btn svg{width:100%; height:auto; display:block;}
+  .graph-btn.correct-pick{border-color:var(--good); background:var(--good-soft);}
+  .graph-btn.wrong-pick{border-color:var(--bad); background:var(--bad-soft);}
+  .graph-btn[disabled]{cursor:default;}
+  .feedback{margin-top:.6rem; font-weight:700; font-size:.92rem;}
+  .feedback.good{color:var(--good);}
+  .feedback.bad{color:var(--bad);}
+  details.steps{margin-top:.6rem;}
+  details.steps summary{cursor:pointer; font-size:.78rem; color:var(--ink-faint); font-weight:700; text-transform:uppercase; letter-spacing:.05em;}
+  details.steps .steps-body{
+    margin-top:.5rem; background:var(--ground-sunken); border-radius:8px; padding:.6rem .8rem;
+    font-family:var(--font-mono); font-size:.88rem; display:flex; flex-direction:column; gap:.25rem;
+  }
+  @keyframes shake{ 0%,100%{transform:translateX(0);} 25%{transform:translateX(-5px);} 75%{transform:translateX(5px);} }
+  .shake{animation:shake .3s ease;}
+  @media (prefers-reduced-motion: reduce){ .shake{animation:none;} }
+
+  .finale{
+    display:none; text-align:center; padding:2rem 1.2rem; background:var(--ground-raised); border:1px solid var(--line);
+    border-radius:var(--radius); box-shadow:var(--shadow); margin-top:1rem;
+  }
+  .finale.show{display:block;}
+  .finale h2{font-family:var(--font-display); font-weight:400; text-transform:uppercase; font-size:2rem; margin:0 0 .4rem;}
+  .finale p{color:var(--ink-soft); margin:.2rem 0 0;}
 
   footer{text-align:center; color:var(--ink-faint); font-size:.78rem; padding:1.5rem;}
+
+  .site-nav{
+    display:flex; align-items:center; gap:.5rem; overflow-x:auto;
+    padding:.5rem clamp(1rem,4vw,2.5rem); border-bottom:1px solid var(--line);
+    background:var(--ground-sunken); -webkit-overflow-scrolling:touch; scrollbar-width:none;
+  }
+  .site-nav::-webkit-scrollbar{display:none;}
+  .site-nav a{
+    flex:none; display:inline-flex; align-items:center; justify-content:center; white-space:nowrap;
+    padding:.5rem .85rem; border-radius:999px; font-size:.78rem; font-weight:700;
+    text-decoration:none; color:var(--ink-soft); min-height:2.75rem;
+  }
+  .site-nav a.home{color:var(--accent-strong); background:var(--ground-raised); border:1px solid var(--line); box-shadow:var(--shadow);}
+  .site-nav a.page:hover{color:var(--ink);}
+  .site-nav a.page.active{background:var(--accent); color:#F4FFFE;}
 </style>
+
+<style>
+  /* ---- Unit 2 additions: figures, exam mode, printable worksheet ---- */
+  .qfigure{margin:0 0 .8rem;}
+  .qfigure svg{
+    max-width:320px; width:100%; height:auto; display:block;
+    background:var(--ground-sunken); border:1px solid var(--line); border-radius:10px;
+  }
+  .mc-btn.picked{border-color:var(--accent); background:var(--accent-soft); font-weight:700;}
+  .qcard.exam-wrong{border-color:var(--bad);}
+  .exambar{
+    position:sticky; top:0; z-index:30; background:var(--gold-soft); color:var(--gold);
+    border-bottom:1px solid var(--line); font-weight:700; font-size:.9rem;
+    padding:.7rem clamp(1rem,4vw,2.5rem); text-align:center;
+  }
+  body.exam-mode .scorebar{display:none;}
+  .exam-submit-card{
+    background:var(--ground-raised); border:1px solid var(--line); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:1.4rem; text-align:center; margin-top:1.5rem;
+  }
+  .exam-submit-card p{color:var(--ink-soft); margin:.4rem 0 .9rem;}
+  .btn.primary{background:var(--accent); border-color:var(--accent); color:#F4FFFE;}
+  .exam-summary{
+    background:var(--ground-raised); border:2px solid var(--accent); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:1.4rem; margin-bottom:1.5rem;
+  }
+  .exam-summary h2{font-family:var(--font-display); font-weight:400; text-transform:uppercase; font-size:1.8rem; margin:0 0 .3rem;}
+  .exam-summary .big-score{font-family:var(--font-display); font-size:2.6rem; color:var(--accent-strong); margin:.2rem 0;}
+  .exam-summary ul{list-style:none; padding:0; margin:.6rem 0 0; display:flex; flex-direction:column; gap:.3rem;}
+  .exam-summary li{font-size:.92rem;}
+  .exam-summary li b{font-family:var(--font-mono); color:var(--accent-strong);}
+  .exam-summary .controls{display:flex; gap:.6rem; flex-wrap:wrap; margin-top:1rem;}
+
+  #worksheet{display:none;}
+  @media print{
+    body.print-worksheet > *:not(#worksheet){display:none !important;}
+    body.print-worksheet #worksheet{
+      display:block; color:#000;
+      --ink:#000; --ink-soft:#333; --line:#999;
+      --accent:#0F7A78; --gold:#C9821A; --bad:#B23A3A;
+      --ground-sunken:#fff;
+      font-size:12pt;
+    }
+    body.print-worksheet #worksheet svg{background:#fff;}
+  }
+  #worksheet .ws-head{border-bottom:2px solid #000; padding-bottom:.5rem; margin-bottom:1.2rem;}
+  #worksheet .ws-head h2{font-family:var(--font-display); font-weight:400; text-transform:uppercase; margin:0 0 .3rem;}
+  #worksheet .ws-head p{margin:.2rem 0;}
+  #worksheet .ws-q{page-break-inside:avoid; margin:0 0 1.6rem; padding-bottom:.9rem; border-bottom:1px dotted #bbb;}
+  #worksheet .ws-q p{margin:.3rem 0;}
+  #worksheet .ws-fig svg{max-width:280px; height:auto; display:block; margin:.4rem 0;}
+  #worksheet .ws-choices{list-style:upper-alpha; margin:.4rem 0 0 1.6rem; padding:0;}
+  #worksheet .ws-choices li{margin:.25rem 0;}
+  #worksheet .ws-answer{margin-top:.9rem; font-weight:700;}
+  #worksheet .ws-work{color:#888; font-size:.8rem; margin-top:.8rem; min-height:3.2rem;}
+  #worksheet .ws-key{page-break-before:always; border-top:2px solid #000; padding-top:.6rem;}
+  #worksheet .ws-key h2{font-family:var(--font-display); font-weight:400; text-transform:uppercase;}
+  #worksheet .ws-key ol{columns:2; column-gap:2rem; margin:.5rem 0 0 1.2rem; padding:0;}
+  #worksheet .ws-key li{margin:.25rem 0; break-inside:avoid;}
+</style>
+<nav class="site-nav" aria-label="Unit navigation">
+  <a class="home" href="../index.html">&larr; Index</a>
+  <a class="page" href="cheat-sheet.html">Cheat Sheet</a>
+  <a class="page" href="flashcards.html">Flashcards</a>
+  <a class="page active" href="practice-quiz.html">Quiz</a>
+</nav>
 
 <header class="hero">
   <div class="hero-inner">
-    <p class="hero-eyebrow">Study Kit Index</p>
-    <h1>Miriam's Algebra 1</h1>
-    <p>One row per unit test. Each unit gets the same five pieces: a study guide for during the test, an explainer for before it, a playground to practice in, flashcards to drill on the go, and a quiz to prove it stuck.</p>
-    <div class="hero-actions">
+    <p class="hero-eyebrow">Cumulative Review &middot; Randomized</p>
+    <h1>The Whole First Half,<br>Fresh Every Time</h1>
+    <p>Every topic from the first half of the class, 5&ndash;6 questions each — and the numbers are <b>re-rolled every time you deal a new set</b>, so you can't memorize answers, only methods. <b>Practice mode</b> gives instant feedback and steps. <b>Exam mode</b> is the dress rehearsal — and it deals its own fresh set every run.</p>
+    <div class="hero-actions" style="display:flex; gap:.5rem; flex-wrap:wrap;">
       <button class="btn" id="theme-toggle" type="button">🌓 Theme</button>
+      <button class="btn" id="exam-toggle" type="button">🎯 Exam mode</button>
+      <button class="btn" id="print-ws" type="button">🖨️ Print worksheet</button>
+      <button class="btn" id="reset-quiz" type="button">🎲 New questions</button>
     </div>
   </div>
 </header>
 
-<main>
+<div class="exambar" id="exam-bar" hidden>🎯 Exam mode — a brand-new set of questions, no hints, no feedback until you Submit at the bottom. Just like the real thing.</div>
 
-  <section class="unit-block">
-    <div class="unit-head">
-      <span class="unit-badge">Unit 1</span>
-      <h2>Linear Equations &amp; Inequalities</h2>
+<div class="scorebar">
+  <div class="scorebar-inner">
+    <div class="chip">Score <b id="score-val">0</b>/<span id="score-total">0</span></div>
+    <div class="chip">🔥 <b id="streak-val">0</b> streak <span class="best">best <b id="streak-best">0</b></span></div>
+    <div class="court-progress">
+      <div class="court-track"><div class="court-fill" id="court-fill"></div><div class="ball" id="court-ball">🏐</div></div>
     </div>
-    <p class="unit-desc">Solving equations, variable on one side, variables on both sides, the distributive property, literal equations, compound inequalities, graphing and modeling two-variable inequalities.</p>
-    <div class="card-grid">
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/study-guide.html">
-          <span class="card-icon">📘</span>
-          <span class="card-title">Study Guide</span>
-          <span class="card-desc">Open-notes reference — one worked example per concept. Use this one during the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">study-guide.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/concept-explainers.html">
-          <span class="card-icon">🧠</span>
-          <span class="card-title">The Explainer</span>
-          <span class="card-desc">ELI5 deep-dive with volleyball analogies, the "why," and common mistakes. Read this before the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">concept-explainers.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/playground.html">
-          <span class="card-icon">🏐</span>
-          <span class="card-title">The Playground</span>
-          <span class="card-desc">8 hands-on stations — drive an equation solver, build a graph, test points, drag sliders.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">playground.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/practice-quiz.html">
-          <span class="card-icon">🎯</span>
-          <span class="card-title">Practice Quiz</span>
-          <span class="card-desc">33 questions, instant feedback, score + streak tracker. Prove you've got it.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">practice-quiz.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/flashcards.html">
-          <span class="card-icon">🃏</span>
-          <span class="card-title">Flashcards</span>
-          <span class="card-desc">32 tap-to-flip cards by concept. Swipe through on your phone, mark what's still shaky.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">flashcards.html</span>
-        </div>
-      </div>
-    </div>
-  </section>
+  </div>
+</div>
 
-  <section class="unit-block">
-    <div class="unit-head">
-      <span class="unit-badge">Unit 2</span>
-      <h2>Sets, Venn Diagrams &amp; Triangle Angles</h2>
-    </div>
-    <p class="unit-desc">Sets and elements, subsets, union and intersection with Venn diagrams, sets applied to probability and geometry, the triangle angle-sum theorem, and the two proofs of why the angles always make 180°.</p>
-    <div class="card-grid">
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/study-guide.html">
-          <span class="card-icon">📘</span>
-          <span class="card-title">Study Guide</span>
-          <span class="card-desc">Open-notes reference — one worked example per concept. Use this one during the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">study-guide.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/concept-explainers.html">
-          <span class="card-icon">🧠</span>
-          <span class="card-title">The Explainer</span>
-          <span class="card-desc">ELI5 deep-dive with volleyball analogies, the "why," and common mistakes. Read this before the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">concept-explainers.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/playground.html">
-          <span class="card-icon">🏐</span>
-          <span class="card-title">The Playground</span>
-          <span class="card-desc">6 hands-on stations — build sets, click Venn regions, bend a live triangle, run the 180° proof yourself.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">playground.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/practice-quiz.html">
-          <span class="card-icon">🎯</span>
-          <span class="card-title">Practice Quiz</span>
-          <span class="card-desc">47 questions, two modes: instant-feedback practice and a no-hints exam mode. Plus a printable worksheet.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">practice-quiz.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/flashcards.html">
-          <span class="card-icon">🃏</span>
-          <span class="card-title">Flashcards</span>
-          <span class="card-desc">35 tap-to-flip cards by concept. Swipe through on your phone, mark what's still shaky.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">flashcards.html</span>
-        </div>
-      </div>
-    </div>
-  </section>
+<main id="quiz-root"></main>
 
-  <section class="unit-block">
-    <div class="unit-head">
-      <span class="unit-badge">Midterm</span>
-      <h2>Cumulative Review — First Half</h2>
-    </div>
-    <p class="unit-desc">Everything from the first half of the class: solving equations, literal equations &amp; formulas, inequalities, function basics, reading graphs, lines &amp; sequences, and sets. The quiz re-rolls its numbers every time, so it can't be memorized — only learned.</p>
-    <div class="card-grid">
-      <div class="card">
-        <a class="card-main" href="midterm-review/cheat-sheet.html">
-          <span class="card-icon">🗒️</span>
-          <span class="card-title">Cheat Sheet</span>
-          <span class="card-desc">The whole exam on one scannable page — 10 one-sentence big ideas plus "do this" boxes for all 7 topics. Print it.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">cheat-sheet.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="midterm-review/practice-quiz.html">
-          <span class="card-icon">🎲</span>
-          <span class="card-title">Practice Quiz</span>
-          <span class="card-desc">41 questions, 5–6 per topic — with fresh numbers on every deal. Practice mode, exam mode, and printable worksheets that regenerate every print.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">practice-quiz.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="midterm-review/flashcards.html">
-          <span class="card-icon">🃏</span>
-          <span class="card-title">Flashcards</span>
-          <span class="card-desc">40 tap-to-flip cards across all 7 topics. Swipe through on your phone, mark what's still shaky.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">flashcards.html</span>
-        </div>
-      </div>
-    </div>
-  </section>
+<div id="worksheet" aria-hidden="true"></div>
 
-  <div class="next-unit">Unit 3 shows up here once the next test is announced.</div>
-
-</main>
-
-<footer>Miriam's Algebra 1 · Study Kit Index</footer>
+<footer>Miriam's Algebra 1 · Cumulative Review Quiz</footer>
 
 <script>
-  (function(){
-    var root = document.documentElement;
-    var toggle = document.getElementById('theme-toggle');
-    var stored = null;
-    try { stored = localStorage.getItem('algebra-theme'); } catch(e){}
-    if (stored) root.setAttribute('data-theme', stored);
-    toggle.addEventListener('click', function(){
-      var current = root.getAttribute('data-theme');
-      var next = current === 'dark' ? 'light' : 'dark';
-      if (!current){ next = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark'; }
-      root.setAttribute('data-theme', next);
-      try { localStorage.setItem('algebra-theme', next); } catch(e){}
+/* ============ QUIZGEN: pure question generators (no DOM) ============ */
+var QUIZGEN = (function(){
+  "use strict";
+  var MINUS = '−';
+
+  var CONCEPTS = [
+    {n:1, name:'Solving Equations', take:6},
+    {n:2, name:'Literal Equations & Formulas', take:6},
+    {n:3, name:'Inequalities', take:6},
+    {n:4, name:'Function Basics', take:6},
+    {n:5, name:'Features of Graphs', take:6},
+    {n:6, name:'Lines, Slopes & Sequences', take:6},
+    {n:7, name:'Sets & Venn Diagrams', take:5}
+  ];
+
+  /* ---------- rng + helpers ---------- */
+  function mulberry32(a){
+    return function(){
+      a |= 0; a = a + 0x6D2B79F5 | 0;
+      var t = Math.imul(a ^ a >>> 15, 1 | a);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  function ri(R,a,b){ return a + Math.floor(R()*(b-a+1)); }
+  function pickR(R,arr){ return arr[Math.floor(R()*arr.length)]; }
+  function shuf(R,arr){
+    arr = arr.slice();
+    for(var i=arr.length-1;i>0;i--){ var j=Math.floor(R()*(i+1)); var t=arr[i]; arr[i]=arr[j]; arr[j]=t; }
+    return arr;
+  }
+  function fnum(n){
+    var v = Math.round(n*10000)/10000;
+    var s = String(v);
+    return s.charAt(0)==='-' ? MINUS + s.slice(1) : s;
+  }
+  function coefTxt(n){ if(n===1) return ''; if(n===-1) return MINUS; return fnum(n); }
+  function signedTxt(n){ return n>=0 ? ' + '+fnum(n) : ' '+MINUS+' '+fnum(-n); }
+  function ptTxt(x,y){ return '('+fnum(x)+', '+fnum(y)+')'; }
+  function opHtml(op){ return op==='<' ? '&lt;' : op==='>' ? '&gt;' : op; }
+  function gcd(a,b){ a=Math.abs(a); b=Math.abs(b); while(b){ var t=a%b; a=b; b=t; } return a||1; }
+  var UFRAC = {'1/2':'½','1/3':'⅓','2/3':'⅔','1/4':'¼','3/4':'¾','1/5':'⅕','2/5':'⅖'};
+  function fracTxt(n,d){
+    var g = gcd(n,d); n/=g; d/=g;
+    if(d<0){ d=-d; n=-n; }
+    if(d===1) return fnum(n);
+    var key = Math.abs(n)+'/'+d;
+    var body = UFRAC[key] || (Math.abs(n)+'/'+d);
+    return (n<0 ? MINUS : '') + body;
+  }
+  function lineEqTxt(mTxt, b){
+    var mt = (mTxt==='1') ? '' : (mTxt===MINUS+'1' ? MINUS : mTxt);
+    return 'y = ' + mt + 'x' + (b===0 ? '' : signedTxt(b));
+  }
+  function mcq(R, prompt, correctTxt, wrongs, steps, figure){
+    var seen = {}; seen[correctTxt] = 1;
+    var w = [];
+    for(var i=0;i<wrongs.length && w.length<3;i++){
+      if(!seen[wrongs[i]]){ seen[wrongs[i]]=1; w.push(wrongs[i]); }
+    }
+    var choices = shuf(R, [correctTxt].concat(w));
+    return {type:'mc', prompt:prompt, choices:choices, correct:choices.indexOf(correctTxt), steps:steps||[], figure:figure||null};
+  }
+
+  /* ---------- figures (all return html/svg strings) ---------- */
+  function vennRegions(){
+    return '<svg viewBox="0 0 320 185" aria-label="Two overlapping circles labeled Set A and Set B, regions one through four">'
+      +'<rect x="4" y="4" width="312" height="177" fill="none" stroke="currentColor" stroke-opacity=".4" stroke-width="2" rx="8"/>'
+      +'<text x="290" y="26" font-size="14" fill="currentColor" font-weight="bold">U</text>'
+      +'<circle cx="122" cy="98" r="58" fill="var(--accent)" fill-opacity=".15" stroke="var(--accent)" stroke-width="2.5"/>'
+      +'<circle cx="198" cy="98" r="58" fill="var(--gold)" fill-opacity=".18" stroke="var(--gold)" stroke-width="2.5"/>'
+      +'<text x="84" y="52" font-size="13" fill="currentColor" font-weight="bold">Set A</text>'
+      +'<text x="198" y="52" font-size="13" fill="currentColor" font-weight="bold">Set B</text>'
+      +'<text x="86" y="104" font-size="15" fill="currentColor">I</text>'
+      +'<text x="153" y="104" font-size="15" fill="currentColor">II</text>'
+      +'<text x="220" y="104" font-size="15" fill="currentColor">III</text>'
+      +'<text x="278" y="170" font-size="15" fill="currentColor">IV</text></svg>';
+  }
+  function numberLineFig(spec){
+    /* spec: {kind:'and'|'or', a, b, aClosed, bClosed} on a −5..5 line */
+    var X = function(x){ return 20 + (x+5)*28; };
+    var s = '<svg viewBox="0 0 320 62" aria-label="Number line from negative five to five">';
+    s += '<line x1="6" y1="26" x2="314" y2="26" stroke="currentColor" stroke-width="2"/>';
+    s += '<polygon points="314,26 306,22 306,30" fill="currentColor"/><polygon points="6,26 14,22 14,30" fill="currentColor"/>';
+    for(var t=-5;t<=5;t++){
+      s += '<line x1="'+X(t)+'" y1="21" x2="'+X(t)+'" y2="31" stroke="currentColor" stroke-width="1.5"/>';
+      s += '<text x="'+X(t)+'" y="48" font-size="11" fill="currentColor" text-anchor="middle">'+(t<0?MINUS+(-t):t)+'</text>';
+    }
+    function dot(x, closed){
+      return closed
+        ? '<circle cx="'+X(x)+'" cy="26" r="6" fill="var(--accent)"/>'
+        : '<circle cx="'+X(x)+'" cy="26" r="6" fill="var(--ground)" stroke="var(--accent)" stroke-width="2.5"/>';
+    }
+    if(spec.kind==='and'){
+      s += '<line x1="'+X(spec.a)+'" y1="26" x2="'+X(spec.b)+'" y2="26" stroke="var(--accent)" stroke-width="5"/>';
+      s += dot(spec.a, spec.aClosed) + dot(spec.b, spec.bClosed);
+    } else {
+      s += '<line x1="'+X(spec.a)+'" y1="26" x2="10" y2="26" stroke="var(--accent)" stroke-width="5"/>';
+      s += '<polygon points="6,26 16,21 16,31" fill="var(--accent)"/>';
+      s += '<line x1="'+X(spec.b)+'" y1="26" x2="310" y2="26" stroke="var(--accent)" stroke-width="5"/>';
+      s += '<polygon points="314,26 304,21 304,31" fill="var(--accent)"/>';
+      s += dot(spec.a, spec.aClosed) + dot(spec.b, spec.bClosed);
+    }
+    return s + '</svg>';
+  }
+  function shadeGraphFig(m, b, op){
+    /* grid −5..5, line y = m x + b, dashed if strict, shade below for <,≤ */
+    var X = function(x){ return 130 + x*24; };
+    var Y = function(y){ return 130 - y*24; };
+    var s = '<svg viewBox="0 0 260 260" aria-label="Coordinate grid with a boundary line and a shaded half-plane">';
+    var i;
+    for(i=-5;i<=5;i++){
+      s += '<line x1="'+X(i)+'" y1="10" x2="'+X(i)+'" y2="250" stroke="currentColor" stroke-opacity=".14" stroke-width="1"/>';
+      s += '<line x1="10" y1="'+Y(i)+'" x2="250" y2="'+Y(i)+'" stroke="currentColor" stroke-opacity=".14" stroke-width="1"/>';
+    }
+    s += '<line x1="10" y1="130" x2="250" y2="130" stroke="currentColor" stroke-width="2"/>';
+    s += '<line x1="130" y1="10" x2="130" y2="250" stroke="currentColor" stroke-width="2"/>';
+    s += '<text x="244" y="144" font-size="11" fill="currentColor">x</text><text x="136" y="18" font-size="11" fill="currentColor">y</text>';
+    var x1=-6, x2=6, yA = m*x1+b, yB = m*x2+b;
+    var below = (op==='<'||op==='≤');
+    var edgeY = below ? 300 : -40;
+    s += '<polygon points="'+X(x1)+','+Y(yA)+' '+X(x2)+','+Y(yB)+' '+X(x2)+','+edgeY+' '+X(x1)+','+edgeY+'" fill="var(--accent)" fill-opacity=".16"/>';
+    var dash = (op==='<'||op==='>') ? ' stroke-dasharray="8 6"' : '';
+    s += '<line x1="'+X(x1)+'" y1="'+Y(yA)+'" x2="'+X(x2)+'" y2="'+Y(yB)+'" stroke="var(--accent)" stroke-width="3"'+dash+'/>';
+    return s + '</svg>';
+  }
+  function curveFig(pts, labeled){
+    /* pts: [{x,y}] endpoints + turning points (sorted by x, horizontal tangents at each);
+       labeled: indexes of pts to dot + label */
+    var X = function(x){ return 150 + x*27; };
+    var Y = function(y){ return 112 - y*1.6; };
+    var s = '<svg viewBox="0 0 300 224" aria-label="Graph of a curve with labeled turning points">';
+    var i;
+    for(i=-5;i<=5;i++){ s += '<line x1="'+X(i)+'" y1="8" x2="'+X(i)+'" y2="216" stroke="currentColor" stroke-opacity=".12" stroke-width="1"/>'; }
+    for(i=-3;i<=3;i++){ s += '<line x1="15" y1="'+Y(i*20)+'" x2="285" y2="'+Y(i*20)+'" stroke="currentColor" stroke-opacity=".12" stroke-width="1"/>'; }
+    s += '<line x1="15" y1="'+Y(0)+'" x2="285" y2="'+Y(0)+'" stroke="currentColor" stroke-width="2"/>';
+    s += '<line x1="'+X(0)+'" y1="8" x2="'+X(0)+'" y2="216" stroke="currentColor" stroke-width="2"/>';
+    var d = 'M '+X(pts[0].x)+' '+Y(pts[0].y);
+    for(i=1;i<pts.length;i++){
+      var p0 = pts[i-1], p1 = pts[i];
+      var half = (X(p1.x)-X(p0.x))/2;
+      d += ' C '+(X(p0.x)+half)+' '+Y(p0.y)+', '+(X(p1.x)-half)+' '+Y(p1.y)+', '+X(p1.x)+' '+Y(p1.y);
+    }
+    s += '<path d="'+d+'" fill="none" stroke="var(--accent)" stroke-width="3"/>';
+    labeled.forEach(function(idx){
+      var p = pts[idx];
+      s += '<circle cx="'+X(p.x)+'" cy="'+Y(p.y)+'" r="4.5" fill="var(--gold)" stroke="var(--ground)" stroke-width="1.5"/>';
+      var above = p.y < 0;
+      s += '<text x="'+X(p.x)+'" y="'+(Y(p.y)+(above?22:-12))+'" font-size="12" fill="currentColor" text-anchor="middle">('+fnum(p.x)+', '+fnum(p.y)+')</text>';
     });
-  })();
+    return s + '</svg>';
+  }
+  var TD = 'border:1px solid var(--line); padding:.28rem .8rem; text-align:center;';
+  function tableFig(header, rows){
+    var h = '<table style="border-collapse:collapse; font-family:var(--font-mono); font-size:.85rem; margin:.2rem;"><tr>';
+    header.forEach(function(c){ h += '<th style="'+TD+' background:var(--ground-sunken);">'+c+'</th>'; });
+    h += '</tr>';
+    rows.forEach(function(r){
+      h += '<tr>';
+      r.forEach(function(c){ h += '<td style="'+TD+'">'+c+'</td>'; });
+      h += '</tr>';
+    });
+    return h + '</table>';
+  }
+  function twoTablesFig(t1, t2){
+    return '<div style="display:flex; gap:1rem; flex-wrap:wrap; justify-content:center;">'+t1+t2+'</div>';
+  }
+  function fx(vals){ return vals.map(function(v){ return fnum(v); }); }
+
+  /* ================= CONCEPT 1 — Solving Equations ================= */
+  var GENS1 = [
+    function(R){ /* a(x+b)+c = d */
+      var x0 = ri(R,-6,8), a = ri(R,2,6), b = ri(R,-5,5), c = ri(R,-9,9);
+      if(b===0) b = 2;
+      if(c===0) c = 4;
+      var d = a*(x0+b)+c;
+      var eq = fnum(a)+'(x'+signedTxt(b)+')'+signedTxt(c)+' = '+fnum(d);
+      return {type:'numeric', prompt:'Solve for x: &nbsp;'+eq, answer:x0, steps:[
+        'distribute: '+fnum(a)+'x'+signedTxt(a*b)+signedTxt(c)+' = '+fnum(d),
+        'combine the constants: '+fnum(a)+'x'+signedTxt(a*b+c)+' = '+fnum(d),
+        'move the constant over: '+fnum(a)+'x = '+fnum(d-a*b-c),
+        'divide by '+fnum(a)+': x = '+fnum(x0)
+      ]};
+    },
+    function(R){ /* variables on both sides */
+      var x0 = ri(R,-5,7), a = ri(R,4,9), c = ri(R,2,a-2), b = ri(R,-8,8);
+      while(b===0 || a*x0 + b - c*x0 === 0) b++;
+      var d = a*x0 + b - c*x0;
+      var eq = coefTxt(a)+'x'+signedTxt(b)+' = '+coefTxt(c)+'x'+signedTxt(d);
+      return {type:'numeric', prompt:'Solve for x: &nbsp;'+eq, answer:x0, steps:[
+        'get the x terms together: subtract '+fnum(c)+'x from both sides',
+        fnum(a-c)+'x'+signedTxt(b)+' = '+fnum(d),
+        'move the constant: '+fnum(a-c)+'x = '+fnum(d-b),
+        'divide by '+fnum(a-c)+': x = '+fnum(x0)
+      ]};
+    },
+    function(R){ /* missing step (Bianca style) */
+      var name = pickR(R,['Bianca','Priya','Dana','Keisha']);
+      var a = ri(R,2,7), b = ri(R,2,6), c = ri(R,2,5), d = ri(R,2,9);
+      if(a===b*d) a++;
+      var x0 = ri(R,3,12);
+      var e = a + b*c*x0 - b*d;
+      var prompt = name+' solved '+fnum(a)+' + '+fnum(b)+'('+fnum(c)+'x '+MINUS+' '+fnum(d)+') = '+fnum(e)+' and wrote these steps:<br><br>'
+        + '1. Distributive property: &nbsp;'+fnum(a)+' + '+fnum(b*c)+'x '+MINUS+' '+fnum(b*d)+' = '+fnum(e)+'<br>'
+        + '2. Combine like terms: &nbsp;'+fnum(b*c)+'x'+signedTxt(a-b*d)+' = '+fnum(e)+'<br>'
+        + '3. Addition property of equality: &nbsp;'+fnum(b*c)+'x = '+fnum(e-a+b*d)+'<br>'
+        + '4. ??? &nbsp;&rarr;&nbsp; x = '+fnum(x0)+'<br><br>What is the missing step 4?';
+      return mcq(R, prompt,
+        'Divide both sides of the equation by '+fnum(b*c)+'.',
+        ['Multiply both sides of the equation by '+fnum(b*c)+'.',
+         'Add '+fnum(b*c)+' to both sides.',
+         'Subtract '+fnum(b*c)+' from both sides.'],
+        ['after step 3 the equation is '+fnum(b*c)+'x = '+fnum(e-a+b*d),
+         'x is being MULTIPLIED by '+fnum(b*c)+' — undo it with the opposite operation',
+         'divide both sides by '+fnum(b*c)+' &rarr; x = '+fnum(x0)]);
+    },
+    function(R){ /* same-solution equations, checkbox */
+      var a10 = ri(R,12,49), b10 = ri(R,20,120), c10 = ri(R,51,89), d10 = ri(R,20,90), e100 = ri(R,1,9);
+      var a=a10/10, b=b10/10, c=c10/10, d=d10/10, e=e100/100;
+      function f(n){ return fnum(n); }
+      var eq = f(a)+'p '+MINUS+' '+f(b)+' = '+f(c)+'p '+MINUS+' '+f(d)+' '+MINUS+' '+f(e)+'p';
+      return {type:'checkbox',
+        prompt:'Which equations have the SAME SOLUTION as &nbsp;'+eq+'&nbsp;? Check every one that does.',
+        statements: shuf(R,[
+          {text:f(a)+'p '+MINUS+' '+f(b)+' = '+f(c-e)+'p '+MINUS+' '+f(d), correct:true},
+          {text:f(a*10)+'p '+MINUS+' '+f(b*10)+' = '+f(c*10)+'p '+MINUS+' '+f(d*10)+' '+MINUS+' '+f(e*10)+'p', correct:true},
+          {text:f(a)+'p '+MINUS+' '+f(b)+' = '+f(c+e)+'p '+MINUS+' '+f(d), correct:false},
+          {text:f(a*10)+'p '+MINUS+' '+f(b*10)+' = '+f(c)+'p '+MINUS+' '+f(d)+' '+MINUS+' '+f(e)+'p', correct:false}
+        ]),
+        steps:['two safe moves that never change the solution: combine like terms, or multiply BOTH ENTIRE SIDES by the same number',
+          'combining the right side: '+f(c)+'p '+MINUS+' '+f(e)+'p = '+f(c-e)+'p — subtract, don’t add',
+          'multiplying by 10 only works if EVERY term on BOTH sides gets multiplied']};
+    },
+    function(R){ /* modeling: fraction of total */
+      var who = pickR(R,[['Hiroshi','history','English','math'],['Amara','science','reading','math'],['Jaylen','Spanish','biology','algebra']]);
+      var A = pickR(R,[20,30,40,45]), B = pickR(R,[50,60,75,90]);
+      var fden = pickR(R,[3,4,5]);
+      var fword = {3:'third',4:'fourth',5:'fifth'}[fden];
+      var prompt = who[0]+' spends '+A+' minutes on '+who[1]+' homework, '+B+' minutes on '+who[2]+' homework, and x minutes on '+who[3]+' homework. One '+fword+' of the total homework time is spent on '+who[3]+'. Which equation can be used to find x?';
+      var F = '1/'+fden;
+      return mcq(R, prompt,
+        F+' (x + '+A+' + '+B+') = x',
+        [F+' (x) = x('+A+' + '+B+')',
+         F+' x('+A+' + '+B+') = x',
+         F+' (x) = ('+A+' + '+B+')'],
+        ['total time = x + '+A+' + '+B+' (the x counts too — that’s the trap)',
+         '"one '+fword+' of the total is '+who[3]+'" &rarr; (1/'+fden+') × total = x',
+         'so '+F+'(x + '+A+' + '+B+') = x']);
+    },
+    function(R){ /* name the property */
+      var a = ri(R,2,8), x0 = ri(R,2,9), b = ri(R,1,12);
+      var which = pickR(R,['sub','div']);
+      var c = a*x0 + b;
+      var prompt, correct, wrongs;
+      if(which==='sub'){
+        prompt = 'To get from &nbsp;'+fnum(a)+'x + '+fnum(b)+' = '+fnum(c)+'&nbsp; to &nbsp;'+fnum(a)+'x = '+fnum(c-b)+',&nbsp; which property was used?';
+        correct = 'Subtraction property of equality';
+        wrongs = ['Division property of equality','Distributive property','Commutative property'];
+      } else {
+        prompt = 'To get from &nbsp;'+fnum(a)+'x = '+fnum(a*x0)+'&nbsp; to &nbsp;x = '+fnum(x0)+',&nbsp; which property was used?';
+        correct = 'Division property of equality';
+        wrongs = ['Subtraction property of equality','Distributive property','Multiplication property of equality'];
+      }
+      return mcq(R, prompt, correct, wrongs,
+        ['properties of equality = "do the same thing to both sides"',
+         which==='sub' ? 'the '+fnum(b)+' disappeared from the left — it was SUBTRACTED from both sides' : 'the '+fnum(a)+' disappeared from in front of x — both sides were DIVIDED by '+fnum(a)]);
+    }
+  ];
+
+  /* ================= CONCEPT 2 — Literal Equations & Formulas ================= */
+  var GENS2 = [
+    function(R){ /* solve product formula for a letter */
+      var F = pickR(R,[
+        {eq:'P = mgh', txt:'The potential energy P of an object equals its mass m times the gravitational constant g times its height h', want:'h', ans:'h = P / (mg)', wr:['h = Pmg','h = P / (m / g)','h = mg / P']},
+        {eq:'V = lwh', txt:'The volume V of a box equals its length l times its width w times its height h', want:'h', ans:'h = V / (lw)', wr:['h = Vlw','h = V / (l / w)','h = lw / V']},
+        {eq:'I = Prt', txt:'Simple interest I equals the principal P times the rate r times the time t', want:'r', ans:'r = I / (Pt)', wr:['r = IPt','r = I / (P / t)','r = Pt / I']}
+      ]);
+      return mcq(R, F.txt+'. This is modeled by the equation '+F.eq+'.<br><br>What is the equivalent equation solved for '+F.want+'?',
+        F.ans, F.wr,
+        [F.want+' is being multiplied by the other two letters',
+         'undo multiplication with division: divide both sides by both of them at once',
+         F.ans]);
+    },
+    function(R){ /* polygon angle sum: find n */
+      var n = ri(R,5,12);
+      var s = 180*(n-2);
+      return {type:'numeric',
+        prompt:'The sum of the interior angles of an n-sided polygon is s = 180(n '+MINUS+' 2). If the sum of the interior angles is '+s.toLocaleString('en-US')+'&deg;, how many sides does the polygon have?',
+        answer:n,
+        steps:['divide both sides by 180: n '+MINUS+' 2 = '+fnum(n-2),
+          'add 2 to both sides: n = '+fnum(n),
+          'sanity check: 180('+fnum(n)+' '+MINUS+' 2) = '+s.toLocaleString('en-US')]};
+    },
+    function(R){ /* triangle area: find height or base */
+      var h = ri(R,3,12), b = 2*ri(R,2,8);
+      var A = b*h/2;
+      return {type:'numeric',
+        prompt:'The area of a triangle is A = ½bh. Find the height (in units) of a triangle with an area of '+fnum(A)+' square units and a base of '+fnum(b)+' units.',
+        answer:h,
+        steps:['plug in what you know: '+fnum(A)+' = ½ · '+fnum(b)+' · h',
+          '½ · '+fnum(b)+' = '+fnum(b/2)+', so '+fnum(A)+' = '+fnum(b/2)+'h',
+          'divide by '+fnum(b/2)+': h = '+fnum(h)]};
+    },
+    function(R){ /* symbolic solve mc */
+      var F = pickR(R,[
+        {name:'y = mx + b', want:'x', ans:'x = (y '+MINUS+' b) / m', wr:['x = (y + b) / m','x = y/m '+MINUS+' b','x = m(y '+MINUS+' b)'],
+         st:['subtract b from both sides: y '+MINUS+' b = mx','divide both sides by m']},
+        {name:'A = ½bh', want:'h', ans:'h = 2A / b', wr:['h = A / (2b)','h = 2b / A','h = A '+MINUS+' 2b'],
+         st:['multiply both sides by 2 first: 2A = bh','divide both sides by b']},
+        {name:'P = 2l + 2w', want:'w', ans:'w = (P '+MINUS+' 2l) / 2', wr:['w = (P + 2l) / 2','w = P '+MINUS+' 2l','w = 2(P '+MINUS+' 2l)'],
+         st:['subtract 2l from both sides: P '+MINUS+' 2l = 2w','divide both sides by 2']}
+      ]);
+      return mcq(R, 'Solve '+F.name+' for '+F.want+'. Which equation is equivalent?', F.ans, F.wr,
+        F.st.concat([F.ans]));
+    },
+    function(R){ /* perimeter word problem */
+      var l = ri(R,8,20), w = ri(R,3,7);
+      var P = 2*l + 2*w;
+      return {type:'numeric',
+        prompt:'The perimeter of a rectangle is P = 2l + 2w. A rectangular garden has a perimeter of '+fnum(P)+' feet and a length of '+fnum(l)+' feet. What is its width (in feet)?',
+        answer:w,
+        steps:[fnum(P)+' = 2('+fnum(l)+') + 2w &rarr; '+fnum(P)+' = '+fnum(2*l)+' + 2w',
+          'subtract '+fnum(2*l)+': 2w = '+fnum(P-2*l),
+          'divide by 2: w = '+fnum(w)]};
+    },
+    function(R){ /* d = rt */
+      var r = pickR(R,[45,50,55,60,65,70]), t = ri(R,2,6);
+      var d = r*t;
+      var which = pickR(R,['t','r']);
+      if(which==='t'){
+        return {type:'numeric', prompt:'Distance is d = rt. A car travels '+fnum(d)+' miles at a steady '+fnum(r)+' miles per hour. For how many hours was it driving?', answer:t,
+          steps:['solve d = rt for t first: t = d / r','t = '+fnum(d)+' / '+fnum(r)+' = '+fnum(t)]};
+      }
+      return {type:'numeric', prompt:'Distance is d = rt. A train covers '+fnum(d)+' miles in '+fnum(t)+' hours at a steady speed. How fast was it going (miles per hour)?', answer:r,
+        steps:['solve d = rt for r first: r = d / t','r = '+fnum(d)+' / '+fnum(t)+' = '+fnum(r)]};
+    }
+  ];
+
+  /* ================= CONCEPT 3 — Inequalities ================= */
+  var GENS3 = [
+    function(R){ /* compound from number line */
+      var a = ri(R,-4,-1), b = ri(R,1,4);
+      var kind = pickR(R,['and','or']);
+      var aC = pickR(R,[true,false]), bC = pickR(R,[true,false]);
+      var lo = aC ? '≤' : '<', hi = bC ? '≤' : '<';
+      var loF = aC ? '<' : '≤', hiF = bC ? '<' : '≤';
+      var correct, wrongs;
+      if(kind==='and'){
+        correct = fnum(a)+' '+lo+' x '+hi+' '+fnum(b);
+        wrongs = ['x '+(aC?'≤':'<')+' '+fnum(a)+' or x '+(bC?'≥':'>')+' '+fnum(b),
+                  fnum(a)+' '+loF+' x '+hiF+' '+fnum(b),
+                  fnum(-b)+' '+lo+' x '+hi+' '+fnum(-a)];
+      } else {
+        var loOp = aC ? '≤' : '<', hiOp = bC ? '≥' : '>';
+        correct = 'x '+loOp+' '+fnum(a)+' or x '+hiOp+' '+fnum(b);
+        wrongs = [fnum(a)+' '+lo+' x '+hi+' '+fnum(b),
+                  'x '+(aC?'<':'≤')+' '+fnum(a)+' or x '+(bC?'>':'≥')+' '+fnum(b),
+                  'x '+loOp+' '+fnum(b)+' or x '+hiOp+' '+fnum(a)];
+      }
+      return mcq(R, 'Which compound inequality is represented by the graph?', correct, wrongs,
+        [kind==='and' ? 'one connected segment = AND (x is between the two endpoints)' : 'two arrows pointing away = OR (x is outside the endpoints)',
+         'filled dot = the endpoint counts (≤ or ≥); open dot = it doesn’t (< or >)',
+         correct],
+        numberLineFig({kind:kind, a:a, b:b, aClosed:aC, bClosed:bC}));
+    },
+    function(R){ /* which point is a solution */
+      var M = pickR(R,[{v:2,t:'2'},{v:-2,t:MINUS+'2'},{v:3,t:'3'},{v:0.5,t:'½'},{v:-0.5,t:MINUS+'½'}]);
+      var b = ri(R,-3,3);
+      var op = pickR(R,['<','>','≤','≥']);
+      var wantBelow = (op==='<'||op==='≤');
+      function mkpt(below){
+        var x = 2*ri(R,-2,2);
+        var ly = M.v*x + b;
+        var y = below ? Math.floor(ly) - ri(R,1,3) : Math.ceil(ly) + ri(R,1,3);
+        return {x:x, y:y};
+      }
+      var seen = {};
+      function fresh(below){
+        for(var i=0;i<20;i++){ var p = mkpt(below); var k = p.x+','+p.y; if(!seen[k]){ seen[k]=1; return p; } }
+        var q = mkpt(below); q.x += 10; return q;
+      }
+      var good = fresh(wantBelow);
+      var bads = [fresh(!wantBelow), fresh(!wantBelow), fresh(!wantBelow)];
+      var ineq = 'y '+opHtml(op)+' '+lineEqTxt(M.t, b).slice(4);
+      var lyg = M.v*good.x + b;
+      return mcq(R, 'Which point is a solution to the linear inequality &nbsp;'+ineq+'&nbsp;?',
+        ptTxt(good.x,good.y),
+        bads.map(function(p){ return ptTxt(p.x,p.y); }),
+        ['plug each point in — a solution makes the inequality TRUE',
+         'try '+ptTxt(good.x,good.y)+': '+M.t+'('+fnum(good.x)+')'+signedTxt(b)+' = '+fnum(lyg),
+         fnum(good.y)+' '+op+' '+fnum(lyg)+' ✓']);
+    },
+    function(R){ /* inequality from shaded graph */
+      var M = pickR(R,[{v:1,t:'1'},{v:-1,t:MINUS+'1'},{v:2,t:'2'},{v:-2,t:MINUS+'2'},{v:0.5,t:'½'},{v:-0.5,t:MINUS+'½'}]);
+      var b = ri(R,-2,2);
+      var op = pickR(R,['<','>','≤','≥']);
+      var rhs = lineEqTxt(M.t, b).slice(4);
+      var FLIP = {'<':'>','>':'<','≤':'≥','≥':'≤'};
+      var CLOSE = {'<':'≤','>':'≥','≤':'<','≥':'>'};
+      return mcq(R, 'Which linear inequality is represented by the graph?',
+        'y '+op+' '+rhs,
+        ['y '+FLIP[op]+' '+rhs,
+         'y '+CLOSE[op]+' '+rhs,
+         'y '+op+' '+lineEqTxt(M.t, b===0?2:-b).slice(4)],
+        ['shaded BELOW the line means y < (or ≤); shaded above means y > (or ≥) — here it’s shaded '+((op==='<'||op==='≤')?'below':'above'),
+         'dashed line = strict (< or >); solid line = includes the line (≤ or ≥) — this one is '+((op==='<'||op==='>')?'dashed':'solid'),
+         'the line itself: slope '+M.t+', y-intercept '+fnum(b)],
+        shadeGraphFig(M.v, b, op));
+    },
+    function(R){ /* modeling min value */
+      var a = ri(R,2,4), bb = ri(R,3,6);
+      var x = ri(R,8,15);
+      var y0 = ri(R,4,9);
+      var c = a*x + bb*y0 - ri(R,1,bb);
+      var who = pickR(R,['Sydney','Marcus','Lena','Tobias']);
+      return {type:'numeric',
+        prompt:'Questions in the first section of a test are worth '+a+' points and questions in the second section are worth '+bb+' points. '+who+' scored more than '+c+' points, so '+a+'x + '+bb+'y &gt; '+c+', where x and y are correct answers in each section. If '+who+' got '+x+' questions right in the first section, what is the MINIMUM number of questions right in the second section?',
+        answer:y0,
+        steps:['plug in x = '+x+': '+a+'('+x+') + '+bb+'y &gt; '+c+' &rarr; '+(a*x)+' + '+bb+'y &gt; '+c,
+          bb+'y &gt; '+(c-a*x)+' &rarr; y &gt; '+fnum((c-a*x)/bb),
+          'y must be a WHOLE number of questions, so round UP to the next whole number: y = '+y0]};
+    },
+    function(R){ /* solve with a flip */
+      var a = ri(R,2,6);
+      var x0 = ri(R,-4,6); if(x0===0) x0 = 5;
+      var c = ri(R,-5,20);
+      var b = c - a*x0;
+      var eq = fnum(c)+' '+MINUS+' '+fnum(a)+'x &gt; '+fnum(b);
+      return mcq(R, 'Solve the inequality: &nbsp;'+eq,
+        'x < '+fnum(x0),
+        ['x > '+fnum(x0), 'x < '+fnum(-x0), 'x > '+fnum(-x0)],
+        ['subtract '+fnum(c)+' from both sides: '+MINUS+fnum(a)+'x &gt; '+fnum(b-c),
+         'divide both sides by '+MINUS+fnum(a)+' — dividing by a NEGATIVE flips the inequality sign',
+         'x < '+fnum(x0)]);
+    },
+    function(R){ /* value satisfying a compound */
+      var a = ri(R,-5,0), b = a + ri(R,3,6);
+      var good = ri(R,a+1,b);
+      return mcq(R, 'Which value of x makes BOTH parts of the compound inequality &nbsp;x &gt; '+fnum(a)+' and x ≤ '+fnum(b)+'&nbsp; true?',
+        fnum(good),
+        [fnum(a), fnum(b + ri(R,1,3)), fnum(a - ri(R,1,3))],
+        ['"and" means the value has to pass BOTH tests at once',
+         fnum(a)+' fails the first test (x &gt; '+fnum(a)+' is strict — equal doesn’t count)',
+         fnum(good)+' is bigger than '+fnum(a)+' AND at most '+fnum(b)+' ✓']);
+    }
+  ];
+
+  /* ================= CONCEPT 4 — Function Basics ================= */
+  var GENS4 = [
+    function(R){ /* (f ± g)(a) from tables */
+      var start = -ri(R,4,6);
+      var xs = [start, start+3, start+6, start+10];
+      var m1 = ri(R,2,4), c1 = ri(R,-6,6);
+      var m2 = ri(R,1,3); if(m2===m1) m2++;
+      var c2 = ri(R,-5,5);
+      var fv = xs.map(function(x){ return m1*x + c1; });
+      var gv = xs.map(function(x){ return m2*x + c2; });
+      var idx = ri(R,1,3);
+      var a = xs[idx];
+      var op = pickR(R,['−','+']);
+      var ans = op==='+' ? fv[idx]+gv[idx] : fv[idx]-gv[idx];
+      var fig = twoTablesFig(
+        tableFig(['x','f(x)'], xs.map(function(x,i){ return [fnum(x), fnum(fv[i])]; })),
+        tableFig(['x','g(x)'], xs.map(function(x,i){ return [fnum(x), fnum(gv[i])]; }))
+      );
+      return {type:'numeric',
+        prompt:'The tables for f(x) and g(x) are shown. What is the value of (f '+op+' g)('+fnum(a)+')?',
+        answer:ans, figure:fig,
+        steps:['(f '+op+' g)('+fnum(a)+') means f('+fnum(a)+') '+op+' g('+fnum(a)+') — read each table, then combine',
+          'f('+fnum(a)+') = '+fnum(fv[idx])+' and g('+fnum(a)+') = '+fnum(gv[idx]),
+          fnum(fv[idx])+' '+op+' '+(gv[idx]<0?'('+fnum(gv[idx])+')':fnum(gv[idx]))+' = '+fnum(ans)]};
+    },
+    function(R){ /* (k+k)(n) equivalent expression */
+      var a = ri(R,3,8), b = ri(R,2,9), n = ri(R,2,6);
+      function k(v){ return fnum(a)+'('+fnum(v)+') '+MINUS+' '+fnum(b); }
+      return mcq(R, 'If k(x) = '+fnum(a)+'x '+MINUS+' '+fnum(b)+', which expression is equivalent to (k + k)('+fnum(n)+')?',
+        k(n)+' + '+k(n),
+        [fnum(a)+'('+fnum(n)+' + '+fnum(n)+') '+MINUS+' '+fnum(b),
+         fnum(a)+'('+k(n)+') '+MINUS+' '+fnum(b),
+         fnum(a)+'('+fnum(n)+') '+MINUS+' '+fnum(b)+' + '+fnum(a)+'('+fnum(n)+')'],
+        ['(k + k)(n) means k(n) + k(n) — evaluate the function, then add the two copies',
+         'each copy is '+k(n)+' = '+fnum(a*n-b),
+         'so the total is '+fnum(a*n-b)+' + '+fnum(a*n-b)+' = '+fnum(2*(a*n-b))+' — watch for options that drop one of the '+MINUS+fnum(b)+'s']);
+    },
+    function(R){ /* inverse function */
+      var V = pickR(R,['add','mul','linear']);
+      var a = ri(R,2,9);
+      if(V==='add'){
+        var sgn = pickR(R,[1,-1]);
+        var f = 'f(x) = x'+signedTxt(sgn*a);
+        return mcq(R, 'What is the inverse of the function '+f+'?',
+          'h(x) = x'+signedTxt(-sgn*a),
+          ['h(x) = x'+signedTxt(sgn*a),
+           'h(x) = '+fracTxt(1,a)+'x'+signedTxt(sgn*a),
+           'h(x) = '+fracTxt(1,a)+'x'+signedTxt(-sgn*a)],
+          ['the inverse UNDOES the function: swap x and y, then re-solve for y',
+           'f '+(sgn>0?'adds':'subtracts')+' '+fnum(a)+', so the inverse must '+(sgn>0?'subtract':'add')+' '+fnum(a),
+           'check: feed 5 in, you get '+fnum(5+sgn*a)+'; feed that into the inverse and 5 comes back']);
+      }
+      if(V==='mul'){
+        return mcq(R, 'What is the inverse of the function f(x) = '+fnum(a)+'x?',
+          'h(x) = x / '+fnum(a),
+          ['h(x) = '+MINUS+fnum(a)+'x',
+           'h(x) = x '+MINUS+' '+fnum(a),
+           'h(x) = '+fnum(a)+' / x'],
+          ['f multiplies by '+fnum(a)+', so the inverse divides by '+fnum(a),
+           'swap-and-solve: x = '+fnum(a)+'y &rarr; y = x/'+fnum(a)]);
+      }
+      var b = ri(R,1,9);
+      return mcq(R, 'What is the inverse of the function f(x) = '+fnum(a)+'x + '+fnum(b)+'?',
+        'h(x) = (x '+MINUS+' '+fnum(b)+') / '+fnum(a),
+        ['h(x) = (x + '+fnum(b)+') / '+fnum(a),
+         'h(x) = '+fnum(a)+'x '+MINUS+' '+fnum(b),
+         'h(x) = x / '+fnum(a)+' + '+fnum(b)],
+        ['swap x and y: x = '+fnum(a)+'y + '+fnum(b),
+         'undo in reverse order: subtract '+fnum(b)+' FIRST, then divide by '+fnum(a),
+         'y = (x '+MINUS+' '+fnum(b)+') / '+fnum(a)]);
+    },
+    function(R){ /* evaluate f(n) */
+      var V = pickR(R,['lin','quad']);
+      if(V==='lin'){
+        var a = ri(R,2,7), b = ri(R,-9,9), n = ri(R,-5,6);
+        return {type:'numeric', prompt:'If f(x) = '+fnum(a)+'x'+signedTxt(b)+', what is f('+fnum(n)+')?', answer:a*n+b,
+          steps:['f('+fnum(n)+') means "replace every x with '+fnum(n)+'"',
+            fnum(a)+'('+fnum(n)+')'+signedTxt(b)+' = '+fnum(a*n)+signedTxt(b)+' = '+fnum(a*n+b)]};
+      }
+      var c = ri(R,1,20), n2 = ri(R,-4,5);
+      return {type:'numeric', prompt:'If f(x) = x² '+MINUS+' '+fnum(c)+', what is f('+fnum(n2)+')?', answer:n2*n2-c,
+        steps:['replace every x with '+fnum(n2)+': ('+fnum(n2)+')² '+MINUS+' '+fnum(c),
+          '('+fnum(n2)+')² = '+fnum(n2*n2)+' (a negative squared comes out positive)',
+          fnum(n2*n2)+' '+MINUS+' '+fnum(c)+' = '+fnum(n2*n2-c)]};
+    },
+    function(R){ /* which statement is true, f vs g table */
+      var xs = [0,1,2,3];
+      var p = ri(R,0,3);
+      var fv = [], gv = [], used = {};
+      xs.forEach(function(x,i){
+        var v; do { v = ri(R,-8,12); } while(used['f'+v]); used['f'+v]=1;
+        fv.push(v);
+      });
+      xs.forEach(function(x,i){
+        if(i===p){ gv.push(fv[i]); return; }
+        var v; do { v = fv[i] + pickR(R,[-1,1])*ri(R,1,4); } while(v===fv[i]);
+        gv.push(v);
+      });
+      var others = [0,1,2,3].filter(function(i){ return i!==p; });
+      var fig = tableFig(['x','f(x)','g(x)'], xs.map(function(x,i){ return [fnum(x), fnum(fv[i]), fnum(gv[i])]; }));
+      return mcq(R, 'Using the table, which statement is TRUE?',
+        'f('+xs[p]+') = g('+xs[p]+')',
+        others.map(function(i){ return 'f('+xs[i]+') = g('+xs[i]+')'; }),
+        ['f(a) = g(a) means the two functions give the SAME output at x = a — same number in both columns',
+         'scan the rows: at x = '+xs[p]+', both equal '+fnum(fv[p]),
+         'on a graph this is where the two lines would cross'],
+        fig);
+    },
+    function(R){ /* function notation meaning */
+      var C = pickR(R,[
+        {fn:'C', arg:'m', v1:ri(R,3,9), v2:ri(R,40,90), what:'C(m) is the total cost in dollars of a gym membership for m months',
+         mk:function(a,b){ return 'A membership lasting '+a+' months costs $'+b+' total.'; },
+         mkSwap:function(a,b){ return 'A membership lasting '+b+' months costs $'+a+' total.'; }},
+        {fn:'d', arg:'t', v1:ri(R,2,6), v2:ri(R,90,240), what:'d(t) is the distance in miles a bus has traveled after t hours',
+         mk:function(a,b){ return 'After '+a+' hours the bus has traveled '+b+' miles.'; },
+         mkSwap:function(a,b){ return 'After '+b+' hours the bus has traveled '+a+' miles.'; }},
+        {fn:'g', arg:'w', v1:ri(R,2,8), v2:ri(R,120,400), what:'g(w) is the number of gallons of water in a tank after w weeks',
+         mk:function(a,b){ return 'After '+a+' weeks the tank holds '+b+' gallons.'; },
+         mkSwap:function(a,b){ return 'After '+b+' weeks the tank holds '+a+' gallons.'; }}
+      ]);
+      return mcq(R, 'Suppose '+C.what+'. What does '+C.fn+'('+C.v1+') = '+C.v2+' mean?',
+        C.mk(C.v1, C.v2),
+        [C.mkSwap(C.v1, C.v2),
+         'The '+C.arg+'-value '+C.v1+' and the output '+C.v2+' are both inputs.',
+         'The function multiplies '+C.v1+' by '+C.v2+'.'],
+        ['function notation is input &rarr; output: the number INSIDE the parentheses is the input',
+         'input '+C.v1+', output '+C.v2,
+         C.mk(C.v1, C.v2)]);
+    }
+  ];
+
+  /* ================= CONCEPT 5 — Features of Graphs ================= */
+  function wCurve(R){
+    var t1 = ri(R,-3,-2);
+    var t2 = t1 + ri(R,2,3);
+    var t3 = Math.min(t2 + ri(R,2,3), 4);
+    var y1 = -ri(R,25,50), y2 = ri(R,10,45), y3 = -ri(R,10,45);
+    var pts = [
+      {x:t1-1.6, y:Math.min(y2+30,55)},
+      {x:t1, y:y1},
+      {x:t2, y:y2},
+      {x:t3, y:y3},
+      {x:Math.min(t3+1.6,5), y:Math.min(y2+30,55)}
+    ];
+    return {t1:t1, t2:t2, t3:t3, pts:pts};
+  }
+  var GENS5 = [
+    function(R){ /* local min/max from table */
+      var wantMin = pickR(R,[true,false]);
+      var m1 = ri(R,8,30), pk = ri(R,5,20), m2 = ri(R,8,30), hi = ri(R,60,120);
+      var xs = [-4,-3,-2,-1,0,1,2,3,4];
+      var ys = [hi, ri(R,1,6), -m1, 0, pk, 0, -m2, ri(R,1,6), hi+ri(R,10,60)];
+      var fig = tableFig(['x','f(x)'], xs.map(function(x,i){ return [fnum(x), fnum(ys[i])]; }));
+      var minIdx = m1>=m2 ? 2 : 6;
+      var correct, wrongs;
+      if(wantMin){
+        correct = ptTxt(xs[minIdx], ys[minIdx]);
+        wrongs = [ptTxt(0, pk), ptTxt(4, ys[8]), ptTxt(-3, ys[1])];
+      } else {
+        correct = ptTxt(0, pk);
+        wrongs = [ptTxt(xs[minIdx], ys[minIdx]), ptTxt(4, ys[8]), ptTxt(-4, hi)];
+      }
+      return mcq(R, 'According to the table, which ordered pair is a LOCAL '+(wantMin?'MINIMUM':'MAXIMUM')+' of the function f(x)?',
+        correct, wrongs,
+        [wantMin ? 'a local minimum is a VALLEY: its f(x) is smaller than the rows directly above AND below it' : 'a local maximum is a PEAK: its f(x) is bigger than the rows directly above AND below it',
+         'endpoints like x = 4 don’t count — you can’t see both of their neighbors',
+         'find '+correct+' in the table and check the row above and the row below it'],
+        fig);
+    },
+    function(R){ /* parabola increasing/decreasing */
+      var h = ri(R,-4,4), k = ri(R,-6,6);
+      var up = pickR(R,[true,false]);
+      var wantInc = pickR(R,[true,false]);
+      var side = (up===wantInc) ? 'x &gt; '+fnum(h) : 'x &lt; '+fnum(h);
+      var wrongSide = (up===wantInc) ? 'x < '+fnum(h) : 'x > '+fnum(h);
+      var correct = side.replace('&gt;','>').replace('&lt;','<');
+      return mcq(R, 'A parabola opens '+(up?'UPWARD':'DOWNWARD')+' with its vertex at '+ptTxt(h,k)+'. On which interval is the function '+(wantInc?'INCREASING':'DECREASING')+'?',
+        correct,
+        [wrongSide, (wantInc?'x > ':'x < ')+fnum(k), 'all real numbers'],
+        ['increasing = the graph RISES as you read left to right; decreasing = it falls',
+         up ? 'opens up = a valley: falls until the vertex, then rises after it' : 'opens down = a hill: rises until the vertex, then falls after it',
+         'the split happens at the vertex’s X-coordinate ('+fnum(h)+'), not its y'],
+        null);
+    },
+    function(R){ /* y-intercept from pattern (Carly style) */
+      var C = pickR(R,[
+        {who:'Carly', thing:'packs of baseball cards', unit:'$', yl:'Money left (in $)', q:'How much money will she have if she doesn’t buy any packs?'},
+        {who:'Rosa', thing:'bracelets she makes', unit:'in', yl:'Beads left', q:'How many beads does she start with before making any bracelets?'},
+        {who:'Devon', thing:'hours of gaming', unit:'%', yl:'Battery (%)', q:'What was the battery percentage before he started playing?'}
+      ]);
+      var B = ri(R,3,9), A = B*ri(R,4,8) + pickR(R,[0, B]);
+      var xs = [1,2,3,4];
+      var fig = tableFig(['x ('+C.thing+')', C.yl], xs.map(function(x){ return [fnum(x), fnum(A - B*x)]; }));
+      return {type:'numeric',
+        prompt:'The table shows the relationship between y (' + C.yl.toLowerCase() + ') and x (' + C.thing + ') for '+C.who+'. '+C.q,
+        answer:A, figure:fig,
+        steps:['the question is asking for the value at x = 0 — the y-intercept — but the table STARTS at x = 1',
+          'find the rate: y drops by '+fnum(B)+' every time x goes up by 1',
+          'back up one step from x = 1: '+fnum(A-B)+' + '+fnum(B)+' = '+fnum(A)]};
+    },
+    function(R){ /* intercepts of Ax + By = C */
+      var a = ri(R,2,6), bx = ri(R,2,6);
+      var xi = ri(R,2,8)*pickR(R,[1,-1]);
+      var c = a*xi;
+      var yi = c % bx === 0 ? c/bx : null;
+      var wantX = yi===null ? true : pickR(R,[true,false]);
+      var eq = fnum(a)+'x + '+fnum(bx)+'y = '+fnum(c);
+      if(wantX){
+        return mcq(R, 'What is the x-intercept of the graph of '+eq+'?',
+          ptTxt(xi,0),
+          [ptTxt(0,xi), ptTxt(-xi,0), ptTxt(0,Math.round(c/bx*100)/100)],
+          ['the x-intercept is where the graph crosses the x-axis — where y = 0',
+           'set y = 0: '+fnum(a)+'x = '+fnum(c)+' &rarr; x = '+fnum(xi),
+           'write it as a POINT: '+ptTxt(xi,0)]);
+      }
+      return mcq(R, 'What is the y-intercept of the graph of '+eq+'?',
+        ptTxt(0,yi),
+        [ptTxt(yi,0), ptTxt(0,-yi), ptTxt(0,xi)],
+        ['the y-intercept is where the graph crosses the y-axis — where x = 0',
+         'set x = 0: '+fnum(bx)+'y = '+fnum(c)+' &rarr; y = '+fnum(yi),
+         'write it as a POINT: '+ptTxt(0,yi)]);
+    },
+    function(R){ /* increasing intervals from curve, checkbox */
+      var w = wCurve(R);
+      var fig = curveFig(w.pts, [1,2,3]);
+      return {type:'checkbox',
+        prompt:'The turning points of f(x) are labeled on the graph. Check every interval where f(x) is INCREASING.',
+        figure:fig,
+        statements: shuf(R,[
+          {text:'['+fnum(w.t1)+', '+fnum(w.t2)+']', correct:true},
+          {text:'after x = '+fnum(w.t3), correct:true},
+          {text:'['+fnum(w.t2)+', '+fnum(w.t3)+']', correct:false},
+          {text:'before x = '+fnum(w.t1), correct:false}
+        ]),
+        steps:['increasing = the curve goes UP as your eyes move left → right',
+          'the curve turns at x = '+fnum(w.t1)+' (valley), x = '+fnum(w.t2)+' (peak), x = '+fnum(w.t3)+' (valley)',
+          'it rises valley→peak ['+fnum(w.t1)+', '+fnum(w.t2)+'] and again after the last valley (x = '+fnum(w.t3)+')']};
+    },
+    function(R){ /* interval containing a local max/min from curve */
+      var w = wCurve(R);
+      var fig = curveFig(w.pts, [1,2,3]);
+      var wantMax = pickR(R,[true,false]);
+      if(wantMax){
+        return mcq(R, 'Which interval contains a LOCAL MAXIMUM of the graphed function?',
+          '['+fnum(w.t2-1)+', '+fnum(w.t2+1)+']',
+          ['['+fnum(w.t1-1)+', '+fnum(w.t1)+']',
+           '['+fnum(w.t3+1)+', 5]',
+           '['+fnum(-5)+', '+fnum(w.t1-1)+']'],
+          ['a local maximum is a PEAK — the top of a hill',
+           'the peak is at x = '+fnum(w.t2)+', which sits inside ['+fnum(w.t2-1)+', '+fnum(w.t2+1)+']'],
+          fig);
+      }
+      return mcq(R, 'Which interval contains a LOCAL MINIMUM of the graphed function?',
+        '['+fnum(w.t1-1)+', '+fnum(w.t1+1)+']',
+        ['['+fnum(w.t2)+', '+fnum(w.t2+1)+']',
+         '['+fnum(w.t3+1)+', 5]',
+         '['+MINUS+'5, '+fnum(w.t1-1)+']'],
+        ['a local minimum is a VALLEY — the bottom of a dip',
+         'there’s a valley at x = '+fnum(w.t1)+' (and another at x = '+fnum(w.t3)+'), so pick the interval that contains one',
+         '['+fnum(w.t1-1)+', '+fnum(w.t1+1)+'] contains x = '+fnum(w.t1)+' ✓'],
+        fig);
+    }
+  ];
+
+  /* ================= CONCEPT 6 — Lines, Slopes & Sequences ================= */
+  var GENS6 = [
+    function(R){ /* standard form from intercepts */
+      var y0 = ri(R,1,3)*pickR(R,[1,-1]);
+      var x1 = ri(R,2,5)*pickR(R,[1,-1]);
+      var A = y0, B = x1, C = x1*y0;
+      var g = gcd(gcd(A,B),C); A/=g; B/=g; C/=g;
+      if(A<0){ A=-A; B=-B; C=-C; }
+      function std(a,b,c){ return coefTxt(a)+'x'+(b>=0?' + ':' '+MINUS+' ')+coefTxt(Math.abs(b))+'y = '+fnum(c); }
+      var mTxt = fracTxt(-y0, x1);
+      return mcq(R, 'A line passes through '+ptTxt(0,y0)+' and '+ptTxt(x1,0)+'. What is its equation written in STANDARD FORM?',
+        std(A,B,C),
+        [std(A,-B,C), std(A,B,-C), lineEqTxt(mTxt, y0)],
+        ['standard form is Ax + By = C — x and y on the same side, no fractions',
+         'slope = (0 '+MINUS+' '+fnum(y0)+') / ('+fnum(x1)+' '+MINUS+' 0) = '+mTxt+', so y = '+mTxt+'x'+signedTxt(y0)+' — true, but NOT standard form',
+         'rearranged: '+std(A,B,C)+' (check: both points work)']);
+    },
+    function(R){ /* parallel through a point */
+      var d = ri(R,2,5);
+      var n = pickR(R,[1,-1]);
+      var mTxt = fracTxt(n,d);
+      var x0 = d*ri(R,1,2)*pickR(R,[1,-1]);
+      var y0 = ri(R,-6,6);
+      var b1 = ri(R,1,6);
+      var b2 = y0 - n*x0/d;
+      var perp = fracTxt(-d,n);
+      return mcq(R, 'What is the equation of the line that is PARALLEL to y = '+mTxt+'x + '+fnum(b1)+' and passes through '+ptTxt(x0,y0)+'?',
+        lineEqTxt(mTxt, b2),
+        [lineEqTxt(mTxt, y0), lineEqTxt(perp, b2), lineEqTxt(mTxt, -b2===0?b1:-b2)],
+        ['parallel = SAME slope, so keep m = '+mTxt,
+         'find the new b by plugging the point in: '+fnum(y0)+' = '+mTxt+'('+fnum(x0)+') + b',
+         fnum(y0)+' = '+fnum(n*x0/d)+' + b &rarr; b = '+fnum(b2)]);
+    },
+    function(R){ /* perpendicular: find b (numeric) */
+      var m = pickR(R,[2,3,4,5]);
+      var x0 = m*ri(R,2,4);
+      var y0 = ri(R,-8,8);
+      var b1 = ri(R,1,7);
+      var b2 = y0 + x0/m;
+      return {type:'numeric',
+        prompt:'Avani wrote the line y = '+fnum(m)+'x + '+fnum(b1)+'. Then she wrote the equation of the line PERPENDICULAR to it through '+ptTxt(x0,y0)+'. Her new equation has the form y = '+MINUS+UFRAC['1/'+m]+'x + b. What is the value of b?',
+        answer:b2,
+        steps:['perpendicular slope = flip and negate: '+fnum(m)+' &rarr; '+MINUS+UFRAC['1/'+m],
+          'plug the point into y = '+MINUS+UFRAC['1/'+m]+'x + b: '+fnum(y0)+' = '+MINUS+UFRAC['1/'+m]+'('+fnum(x0)+') + b',
+          fnum(y0)+' = '+fnum(-x0/m)+' + b &rarr; b = '+fnum(b2)]};
+    },
+    function(R){ /* direct variation k */
+      var k = ri(R,2,9);
+      var a = ri(R,2,5), b2 = a + ri(R,1,4);
+      return {type:'numeric',
+        prompt:'What is the constant of variation, k, of the direct variation y = kx whose line passes through '+ptTxt(a,k*a)+' and '+ptTxt(b2,k*b2)+'?',
+        answer:k,
+        steps:['direct variation: y = kx, so k = y / x for ANY point on the line',
+          'k = '+fnum(k*a)+' / '+fnum(a)+' = '+fnum(k),
+          'double-check with the other point: '+fnum(k*b2)+' / '+fnum(b2)+' = '+fnum(k)+' ✓']};
+    },
+    function(R){ /* recursive sequence */
+      var d = ri(R,3,8)*pickR(R,[1,-1]);
+      var s = ri(R,-5,9); if(s===0) s = 2;
+      function seq(start, step){ return [start, start+step, start+2*step, start+3*step].map(fnum).join(', ')+', …'; }
+      var op = d>=0 ? '+ '+fnum(d) : MINUS+' '+fnum(-d);
+      return mcq(R, 'A sequence is defined recursively by f(n + 1) = f(n) '+op+'. Which sequence could be generated using this formula?',
+        seq(s, d),
+        [seq(s, -d),
+         [s, s*d, s*d*d, s*d*d*d].map(fnum).join(', ')+', …',
+         seq(s, d + (d>0?1:-1))],
+        ['f(n + 1) = f(n) '+op+' means: each term is the one before it '+(d>=0?'plus':'minus')+' '+fnum(Math.abs(d)),
+         'so the sequence jumps by '+(d>=0?'+':MINUS)+fnum(Math.abs(d))+' every step — an ARITHMETIC sequence',
+         'check the gaps between consecutive terms; multiplying (a geometric pattern) is the classic trap']);
+    },
+    function(R){ /* slope from two points */
+      var m = ri(R,-4,4); if(m===0) m = 2;
+      var x1 = ri(R,-5,2), x2 = x1 + ri(R,2,5);
+      var y1 = ri(R,-6,6), y2 = y1 + m*(x2-x1);
+      return {type:'numeric',
+        prompt:'What is the slope of the line through '+ptTxt(x1,y1)+' and '+ptTxt(x2,y2)+'?',
+        answer:m,
+        steps:['slope = rise over run: m = (y₂ '+MINUS+' y₁) / (x₂ '+MINUS+' x₁)',
+          'm = ('+fnum(y2)+' '+MINUS+' '+(y1<0?'('+fnum(y1)+')':fnum(y1))+') / ('+fnum(x2)+' '+MINUS+' '+(x1<0?'('+fnum(x1)+')':fnum(x1))+')',
+          'm = '+fnum(y2-y1)+' / '+fnum(x2-x1)+' = '+fnum(m)]};
+    },
+    function(R){ /* arithmetic sequence nth term */
+      var a1 = ri(R,-6,10), d = ri(R,2,7)*pickR(R,[1,-1]);
+      var n = pickR(R,[8,10,12]);
+      return {type:'numeric',
+        prompt:'An arithmetic sequence starts '+fnum(a1)+', '+fnum(a1+d)+', '+fnum(a1+2*d)+', '+fnum(a1+3*d)+', … What is the '+n+'th term?',
+        answer:a1+(n-1)*d,
+        steps:['common difference: d = '+fnum(d),
+          'to reach term '+n+' you take '+(n-1)+' jumps from the first term',
+          fnum(a1)+' + '+(n-1)+'('+fnum(d)+') = '+fnum(a1+(n-1)*d)]};
+    }
+  ];
+
+  /* ================= CONCEPT 7 — Sets & Venn Diagrams ================= */
+  var GENS7 = [
+    function(R){ /* triangle subset */
+      var V = pickR(R,[
+        {of:'I (isosceles triangles)', ans:'E (equilateral)', wr:['S (scalene)','R (right)','O (obtuse)'],
+         why:['isosceles = AT LEAST two equal sides','every equilateral triangle has three equal sides — so it always has two','so every element of E is in I: E ⊆ I']},
+        {of:'A (acute triangles)', ans:'E (equilateral)', wr:['R (right)','O (obtuse)','S (scalene)'],
+         why:['every angle of an equilateral triangle is 60° — all three are acute','so every equilateral triangle is an acute triangle: E ⊆ A','scalene triangles can be right or obtuse, so S is not a subset of A']}
+      ]);
+      return mcq(R, 'U = {all triangles}. E = equilateral, I = isosceles, S = scalene, A = acute, O = obtuse, R = right. Which is a subset of '+V.of+'?',
+        V.ans, V.wr, V.why);
+    },
+    function(R){ /* venn region */
+      var V = pickR(R,[
+        {p:'If k ∈ A ∩ B, which is the MOST specific location of k on the Venn diagram?', ans:'II', wr:['I','III','IV'],
+         st:['∩ means intersection: k is in BOTH circles at once','the only region inside both circles is the overlap','region II']},
+        {p:'If m ∈ U but m ∉ A ∪ B, where does m live on the Venn diagram?', ans:'IV', wr:['I','II','III'],
+         st:['m is in the universal set but NOT in the union — not in either circle','the only region outside both circles (but inside the box) is IV']},
+        {p:'If j ∈ A but j ∉ B, which is the most specific location of j?', ans:'I', wr:['II','III','IV'],
+         st:['j is inside circle A but outside circle B','the part of A that doesn’t overlap B is region I']}
+      ]);
+      return mcq(R, V.p, V.ans, V.wr, V.st, vennRegions());
+    },
+    function(R){ /* roster intersection / union count */
+      var base = shuf(R,[1,2,3,4,5,6,7,8,9,10,11,12]);
+      var shared = base.slice(0,ri(R,2,3));
+      var onlyA = base.slice(3,3+ri(R,2,3));
+      var onlyB = base.slice(7,7+ri(R,2,3));
+      var A = shared.concat(onlyA).sort(function(a,b){return a-b;});
+      var B = shared.concat(onlyB).sort(function(a,b){return a-b;});
+      var wantInt = pickR(R,[true,false]);
+      var ans = wantInt ? shared.length : (shared.length + onlyA.length + onlyB.length);
+      return {type:'numeric',
+        prompt:'A = {'+A.join(', ')+'} and B = {'+B.join(', ')+'}. How many elements are in A '+(wantInt?'∩':'∪')+' B?',
+        answer:ans,
+        steps:[wantInt ? '∩ = intersection = only the elements in BOTH sets' : '∪ = union = everything in either set, counted ONCE',
+          'the shared elements are {'+shared.slice().sort(function(a,b){return a-b;}).join(', ')+'}',
+          wantInt ? 'count them: '+ans : 'count everything without double-counting the shared ones: '+ans]};
+    },
+    function(R){ /* n(A∪B) formula */
+      var nA = ri(R,8,15), nB = ri(R,6,12), nI = ri(R,2,5);
+      return {type:'numeric',
+        prompt:'n(A) = '+nA+', n(B) = '+nB+', and n(A ∩ B) = '+nI+'. What is n(A ∪ B)?',
+        answer:nA+nB-nI,
+        steps:['n(A ∪ B) = n(A) + n(B) '+MINUS+' n(A ∩ B) — subtract the overlap so it isn’t counted twice',
+          nA+' + '+nB+' '+MINUS+' '+nI+' = '+(nA+nB-nI)]};
+    },
+    function(R){ /* subset true/false checkbox */
+      var step = pickR(R,[2,3]);
+      var A = [step, step*2, step*3, step*4];
+      var B = [A[1], A[3]];
+      var odd = A[0]+1;
+      return {type:'checkbox',
+        prompt:'A = {'+A.join(', ')+'} and B = {'+B.join(', ')+'}. Check every TRUE statement.',
+        statements: shuf(R,[
+          {text:'B ⊆ A', correct:true},
+          {text:'∅ ⊆ A', correct:true},
+          {text:'A ⊆ B', correct:false},
+          {text:'{'+odd+'} ⊆ A', correct:false}
+        ]),
+        steps:['B ⊆ A: every element of B ('+B.join(' and ')+') is in A ✓',
+          'the empty set is a subset of EVERY set — always true',
+          'A ⊆ B fails because '+A[0]+' ∈ A but '+A[0]+' ∉ B; and '+odd+' isn’t in A at all']};
+    },
+    function(R){ /* union / intersection roster mc */
+      var colors = shuf(R,['red','orange','yellow','green','blue','purple','pink']);
+      var shared = colors.slice(0,1);
+      var a2 = colors.slice(1,3), b2 = colors.slice(3,5);
+      var A = a2.concat(shared), B = shared.concat(b2);
+      var wantInt = pickR(R,[true,false]);
+      function set(arr){ return '{'+arr.join(', ')+'}'; }
+      var correct = wantInt ? set(shared) : set(a2.concat(shared).concat(b2));
+      return mcq(R, 'A = '+set(A)+' and B = '+set(B)+'. What is A '+(wantInt?'∩':'∪')+' B?',
+        correct,
+        [wantInt ? set(a2.concat(shared).concat(b2)) : set(shared), set(a2), set(b2)],
+        [wantInt ? '∩ = intersection = ONLY what’s in both sets' : '∪ = union = everything from either set, listed once',
+         'the overlap is '+set(shared),
+         correct]);
+    }
+  ];
+
+  var GENS = {1:GENS1, 2:GENS2, 3:GENS3, 4:GENS4, 5:GENS5, 6:GENS6, 7:GENS7};
+
+  function buildQuestions(seed){
+    var R = mulberry32(seed);
+    var out = [];
+    CONCEPTS.forEach(function(c){
+      var bank = GENS[c.n];
+      var take = Math.min(bank.length, c.take);
+      shuf(R, bank).slice(0, take).forEach(function(g){
+        var q = g(R);
+        q.concept = c.n;
+        out.push(q);
+      });
+    });
+    return out;
+  }
+
+  return {CONCEPTS:CONCEPTS, buildQuestions:buildQuestions};
+})();
+</script>
+
+<script>
+(function(){
+  "use strict";
+  var root = document.documentElement;
+  var themeToggle = document.getElementById('theme-toggle');
+  var stored = null;
+  try { stored = localStorage.getItem('algebra-theme'); } catch(e){}
+  if (stored) root.setAttribute('data-theme', stored);
+  themeToggle.addEventListener('click', function(){
+    var current = root.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    if (!current){ next = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark'; }
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('algebra-theme', next); } catch(e){}
+  });
+
+  var CONCEPTS = QUIZGEN.CONCEPTS;
+
+  var GOOD_MSGS = ['Bet. That\'s correct. 🏐','No cap, you nailed it.','That\'s a W — certified correct.','Ate that. 💯','Correct. Main character energy.','Big brain move. Correct!','Locked in. Let\'s go.'];
+  var BAD_MSGS = ['Ehh, that ain\'t it, chief.','L take — run it back.','Not quite, bestie. Recheck your steps.','That\'s giving wrong-answer energy.','Mid attempt. Try again.','Negative, ghost rider. Try again.'];
+  function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+  function newSeed(){ return (Date.now() ^ (Math.random()*0xFFFFFFFF)) >>> 0; }
+
+  /* ---------- shared state ---------- */
+  var quizRoot = document.getElementById('quiz-root');
+  var examBar = document.getElementById('exam-bar');
+  var examToggle = document.getElementById('exam-toggle');
+  var mode = 'practice';
+
+  var PROGRESS_KEY = 'algebra-quiz-progress:' + location.pathname + ':v1';
+  var progress = null;
+  try { progress = JSON.parse(localStorage.getItem(PROGRESS_KEY)); } catch(e){}
+  if(!progress || typeof progress !== 'object') progress = {seed:null, score:0, streak:0, answered:{}};
+  if(!progress.answered) progress.answered = {};
+
+  /* keep the same deal mid-quiz (so navigating away doesn't lose it),
+     but deal fresh questions whenever nothing is answered yet */
+  var hasAnswers = Object.keys(progress.answered).length > 0;
+  if(!hasAnswers || typeof progress.seed !== 'number'){
+    progress.seed = newSeed();
+    progress.score = 0; progress.streak = 0; progress.answered = {};
+  }
+  var QUESTIONS = QUIZGEN.buildQuestions(progress.seed);
+
+  function saveProgress(){
+    try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress)); } catch(e){}
+  }
+  saveProgress();
+
+  var score = progress.score||0, streak = progress.streak||0, best = 0;
+  try { best = parseInt(localStorage.getItem('algebra-quiz-best:midterm')||'0',10) || 0; } catch(e){}
+  document.getElementById('score-total').textContent = QUESTIONS.length;
+  document.getElementById('streak-best').textContent = best;
+
+  function updateScorebar(){
+    document.getElementById('score-val').textContent = score;
+    document.getElementById('streak-val').textContent = streak;
+    if(streak>best){ best=streak; document.getElementById('streak-best').textContent = best; try{ localStorage.setItem('algebra-quiz-best:midterm', String(best)); }catch(e){} }
+    var pct = Math.round((score/QUESTIONS.length)*100);
+    document.getElementById('court-fill').style.width = pct+'%';
+    document.getElementById('court-ball').style.left = pct+'%';
+    if(score===QUESTIONS.length) showFinale();
+  }
+  function showFinale(){
+    var f = document.getElementById('finale');
+    if(f) { f.classList.add('show'); return; }
+    f = document.createElement('div');
+    f.className = 'finale show';
+    f.id = 'finale';
+    f.innerHTML = '<h2>🏆 Match Point.</h2><p>All '+QUESTIONS.length+'/'+QUESTIONS.length+' — and these weren\'t even the same questions as last time. Hit 🎲 New questions and prove it wasn\'t luck, or take it in exam mode.</p>';
+    quizRoot.appendChild(f);
+  }
+
+  function addFigure(card, q){
+    if(!q.figure) return;
+    var fig = document.createElement('div');
+    fig.className = 'qfigure';
+    fig.innerHTML = q.figure;
+    card.appendChild(fig);
+  }
+  function addSteps(card, q, open){
+    var details = document.createElement('details');
+    details.className = 'steps';
+    if(open) details.open = true;
+    var summary = document.createElement('summary');
+    summary.textContent = 'Show steps';
+    var body = document.createElement('div');
+    body.className = 'steps-body';
+    q.steps.forEach(function(s){
+      var line = document.createElement('div');
+      line.innerHTML = s;
+      body.appendChild(line);
+    });
+    details.appendChild(summary);
+    details.appendChild(body);
+    card.appendChild(details);
+  }
+
+  /* ================= PRACTICE MODE ================= */
+  function renderPractice(){
+    quizRoot.innerHTML = '';
+    var qIndex = 0;
+    CONCEPTS.forEach(function(c){
+      var section = document.createElement('section');
+      section.className = 'qconcept';
+      var head = document.createElement('div');
+      head.className = 'qconcept-head';
+      head.innerHTML = '<span class="badge">'+c.n+'</span><h2>'+c.name+'</h2>';
+      section.appendChild(head);
+
+      QUESTIONS.filter(function(q){ return q.concept===c.n; }).forEach(function(q){
+        var myIndex = qIndex++;
+        var saved = progress.answered[myIndex];
+        var card = document.createElement('div');
+        card.className = 'qcard';
+        var answered = false;
+
+        addFigure(card, q);
+        var promptEl = document.createElement('p');
+        promptEl.className = 'qprompt';
+        promptEl.innerHTML = q.prompt;
+        card.appendChild(promptEl);
+
+        var feedback = document.createElement('div');
+        feedback.className = 'feedback';
+
+        function lockCorrect(persistedValue){
+          answered = true;
+          card.classList.add('correct');
+          if(persistedValue===undefined){
+            score++; streak++;
+            updateScorebar();
+            progress.score = score; progress.streak = streak;
+            saveProgress();
+          }
+          feedback.className = 'feedback good';
+          feedback.textContent = '✅ ' + pick(GOOD_MSGS);
+        }
+        function markWrong(){
+          streak = 0;
+          updateScorebar();
+          progress.streak = streak;
+          saveProgress();
+          card.classList.add('shake');
+          setTimeout(function(){ card.classList.remove('shake'); }, 320);
+          feedback.className = 'feedback bad';
+          feedback.textContent = '❌ ' + pick(BAD_MSGS);
+        }
+
+        if(q.type==='numeric'){
+          var row = document.createElement('div');
+          row.className = 'qrow';
+          var signBtn = document.createElement('button');
+          signBtn.type = 'button'; signBtn.className='btn sign-btn'; signBtn.textContent='±';
+          signBtn.setAttribute('aria-label', 'Toggle negative sign');
+          var input = document.createElement('input');
+          input.type = 'number'; input.className='qinput'; input.placeholder='?';
+          var checkBtn = document.createElement('button');
+          checkBtn.className = 'btn'; checkBtn.textContent = 'Check';
+          signBtn.addEventListener('click', function(){
+            if(answered) return;
+            input.value = input.value.charAt(0) === '-' ? input.value.slice(1) : '-' + input.value;
+            input.focus();
+          });
+          row.appendChild(signBtn); row.appendChild(input); row.appendChild(checkBtn);
+          card.appendChild(row);
+          var tryAnswer = function(){
+            if(answered) return;
+            var v = parseFloat(input.value);
+            if(isNaN(v)) return;
+            if(Math.abs(v - q.answer) < 1e-6){
+              input.disabled=true; checkBtn.disabled=true; signBtn.disabled=true;
+              progress.answered[myIndex] = {type:'numeric', value:v};
+              lockCorrect();
+            }
+            else { markWrong(); }
+          };
+          checkBtn.addEventListener('click', tryAnswer);
+          input.addEventListener('keydown', function(e){ if(e.key==='Enter') tryAnswer(); });
+          if(saved && saved.type==='numeric'){
+            input.value = saved.value;
+            input.disabled = true; checkBtn.disabled = true; signBtn.disabled = true;
+            lockCorrect(saved.value);
+          }
+        } else if(q.type==='mc'){
+          var list = document.createElement('div');
+          list.className = 'mc-list';
+          q.choices.forEach(function(choice, ci){
+            var btn = document.createElement('button');
+            btn.className = 'mc-btn';
+            btn.textContent = choice;
+            btn.addEventListener('click', function(){
+              if(answered) return;
+              if(ci===q.correct){
+                btn.classList.add('correct-pick');
+                Array.prototype.forEach.call(list.children, function(b){ b.disabled = true; });
+                progress.answered[myIndex] = {type:'mc', choice:ci};
+                lockCorrect();
+              } else {
+                btn.classList.add('wrong-pick');
+                markWrong();
+              }
+            });
+            list.appendChild(btn);
+          });
+          card.appendChild(list);
+          if(saved && saved.type==='mc' && list.children[saved.choice]){
+            list.children[saved.choice].classList.add('correct-pick');
+            Array.prototype.forEach.call(list.children, function(b){ b.disabled = true; });
+            lockCorrect(saved.choice);
+          }
+        } else if(q.type==='checkbox'){
+          var clist = document.createElement('div');
+          clist.className = 'check-list';
+          var picked = q.statements.map(function(){ return false; });
+          var checkSubmit = document.createElement('button');
+          var resolveChecklist = function(){
+            Array.prototype.forEach.call(clist.children, function(item, si){
+              item.classList.remove('picked');
+              item.classList.add(q.statements[si].correct ? 'resolved-true' : 'resolved-false');
+              item.disabled = true;
+            });
+            checkSubmit.disabled = true;
+          };
+          q.statements.forEach(function(st, si){
+            var item = document.createElement('button');
+            item.type = 'button';
+            item.className = 'check-item';
+            var box = document.createElement('span'); box.className = 'box';
+            var text = document.createElement('span'); text.className = 'check-text'; text.textContent = st.text;
+            item.appendChild(box); item.appendChild(text);
+            item.addEventListener('click', function(){
+              if(answered) return;
+              picked[si] = !picked[si];
+              item.classList.toggle('picked', picked[si]);
+            });
+            clist.appendChild(item);
+          });
+          card.appendChild(clist);
+          checkSubmit.type = 'button'; checkSubmit.className = 'btn check-submit'; checkSubmit.textContent = 'Check';
+          card.appendChild(checkSubmit);
+          checkSubmit.addEventListener('click', function(){
+            if(answered) return;
+            var allMatch = q.statements.every(function(st, si){ return picked[si] === st.correct; });
+            if(allMatch){
+              resolveChecklist();
+              progress.answered[myIndex] = {type:'checkbox', picked: picked.slice()};
+              lockCorrect();
+            } else {
+              markWrong();
+            }
+          });
+          if(saved && saved.type==='checkbox'){
+            picked = saved.picked.slice();
+            resolveChecklist();
+            lockCorrect(saved.picked);
+          }
+        }
+
+        card.appendChild(feedback);
+        addSteps(card, q, false);
+        section.appendChild(card);
+      });
+
+      quizRoot.appendChild(section);
+    });
+    updateScorebar();
+  }
+
+  /* ================= EXAM MODE (fresh questions every run) ================= */
+  function renderExam(){
+    quizRoot.innerHTML = '';
+    var EXAMQ = QUIZGEN.buildQuestions(newSeed());
+    var examAnswers = EXAMQ.map(function(){ return null; });
+    var cardEls = [];
+    var submitted = false;
+    var qIndex = 0;
+
+    CONCEPTS.forEach(function(c){
+      var section = document.createElement('section');
+      section.className = 'qconcept';
+      var head = document.createElement('div');
+      head.className = 'qconcept-head';
+      head.innerHTML = '<span class="badge">'+c.n+'</span><h2>'+c.name+'</h2>';
+      section.appendChild(head);
+
+      EXAMQ.filter(function(q){ return q.concept===c.n; }).forEach(function(q){
+        var myIndex = qIndex++;
+        var card = document.createElement('div');
+        card.className = 'qcard';
+        addFigure(card, q);
+        var promptEl = document.createElement('p');
+        promptEl.className = 'qprompt';
+        promptEl.innerHTML = q.prompt;
+        card.appendChild(promptEl);
+
+        var ctl = {card: card, inputs: []};
+
+        if(q.type==='numeric'){
+          var row = document.createElement('div');
+          row.className = 'qrow';
+          var signBtn = document.createElement('button');
+          signBtn.type='button'; signBtn.className='btn sign-btn'; signBtn.textContent='±';
+          signBtn.setAttribute('aria-label','Toggle negative sign');
+          var input = document.createElement('input');
+          input.type='number'; input.className='qinput'; input.placeholder='?';
+          signBtn.addEventListener('click', function(){
+            if(submitted) return;
+            input.value = input.value.charAt(0)==='-' ? input.value.slice(1) : '-'+input.value;
+            examAnswers[myIndex] = input.value;
+            input.focus();
+          });
+          input.addEventListener('input', function(){ if(!submitted) examAnswers[myIndex] = input.value; });
+          row.appendChild(signBtn); row.appendChild(input);
+          card.appendChild(row);
+          ctl.inputs = [signBtn, input];
+        } else if(q.type==='mc'){
+          var list = document.createElement('div');
+          list.className = 'mc-list';
+          q.choices.forEach(function(choice, ci){
+            var btn = document.createElement('button');
+            btn.className = 'mc-btn';
+            btn.textContent = choice;
+            btn.addEventListener('click', function(){
+              if(submitted) return;
+              Array.prototype.forEach.call(list.children, function(b){ b.classList.remove('picked'); });
+              btn.classList.add('picked');
+              examAnswers[myIndex] = ci;
+            });
+            list.appendChild(btn);
+            ctl.inputs.push(btn);
+          });
+          card.appendChild(list);
+          ctl.list = list;
+        } else if(q.type==='checkbox'){
+          var clist = document.createElement('div');
+          clist.className = 'check-list';
+          var picked = q.statements.map(function(){ return false; });
+          examAnswers[myIndex] = picked;
+          q.statements.forEach(function(st, si){
+            var item = document.createElement('button');
+            item.type='button'; item.className='check-item';
+            var box = document.createElement('span'); box.className='box';
+            var text = document.createElement('span'); text.className='check-text'; text.textContent = st.text;
+            item.appendChild(box); item.appendChild(text);
+            item.addEventListener('click', function(){
+              if(submitted) return;
+              picked[si] = !picked[si];
+              item.classList.toggle('picked', picked[si]);
+            });
+            clist.appendChild(item);
+            ctl.inputs.push(item);
+          });
+          card.appendChild(clist);
+          ctl.clist = clist;
+        }
+
+        var feedback = document.createElement('div');
+        feedback.className = 'feedback';
+        card.appendChild(feedback);
+        ctl.feedback = feedback;
+        ctl.q = q;
+
+        cardEls[myIndex] = ctl;
+        section.appendChild(card);
+      });
+      quizRoot.appendChild(section);
+    });
+
+    var submitCard = document.createElement('div');
+    submitCard.className = 'exam-submit-card';
+    submitCard.innerHTML = '<p>Done? Look back over anything you skipped — on the real test, blank = wrong.</p>';
+    var submitBtn = document.createElement('button');
+    submitBtn.type='button'; submitBtn.className='btn primary'; submitBtn.textContent='📬 Submit exam';
+    submitCard.appendChild(submitBtn);
+    quizRoot.appendChild(submitCard);
+
+    function isCorrect(q, a){
+      if(a === null || a === undefined) return false;
+      if(q.type==='numeric'){
+        var v = parseFloat(a);
+        return !isNaN(v) && Math.abs(v - q.answer) < 1e-6;
+      }
+      if(q.type==='mc') return a === q.correct;
+      if(q.type==='checkbox') return q.statements.every(function(st, si){ return a[si] === st.correct; });
+      return false;
+    }
+    function correctAnswerText(q){
+      if(q.type==='numeric') return String(q.answer);
+      if(q.type==='mc') return q.choices[q.correct];
+      if(q.type==='checkbox') return 'check: ' + q.statements.filter(function(st){ return st.correct; }).map(function(st){ return '“'+st.text+'”'; }).join('  +  ');
+      return '';
+    }
+
+    submitBtn.addEventListener('click', function(){
+      if(submitted) return;
+      submitted = true;
+      submitBtn.disabled = true;
+
+      var totalRight = 0;
+      var byConcept = {};
+      CONCEPTS.forEach(function(c){ byConcept[c.n] = {right:0, total:0}; });
+
+      EXAMQ.forEach(function(q, i){
+        var ctl = cardEls[i];
+        var right = isCorrect(q, examAnswers[i]);
+        byConcept[q.concept].total++;
+        ctl.inputs.forEach(function(el){ el.disabled = true; });
+
+        if(right){
+          totalRight++;
+          byConcept[q.concept].right++;
+          ctl.card.classList.add('correct');
+          ctl.feedback.className = 'feedback good';
+          ctl.feedback.textContent = '✅ Correct.';
+        } else {
+          ctl.card.classList.add('exam-wrong');
+          ctl.feedback.className = 'feedback bad';
+          ctl.feedback.textContent = (examAnswers[i]===null || examAnswers[i]===undefined || examAnswers[i]==='' ? '❌ No answer. ' : '❌ ') + 'Correct answer: ' + correctAnswerText(q);
+          if(q.type==='mc' && ctl.list) ctl.list.children[q.correct].classList.add('correct-pick');
+        }
+        addSteps(ctl.card, q, !right);
+      });
+
+      var pct = Math.round((totalRight / EXAMQ.length) * 100);
+      var summaryEl = document.createElement('div');
+      summaryEl.className = 'exam-summary';
+      var listHtml = '';
+      CONCEPTS.forEach(function(c){
+        var r = byConcept[c.n];
+        listHtml += '<li><b>'+r.right+'/'+r.total+'</b> — '+c.name+(r.right===r.total?' ✅':'')+'</li>';
+      });
+      var vibe = pct===100 ? 'Perfect score on questions you\'d never seen before. Go get that W. 🏆' : pct>=80 ? 'Solid — review the misses below (steps are already open), then retake for a brand-new set.' : 'The misses below matter more than the score — every one has its steps open. Read them, then run it back with fresh questions.';
+      summaryEl.innerHTML = '<h2>Exam Results</h2><div class="big-score">'+totalRight+'/'+EXAMQ.length+' · '+pct+'%</div><p>'+vibe+'</p><ul>'+listHtml+'</ul>';
+      var controls = document.createElement('div');
+      controls.className = 'controls';
+      var retake = document.createElement('button');
+      retake.type='button'; retake.className='btn'; retake.textContent='🔁 Retake (new questions)';
+      retake.addEventListener('click', function(){ renderExam(); window.scrollTo({top:0}); });
+      var backBtn = document.createElement('button');
+      backBtn.type='button'; backBtn.className='btn'; backBtn.textContent='📝 Back to practice';
+      backBtn.addEventListener('click', function(){ setMode('practice'); });
+      controls.appendChild(retake); controls.appendChild(backBtn);
+      summaryEl.appendChild(controls);
+      quizRoot.insertBefore(summaryEl, quizRoot.firstChild);
+      summaryEl.scrollIntoView({block:'start', behavior:'smooth'});
+    });
+  }
+
+  /* ================= MODE SWITCH ================= */
+  function setMode(m){
+    mode = m;
+    document.body.classList.toggle('exam-mode', m==='exam');
+    examBar.hidden = m!=='exam';
+    examToggle.textContent = m==='exam' ? '📝 Practice mode' : '🎯 Exam mode';
+    if(m==='exam') renderExam(); else renderPractice();
+    window.scrollTo({top:0});
+  }
+  examToggle.addEventListener('click', function(){
+    setMode(mode==='exam' ? 'practice' : 'exam');
+  });
+
+  /* ================= PRINT WORKSHEET (fresh questions every print) ================= */
+  function buildWorksheet(){
+    var WQ = QUIZGEN.buildQuestions(newSeed());
+    var html = '<div class="ws-head"><h2>Cumulative Review Worksheet — First Half of Algebra 1</h2>'
+      + '<p>Name: ____________________&nbsp;&nbsp;&nbsp;Date: ____________</p>'
+      + '<p>'+WQ.length+' questions across every topic — and every printout is a brand-new set, so print as many rounds as you want. Show your work under each question. The answer key is on the last page: fold it back, grade yourself honestly, then look up anything you missed on the quiz page.</p></div>';
+    WQ.forEach(function(q, i){
+      html += '<div class="ws-q"><p><b>'+(i+1)+'.</b> '+q.prompt+'</p>';
+      if(q.figure) html += '<div class="ws-fig">'+q.figure+'</div>';
+      if(q.type==='mc'){
+        html += '<ol class="ws-choices">';
+        q.choices.forEach(function(ch){ html += '<li>'+ch+'</li>'; });
+        html += '</ol>';
+      } else if(q.type==='checkbox'){
+        html += '<ol class="ws-choices">';
+        q.statements.forEach(function(st){ html += '<li>☐ '+st.text+'</li>'; });
+        html += '</ol>';
+      }
+      html += '<div class="ws-work">work:</div>';
+      html += '<p class="ws-answer">Answer: ______________________</p></div>';
+    });
+    html += '<div class="ws-key"><h2>Answer Key</h2><ol>';
+    WQ.forEach(function(q){
+      var a = '';
+      if(q.type==='numeric') a = String(q.answer);
+      else if(q.type==='mc') a = String.fromCharCode(65+q.correct) + ' — ' + q.choices[q.correct];
+      else if(q.type==='checkbox'){
+        var letters = [];
+        q.statements.forEach(function(st, si){ if(st.correct) letters.push(String.fromCharCode(65+si)); });
+        a = 'check ' + letters.join(' and ');
+      }
+      html += '<li>'+a+'</li>';
+    });
+    html += '</ol></div>';
+    return html;
+  }
+  document.getElementById('print-ws').addEventListener('click', function(){
+    document.getElementById('worksheet').innerHTML = buildWorksheet();
+    document.body.classList.add('print-worksheet');
+    window.print();
+  });
+  window.addEventListener('afterprint', function(){
+    document.body.classList.remove('print-worksheet');
+  });
+
+  /* ================= NEW QUESTIONS ================= */
+  document.getElementById('reset-quiz').addEventListener('click', function(){
+    if(confirm('Deal a completely fresh set of questions? Your current score and answers reset.')){
+      try { localStorage.removeItem(PROGRESS_KEY); } catch(e){}
+      location.reload();
+    }
+  });
+
+  renderPractice();
+})();
 </script>

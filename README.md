@@ -47,6 +47,17 @@ work well as Claude Artifacts if you want a shareable link.
   interior angles sum to 180° (rearranging onto a straight line; parallel
   lines and alternate interior angles).
 
+- **`midterm-review/`** — cumulative review for the first half of the class
+  (built from the 25-question Edgenuity cumulative exam review). Three pieces
+  instead of five: `cheat-sheet.html` (the whole exam on 1–2 scannable,
+  printable pages — 10 one-sentence big ideas plus "do this" boxes per topic),
+  `practice-quiz.html` (41 questions across 7 topics, **generated from
+  randomized templates** — fresh numbers on every deal via 🎲 New questions,
+  every exam-mode run, and every worksheet print), and `flashcards.html`
+  (40 cards). Topics: solving equations, literal equations & formulas,
+  inequalities, function basics, features of graphs, lines/slopes/sequences,
+  sets & Venn diagrams.
+
 ## Starting the next unit
 
 1. Copy the topic list for the new test.
