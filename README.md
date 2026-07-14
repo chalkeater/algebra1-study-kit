@@ -47,6 +47,13 @@ work well as Claude Artifacts if you want a shareable link.
   interior angles sum to 180° (rearranging onto a straight line; parallel
   lines and alternate interior angles).
 
+- **`unit-03-systems-of-equations-inequalities/`** — solving systems of
+  linear equations by graphing, substitution, and elimination (linear
+  combination); one/no/infinitely-many solutions; modeling word problems
+  with systems; writing and graphing systems of linear inequalities.
+  This unit has a sixth piece: `cheat-sheet.html` (the printable 1-page
+  format introduced by the midterm review).
+
 - **`midterm-review/`** — cumulative review for the first half of the class
   (built from the 25-question Edgenuity cumulative exam review). Three pieces
   instead of five: `cheat-sheet.html` (the whole exam on 1–2 scannable,

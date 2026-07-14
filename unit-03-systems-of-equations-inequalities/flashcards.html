@@ -1,6 +1,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Miriam's Algebra 1 — Study Kit Index</title>
+<title>Systems of Equations &amp; Inequalities — Flashcards</title>
 <style>
   @font-face{
     font-family:'Anton'; font-style:normal; font-weight:400; font-display:swap;
@@ -16,6 +16,7 @@
     --line:#D5E1DE;
     --accent:#0F7A78; --accent-strong:#095452; --accent-soft:#DFF1EF;
     --gold:#C9821A; --gold-soft:#FBEBCC;
+    --good:#2E7D32; --good-soft:#E4F3E1; --bad:#B23A3A; --bad-soft:#FBE6E6;
     --radius:16px;
     --shadow:0 1px 2px rgba(14,27,30,.06), 0 10px 28px -14px rgba(14,27,30,.2);
     --font-display:'Anton', impact, sans-serif;
@@ -29,6 +30,7 @@
       --ink:#E9F3F1; --ink-soft:#A6BEBB; --ink-faint:#6E8583; --line:#213231;
       --accent:#2FC7C0; --accent-strong:#8FE6E1; --accent-soft:#123230;
       --gold:#E0AC52; --gold-soft:#332711;
+      --good:#5FBD5F; --good-soft:#163A18; --bad:#F0685F; --bad-soft:#3B1616;
       --shadow:0 1px 2px rgba(0,0,0,.35), 0 10px 28px -14px rgba(0,0,0,.55);
     }
   }
@@ -37,6 +39,7 @@
     --ink:#E9F3F1; --ink-soft:#A6BEBB; --ink-faint:#6E8583; --line:#213231;
     --accent:#2FC7C0; --accent-strong:#8FE6E1; --accent-soft:#123230;
     --gold:#E0AC52; --gold-soft:#332711;
+    --good:#5FBD5F; --good-soft:#163A18; --bad:#F0685F; --bad-soft:#3B1616;
     --shadow:0 1px 2px rgba(0,0,0,.35), 0 10px 28px -14px rgba(0,0,0,.55);
   }
   :root[data-theme="light"]{
@@ -44,6 +47,7 @@
     --ink:#0E1B1E; --ink-soft:#48595C; --ink-faint:#7C8C8C; --line:#D5E1DE;
     --accent:#0F7A78; --accent-strong:#095452; --accent-soft:#DFF1EF;
     --gold:#C9821A; --gold-soft:#FBEBCC;
+    --good:#2E7D32; --good-soft:#E4F3E1; --bad:#B23A3A; --bad-soft:#FBE6E6;
     --shadow:0 1px 2px rgba(14,27,30,.06), 0 10px 28px -14px rgba(14,27,30,.2);
   }
   *{box-sizing:border-box;}
@@ -52,327 +56,422 @@
     font-size:16px; line-height:1.5; -webkit-font-smoothing:antialiased;
   }
   ::selection{background:var(--gold-soft); color:var(--ink);}
-  a{color:inherit;}
-  button:focus-visible, a:focus-visible{outline:3px solid var(--gold); outline-offset:2px;}
+  button, input{font-family:inherit; font-size:1rem;}
+  button:focus-visible, input:focus-visible{outline:3px solid var(--gold); outline-offset:2px;}
 
-  header.hero{padding:2.4rem clamp(1rem,4vw,2.5rem) 1.6rem; border-bottom:1px solid var(--line);}
-  .hero-inner{max-width:1040px; margin:0 auto;}
+  header.hero{
+    padding:2.2rem clamp(1rem,4vw,2.5rem) 1.4rem; border-bottom:1px solid var(--line);
+  }
+  .hero-inner{max-width:900px; margin:0 auto;}
   .hero-eyebrow{font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; font-weight:700; color:var(--accent-strong); margin:0 0 .4rem;}
   header.hero h1{
-    font-family:var(--font-display); font-weight:400; text-transform:uppercase; letter-spacing:.01em;
-    font-size:clamp(2.1rem,5vw,3.2rem); line-height:.95; margin:0 0 .5rem; text-wrap:balance;
+    font-family:var(--font-display); font-weight:400; text-transform:uppercase;
+    font-size:clamp(2rem,5.5vw,3rem); line-height:.95; margin:0 0 .5rem; text-wrap:balance;
   }
-  header.hero p{color:var(--ink-soft); max-width:60ch; margin:0; font-size:1.03rem;}
-  .hero-actions{margin-top:1rem;}
+  header.hero p{color:var(--ink-soft); max-width:56ch; margin:0; font-size:1.03rem;}
+  .hero-actions{margin-top:.9rem;}
   .btn{
     border:1px solid var(--line); background:var(--ground-raised); color:var(--ink);
     padding:.5rem .9rem; border-radius:999px; font-size:.82rem; font-weight:600; cursor:pointer; box-shadow:var(--shadow);
     min-height:2.75rem; display:inline-flex; align-items:center; justify-content:center;
   }
+  .deck-controls{max-width:900px; margin:0 auto; padding:.9rem clamp(1rem,4vw,2.5rem) 0;}
+  .filter-row{display:flex; gap:.5rem; overflow-x:auto; padding-bottom:.5rem; -webkit-overflow-scrolling:touch; scrollbar-width:none;}
+  .filter-row::-webkit-scrollbar{display:none;}
+  .tab{
+    flex:none; border:1px solid var(--line); background:var(--ground-raised); color:var(--ink-soft);
+    padding:.5rem .85rem; border-radius:999px; font-weight:700; font-size:.82rem; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; gap:.4rem; white-space:nowrap; min-height:2.75rem;
+  }
+  .tab .tn{font-family:var(--font-mono); color:var(--ink-faint); font-size:.72rem;}
+  .tab.active{background:var(--accent); color:#F4FFFE; border-color:var(--accent);}
+  .tab.active .tn{color:#DFFFFD;}
+  .status-row{display:flex; gap:.5rem; margin-top:.55rem; flex-wrap:wrap;}
+  .status-row .tab{font-size:.78rem; padding:.4rem .75rem; min-height:2.4rem;}
 
-  main{max-width:1040px; margin:0 auto; padding:2rem clamp(1rem,4vw,2.5rem) 4rem;}
+  .progress-wrap{
+    max-width:900px; margin:0 auto; padding:.9rem clamp(1rem,4vw,2.5rem) 0;
+    display:flex; align-items:center; gap:.7rem; flex-wrap:wrap;
+  }
+  .progress-count{font-size:.85rem; font-weight:700; color:var(--ink-soft); white-space:nowrap;}
+  .progress-count b{color:var(--accent-strong); font-family:var(--font-mono);}
+  .progress-track{
+    flex:1; min-width:120px; height:8px; border-radius:999px;
+    background:var(--ground-sunken); border:1px solid var(--line); overflow:hidden;
+  }
+  .progress-fill{height:100%; background:var(--accent); border-radius:999px; transition:width .25s ease;}
+  .stat-chip{font-size:.78rem; font-weight:700; padding:.3rem .6rem; border-radius:999px; white-space:nowrap; font-family:var(--font-mono);}
+  .stat-chip.know{background:var(--good-soft); color:var(--good);}
+  .stat-chip.learning{background:var(--gold-soft); color:var(--gold);}
 
-  .unit-block{margin-bottom:2.4rem;}
-  .unit-head{display:flex; align-items:baseline; gap:.9rem; flex-wrap:wrap; margin-bottom:.4rem;}
-  .unit-badge{
-    font-family:var(--font-mono); font-size:.72rem; font-weight:700; letter-spacing:.06em;
-    background:var(--accent); color:#F4FFFE; padding:.25rem .6rem; border-radius:6px;
-  }
-  .unit-head h2{
-    font-family:var(--font-display); font-weight:400; text-transform:uppercase; font-size:1.5rem; margin:0;
-  }
-  .unit-desc{color:var(--ink-faint); font-size:.88rem; margin:.2rem 0 1.1rem; max-width:70ch;}
+  main{max-width:640px; margin:0 auto; padding:1.6rem clamp(1rem,4vw,2.5rem) 3rem;}
 
-  .card-grid{display:grid; gap:1rem; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));}
-  .card{
-    display:flex; flex-direction:column;
-    background:var(--ground-raised); border:1px solid var(--line); border-radius:var(--radius);
-    box-shadow:var(--shadow); transition:transform .15s ease, border-color .15s ease;
+  .stage{perspective:1600px; margin:0 auto; touch-action:pan-y;}
+  .flashcard{
+    position:relative; width:100%; min-height:320px; cursor:pointer;
+    transform-style:preserve-3d; transition:transform .5s cubic-bezier(.2,.8,.2,1);
   }
-  .card:hover{transform:translateY(-2px); border-color:var(--accent);}
-  .card-main{
-    display:flex; flex-direction:column; gap:.5rem;
-    padding:1.2rem 1.3rem 1rem; text-decoration:none; color:var(--ink); flex:1;
+  .flashcard.flipped{transform:rotateY(180deg);}
+  .card-face{
+    position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden;
+    display:flex; flex-direction:column; gap:1rem;
+    background:var(--ground-raised); border:1px solid var(--line); border-radius:20px;
+    box-shadow:var(--shadow); padding:1.8rem 1.6rem 2.6rem;
   }
-  .card-icon{font-size:1.6rem; line-height:1;}
-  .card-title{font-family:var(--font-display); font-weight:400; text-transform:uppercase; font-size:1.05rem; letter-spacing:.01em;}
-  .card-desc{color:var(--ink-soft); font-size:.85rem; line-height:1.45; flex:1;}
-  .card-foot{
-    display:flex; align-items:center; justify-content:space-between; gap:.6rem;
-    padding:.7rem 1.3rem; border-top:1px solid var(--line);
+  .card-face.back{transform:rotateY(180deg);}
+  .card-tag{font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; font-weight:700; color:var(--accent-strong);}
+  .card-body{flex:1; display:flex; align-items:center;}
+  .card-q{font-size:1.22rem; line-height:1.5; font-weight:600;}
+  .card-a{font-size:1.1rem; line-height:1.55; color:var(--ink-soft);}
+  .card-hint{
+    position:absolute; bottom:.9rem; left:0; right:0; text-align:center;
+    font-size:.7rem; color:var(--ink-faint); letter-spacing:.05em; text-transform:uppercase;
   }
-  .card-file{font-family:var(--font-mono); font-size:.72rem; color:var(--ink-faint);}
+  .card-mark{position:absolute; top:1.2rem; right:1.3rem; font-size:1.1rem;}
 
-  .next-unit{
-    border:1px dashed var(--line); border-radius:var(--radius); padding:1.2rem 1.3rem;
-    color:var(--ink-faint); font-size:.88rem; text-align:center;
+  .mark-row{display:flex; gap:.7rem; margin-top:1.3rem;}
+  .mark-row .btn{flex:1;}
+  .btn.learning-btn{border-color:var(--gold); color:var(--gold);}
+  .btn.know-btn{border-color:var(--good); color:var(--good);}
+
+  .nav-row{display:flex; align-items:center; justify-content:space-between; gap:.6rem; margin-top:1rem;}
+  .mark-row[hidden], .nav-row[hidden]{display:none;}
+
+  .empty-state{
+    text-align:center; padding:3.5rem 1.5rem; color:var(--ink-faint);
+    border:1px dashed var(--line); border-radius:20px; font-size:.95rem;
   }
+  .empty-state b{color:var(--ink-soft);}
+
+  @media (prefers-reduced-motion: reduce){ .flashcard{transition:none;} }
 
   footer{text-align:center; color:var(--ink-faint); font-size:.78rem; padding:1.5rem;}
+
+  .site-nav{
+    display:flex; align-items:center; gap:.5rem; overflow-x:auto;
+    padding:.5rem clamp(1rem,4vw,2.5rem); border-bottom:1px solid var(--line);
+    background:var(--ground-sunken); -webkit-overflow-scrolling:touch; scrollbar-width:none;
+  }
+  .site-nav::-webkit-scrollbar{display:none;}
+  .site-nav a{
+    flex:none; display:inline-flex; align-items:center; justify-content:center; white-space:nowrap;
+    padding:.5rem .85rem; border-radius:999px; font-size:.78rem; font-weight:700;
+    text-decoration:none; color:var(--ink-soft); min-height:2.75rem;
+  }
+  .site-nav a.home{color:var(--accent-strong); background:var(--ground-raised); border:1px solid var(--line); box-shadow:var(--shadow);}
+  .site-nav a.page:hover{color:var(--ink);}
+  .site-nav a.page.active{background:var(--accent); color:#F4FFFE;}
 </style>
+
+<nav class="site-nav" aria-label="Unit navigation">
+  <a class="home" href="../index.html">&larr; Index</a>
+  <a class="page" href="study-guide.html">Study Guide</a>
+  <a class="page" href="concept-explainers.html">Explainer</a>
+  <a class="page" href="playground.html">Playground</a>
+  <a class="page active" href="flashcards.html">Flashcards</a>
+  <a class="page" href="practice-quiz.html">Quiz</a>
+  <a class="page" href="cheat-sheet.html">Cheat Sheet</a>
+</nav>
 
 <header class="hero">
   <div class="hero-inner">
-    <p class="hero-eyebrow">Study Kit Index</p>
-    <h1>Miriam's Algebra 1</h1>
-    <p>One row per unit test. Each unit gets the same five pieces: a study guide for during the test, an explainer for before it, a playground to practice in, flashcards to drill on the go, and a quiz to prove it stuck.</p>
+    <p class="hero-eyebrow">Flashcards &middot; Quick Review</p>
+    <h1>Drill It Until It's Automatic</h1>
+    <p>Tap a card to flip it. Swipe or use the buttons to move on. Mark what you know — the deck remembers, so you can drill just what's still shaky.</p>
     <div class="hero-actions">
-      <button class="btn" id="theme-toggle" type="button">🌓 Theme</button>
+      <button class="btn" id="theme-toggle" type="button">&#127769; Theme</button>
     </div>
   </div>
 </header>
 
+<div class="deck-controls">
+  <div class="filter-row" id="concept-filter" role="tablist" aria-label="Filter by concept">
+    <button class="tab active" data-concept="all" type="button">All <span class="tn"></span></button>
+    <button class="tab" data-concept="1" type="button">01 Graphing</button>
+    <button class="tab" data-concept="2" type="button">02 Substitution</button>
+    <button class="tab" data-concept="3" type="button">03 Elimination</button>
+    <button class="tab" data-concept="4" type="button">04 How Many?</button>
+    <button class="tab" data-concept="5" type="button">05 Word Problems</button>
+    <button class="tab" data-concept="6" type="button">06 Inequalities</button>
+  </div>
+  <div class="status-row" id="status-filter">
+    <button class="tab active" data-status="all" type="button">All cards</button>
+    <button class="tab" data-status="learning" type="button">&#8635; Still learning</button>
+    <button class="tab" data-status="know" type="button">&#10003; Known</button>
+  </div>
+</div>
+
+<div class="progress-wrap">
+  <span class="progress-count">Card <b id="pos-num">1</b> / <b id="pos-total">1</b></span>
+  <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+  <span class="stat-chip know">&#10003; <b id="know-count">0</b></span>
+  <span class="stat-chip learning">&#8635; <b id="learning-count">0</b></span>
+</div>
+
 <main>
+  <div class="stage" id="stage">
+    <div class="flashcard" id="flashcard" tabindex="0" role="button" aria-label="Flashcard. Tap or press enter to flip.">
+      <div class="card-face front">
+        <span class="card-tag" id="tag-front">&nbsp;</span>
+        <span class="card-mark" id="mark-front"></span>
+        <div class="card-body"><p class="card-q" id="card-q"></p></div>
+        <span class="card-hint">Tap to flip</span>
+      </div>
+      <div class="card-face back">
+        <span class="card-tag" id="tag-back">&nbsp;</span>
+        <span class="card-mark" id="mark-back"></span>
+        <div class="card-body"><p class="card-a" id="card-a"></p></div>
+        <span class="card-hint">Tap to flip back</span>
+      </div>
+    </div>
+  </div>
 
-  <section class="unit-block">
-    <div class="unit-head">
-      <span class="unit-badge">Unit 1</span>
-      <h2>Linear Equations &amp; Inequalities</h2>
-    </div>
-    <p class="unit-desc">Solving equations, variable on one side, variables on both sides, the distributive property, literal equations, compound inequalities, graphing and modeling two-variable inequalities.</p>
-    <div class="card-grid">
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/study-guide.html">
-          <span class="card-icon">📘</span>
-          <span class="card-title">Study Guide</span>
-          <span class="card-desc">Open-notes reference — one worked example per concept. Use this one during the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">study-guide.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/concept-explainers.html">
-          <span class="card-icon">🧠</span>
-          <span class="card-title">The Explainer</span>
-          <span class="card-desc">ELI5 deep-dive with volleyball analogies, the "why," and common mistakes. Read this before the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">concept-explainers.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/playground.html">
-          <span class="card-icon">🏐</span>
-          <span class="card-title">The Playground</span>
-          <span class="card-desc">8 hands-on stations — drive an equation solver, build a graph, test points, drag sliders.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">playground.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/practice-quiz.html">
-          <span class="card-icon">🎯</span>
-          <span class="card-title">Practice Quiz</span>
-          <span class="card-desc">33 questions, instant feedback, score + streak tracker. Prove you've got it.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">practice-quiz.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/flashcards.html">
-          <span class="card-icon">🃏</span>
-          <span class="card-title">Flashcards</span>
-          <span class="card-desc">32 tap-to-flip cards by concept. Swipe through on your phone, mark what's still shaky.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">flashcards.html</span>
-        </div>
-      </div>
-    </div>
-  </section>
+  <div class="empty-state" id="empty-state" hidden>
+    Nothing here yet. <b>Still learning</b> and <b>Known</b> fill up as you mark cards — switch back to <b>All cards</b> to keep drilling.
+  </div>
 
-  <section class="unit-block">
-    <div class="unit-head">
-      <span class="unit-badge">Unit 2</span>
-      <h2>Sets, Venn Diagrams &amp; Triangle Angles</h2>
-    </div>
-    <p class="unit-desc">Sets and elements, subsets, union and intersection with Venn diagrams, sets applied to probability and geometry, the triangle angle-sum theorem, and the two proofs of why the angles always make 180°.</p>
-    <div class="card-grid">
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/study-guide.html">
-          <span class="card-icon">📘</span>
-          <span class="card-title">Study Guide</span>
-          <span class="card-desc">Open-notes reference — one worked example per concept. Use this one during the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">study-guide.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/concept-explainers.html">
-          <span class="card-icon">🧠</span>
-          <span class="card-title">The Explainer</span>
-          <span class="card-desc">ELI5 deep-dive with volleyball analogies, the "why," and common mistakes. Read this before the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">concept-explainers.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/playground.html">
-          <span class="card-icon">🏐</span>
-          <span class="card-title">The Playground</span>
-          <span class="card-desc">6 hands-on stations — build sets, click Venn regions, bend a live triangle, run the 180° proof yourself.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">playground.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/practice-quiz.html">
-          <span class="card-icon">🎯</span>
-          <span class="card-title">Practice Quiz</span>
-          <span class="card-desc">47 questions, two modes: instant-feedback practice and a no-hints exam mode. Plus a printable worksheet.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">practice-quiz.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/flashcards.html">
-          <span class="card-icon">🃏</span>
-          <span class="card-title">Flashcards</span>
-          <span class="card-desc">35 tap-to-flip cards by concept. Swipe through on your phone, mark what's still shaky.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">flashcards.html</span>
-        </div>
-      </div>
-    </div>
-  </section>
+  <div class="mark-row" id="mark-row">
+    <button class="btn learning-btn" id="mark-learning" type="button">&#8635; Still learning</button>
+    <button class="btn know-btn" id="mark-know" type="button">&#10003; Know it</button>
+  </div>
 
-  <section class="unit-block">
-    <div class="unit-head">
-      <span class="unit-badge">Midterm</span>
-      <h2>Cumulative Review — First Half</h2>
-    </div>
-    <p class="unit-desc">Everything from the first half of the class: solving equations, literal equations &amp; formulas, inequalities, function basics, reading graphs, lines &amp; sequences, and sets. The quiz re-rolls its numbers every time, so it can't be memorized — only learned.</p>
-    <div class="card-grid">
-      <div class="card">
-        <a class="card-main" href="midterm-review/cheat-sheet.html">
-          <span class="card-icon">🗒️</span>
-          <span class="card-title">Cheat Sheet</span>
-          <span class="card-desc">The whole exam on one scannable page — 10 one-sentence big ideas plus "do this" boxes for all 7 topics. Print it.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">cheat-sheet.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="midterm-review/practice-quiz.html">
-          <span class="card-icon">🎲</span>
-          <span class="card-title">Practice Quiz</span>
-          <span class="card-desc">41 questions, 5–6 per topic — with fresh numbers on every deal. Practice mode, exam mode, and printable worksheets that regenerate every print.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">practice-quiz.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="midterm-review/flashcards.html">
-          <span class="card-icon">🃏</span>
-          <span class="card-title">Flashcards</span>
-          <span class="card-desc">40 tap-to-flip cards across all 7 topics. Swipe through on your phone, mark what's still shaky.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">flashcards.html</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="unit-block">
-    <div class="unit-head">
-      <span class="unit-badge">Unit 3</span>
-      <h2>Systems of Equations &amp; Inequalities</h2>
-    </div>
-    <p class="unit-desc">Solving systems of linear equations by graphing, substitution, and elimination (linear combination); systems with one, no, or infinitely many solutions; modeling word problems with systems; and writing, graphing, and interpreting systems of linear inequalities.</p>
-    <div class="card-grid">
-      <div class="card">
-        <a class="card-main" href="unit-03-systems-of-equations-inequalities/study-guide.html">
-          <span class="card-icon">📘</span>
-          <span class="card-title">Study Guide</span>
-          <span class="card-desc">Open-notes reference — one worked example per concept. Use this one during the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">study-guide.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-03-systems-of-equations-inequalities/cheat-sheet.html">
-          <span class="card-icon">🗒️</span>
-          <span class="card-title">Cheat Sheet</span>
-          <span class="card-desc">The whole test on one scannable page — 10 one-sentence big ideas plus "do this" boxes for all 7 topics. Print it.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">cheat-sheet.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-03-systems-of-equations-inequalities/concept-explainers.html">
-          <span class="card-icon">🧠</span>
-          <span class="card-title">The Explainer</span>
-          <span class="card-desc">ELI5 deep-dive with volleyball analogies, the "why," and common mistakes. Read this before the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">concept-explainers.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-03-systems-of-equations-inequalities/playground.html">
-          <span class="card-icon">🏐</span>
-          <span class="card-title">The Playground</span>
-          <span class="card-desc">6 hands-on stations — click the intersection, drive the substitution machine, make variables cancel, build inequality systems.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">playground.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-03-systems-of-equations-inequalities/practice-quiz.html">
-          <span class="card-icon">🎯</span>
-          <span class="card-title">Practice Quiz</span>
-          <span class="card-desc">44 questions, two modes: instant-feedback practice and a no-hints exam mode. Plus a printable worksheet.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">practice-quiz.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-03-systems-of-equations-inequalities/flashcards.html">
-          <span class="card-icon">🃏</span>
-          <span class="card-title">Flashcards</span>
-          <span class="card-desc">36 tap-to-flip cards by concept. Swipe through on your phone, mark what's still shaky.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">flashcards.html</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="next-unit">Unit 4 shows up here once the next test is announced.</div>
-
+  <div class="nav-row" id="nav-row">
+    <button class="btn" id="prev-btn" type="button" aria-label="Previous card">&lsaquo; Prev</button>
+    <button class="btn" id="shuffle-btn" type="button">&#128256; Shuffle</button>
+    <button class="btn" id="next-btn" type="button" aria-label="Next card">Next &rsaquo;</button>
+  </div>
 </main>
 
-<footer>Miriam's Algebra 1 · Study Kit Index</footer>
+<footer>Miriam's Algebra 1 &middot; Unit 3 Flashcards</footer>
 
 <script>
-  (function(){
-    var root = document.documentElement;
-    var toggle = document.getElementById('theme-toggle');
-    var stored = null;
-    try { stored = localStorage.getItem('algebra-theme'); } catch(e){}
-    if (stored) root.setAttribute('data-theme', stored);
-    toggle.addEventListener('click', function(){
-      var current = root.getAttribute('data-theme');
-      var next = current === 'dark' ? 'light' : 'dark';
-      if (!current){ next = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark'; }
-      root.setAttribute('data-theme', next);
-      try { localStorage.setItem('algebra-theme', next); } catch(e){}
+(function(){
+  "use strict";
+  var root = document.documentElement;
+  var themeToggle = document.getElementById('theme-toggle');
+  var stored = null;
+  try { stored = localStorage.getItem('algebra-theme'); } catch(e){}
+  if (stored) root.setAttribute('data-theme', stored);
+  themeToggle.addEventListener('click', function(){
+    var current = root.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    if (!current){ next = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark'; }
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('algebra-theme', next); } catch(e){}
+  });
+
+  var CONCEPTS = [
+    {n:1, name:'Solving by Graphing'},
+    {n:2, name:'Substitution'},
+    {n:3, name:'Elimination'},
+    {n:4, name:'One, None, or Infinitely Many'},
+    {n:5, name:'Word Problems → Systems'},
+    {n:6, name:'Systems of Inequalities'}
+  ];
+
+  var CARDS = [
+    {c:1, q:"What IS the solution to a system of two equations?", a:"The one (x, y) pair that makes BOTH equations true at the same time. On the graph, it's the point where the two lines cross."},
+    {c:1, q:"How do you solve a system by graphing?", a:"Graph both lines (y = mx + b, or plot the intercepts), read the intersection point, then CHECK it by plugging into both original equations."},
+    {c:1, q:"A graph labels the intersection AND the intercepts. Which point is the solution?", a:"Only the intersection — the point on BOTH lines. Intercepts like (0, 3) or (1, 0) sit on one line only. They're decoys."},
+    {c:1, q:"How do you CHECK whether (−2, 2) solves 2x + 3y = 2 and y = ½x + 3?", a:"Plug into both: 2(−2) + 3(2) = −4 + 6 = 2 ✓ and ½(−2) + 3 = 2 ✓. True twice = solution."},
+    {c:1, q:"The lines cross between grid points. Now what?", a:"Estimate from the graph (\"about (1.1, −2.8)\"), or trace with a graphing calculator to snap to the exact intersection. Then verify by substituting into both equations."},
+    {c:1, q:"Fastest multiple-choice strategy for 'what is the solution to the system'?", a:"Skip solving — plug each answer choice into BOTH equations. The one that's true twice wins."},
+
+    {c:2, q:"When is substitution the right method?", a:"When one equation is already solved for a variable (y = … or x = …) — or one step away, like a variable with coefficient 1."},
+    {c:2, q:"The #1 substitution rule?", a:"Substitute the WHOLE expression inside parentheses: x − 2y = −14 with y = 2x − 3.5 becomes x − 2(2x − 3.5) = −14."},
+    {c:2, q:"Simplify: x − 2(2x − 3.5) = −14", a:"Distribute the −2 to BOTH terms: x − 4x + 7 = −14 → −3x = −21 → x = 7. The −3.5 flips to +7!"},
+    {c:2, q:"You found x = 7. Are you done?", a:"No — a solution is a PAIR. Back-substitute: y = 2(7) − 3.5 = 10.5. Answer: (7, 10.5), x first."},
+    {c:2, q:"Solve: 2x + 4y = 12 and y = ¼x − 3", a:"2x + 4(¼x − 3) = 12 → 2x + x − 12 = 12 → 3x = 24 → x = 8, then y = ¼(8) − 3 = −1. Solution (8, −1)."},
+    {c:2, q:"Neither equation is solved for a variable. Which one do you isolate?", a:"The variable with a coefficient of 1 — one step, no fractions. In x + 4y = 1, move the 4y: x = 1 − 4y."},
+
+    {c:3, q:"What are additive inverses, and why does elimination need them?", a:"Two numbers that add to zero, like +12y and −12y. When one variable's coefficients are additive inverses, ADDING the equations wipes that variable out."},
+    {c:3, q:"Why is adding two equations 'legal'?", a:"Addition property of equality: the second equation's sides are equal, so you're adding the same amount to both sides of the first. Equal stays equal."},
+    {c:3, q:"Set up: eliminate y from 5x + 4y = 8 and 2x − 3y = 17", a:"Multiply the first by 3 and the second by 4: +12y and −12y. Add → 23x = 92 → x = 4. (Then back-substitute for y = −3.)"},
+    {c:3, q:"When you multiply an equation by −2, what's the most-missed term?", a:"The right side! y − 2x = −5 times −2 is −2y + 4x = +10 — every term, both sides."},
+    {c:3, q:"Table question: why do the original system, the equivalent system, and the new system all share ONE solution?", a:"Multiplying an equation by a constant and adding equations are legal moves — they make equivalent systems. Same lines, same crossing point. Both blanks get the same (x, y)."},
+    {c:3, q:"Solve the table system: 2y − x = 8 and y − 2x = −5", a:"×(−2) on the second: −2y + 4x = 10. Add: 3x = 18 → x = 6. Then 2y − 6 = 8 → y = 7. Solution (6, 7)."},
+
+    {c:4, q:"How many solutions can a system of linear equations have?", a:"Exactly three options: one (lines cross), none (parallel lines), or infinitely many (same line twice)."},
+    {c:4, q:"How do slopes and intercepts predict the number of solutions?", a:"Different slopes → one solution. Same slope, different y-intercepts → none (parallel). Same slope AND same intercept → infinitely many (same line)."},
+    {c:4, q:"You're solving and ALL the variables cancel, leaving 0 = 0. Verdict?", a:"A TRUE statement → infinitely many solutions. The equations were the same line in different costumes."},
+    {c:4, q:"You're solving and all the variables cancel, leaving 0 = 60. Verdict?", a:"A FALSE statement → no solution. Parallel lines that never touch. (NOT the point (0, 60) — there is no point!)"},
+    {c:4, q:"Build a second equation so that 2y − 4x = 6 has infinitely many solutions with it.", a:"Multiply the whole thing by any constant. ×(−½) gives −y = −2x − 3 — same line, so every point works."},
+    {c:4, q:"y = 2x + 3 and y = 2x + 6 — how many solutions?", a:"None. Same slope (2), different intercepts → parallel. They look similar, but similar ≠ same line."},
+
+    {c:5, q:"First move on ANY word problem?", a:"Define the variables in words: 'let x = number of hours, let y = total price.' Numbers of things, not the things."},
+    {c:5, q:"'The drama club has 100 tickets and needs at least $800.' Which sentence makes which equation?", a:"Count sentence → s + n = 100 (or ≤ 100). Money sentence → 5s + 10n = 800 (or ≥ 800): price × count for each type."},
+    {c:5, q:"Two shops: y = 10 + 3.5x and y = 6x. Same hours, same price — what's the equation?", a:"Set the expressions equal: 10 + 3.5x = 6x → 10 = 2.5x → x = 4 hours → y = 6(4) = $24 each."},
+    {c:5, q:"The bike problem solves to x = 4. Why is '4' the wrong answer?", a:"The question asked how much each PAID. Interpret in context: y = 6(4) = $24. Always reread what's actually being asked."},
+    {c:5, q:"Gift-wrap table: 10p + 9d = 47 and 25p + 12d = 86. Prices?", a:"×4 and ×(−3) to kill the d's: −35p = −70 → p = $2, then 9d = 27 → d = $3. Check with the spare row: 16(2) + 12(3) = 68 ✓."},
+    {c:5, q:"How do you check a word-problem answer for real?", a:"Plug it back into the STORY, not just your equations. 124 tickets at $3 plus 66 at $4 should hit $636 on the nose."},
+
+    {c:6, q:"Translate: 'at most', 'no more than', 'only has 100 buns'", a:"≤ — a ceiling. h + c ≤ 100. ('Fewer than' is the strict version: <.)"},
+    {c:6, q:"Translate: 'at least', 'needs a minimum of $800'", a:"≥ — a floor. 5s + 10n ≥ 800. ('More than' is the strict version: >.)"},
+    {c:6, q:"Solid line or dashed line — how do you decide?", a:"≤ and ≥ → SOLID (boundary points count). < and > → DASHED (boundary points do NOT count)."},
+    {c:6, q:"Which side of the line do you shade?", a:"In y = mx + b form: y > shades above, y < shades below. Unsure? Test (0, 0) in the ORIGINAL inequality — true means shade its side."},
+    {c:6, q:"What is the solution set of a system of inequalities?", a:"The OVERLAP — the region where every inequality's shading piles up. Any point there satisfies all the rules at once. (No overlap = no solution!)"},
+    {c:6, q:"'What's the MAXIMUM number of student tickets?' — where does the max hide?", a:"On the boundary. Solve the boundary EQUATIONS as a system: s + n = 100 and 5s + 10n = 800 → s = 40."}
+  ];
+
+  CARDS.forEach(function(card, i){ card.id = card.c + '-' + i; });
+
+  var PROGRESS_KEY = 'algebra-flashcards-progress:' + location.pathname;
+  var progress = {};
+  try { progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}'); } catch(e){ progress = {}; }
+  function saveProgress(){
+    try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress)); } catch(e){}
+  }
+
+  var conceptFilter = 'all';
+  var statusFilter = 'all';
+  var deck = [];
+  var pos = 0;
+  var flipped = false;
+
+  var flashcard = document.getElementById('flashcard');
+  var tagFront = document.getElementById('tag-front');
+  var tagBack = document.getElementById('tag-back');
+  var markFront = document.getElementById('mark-front');
+  var markBack = document.getElementById('mark-back');
+  var cardQ = document.getElementById('card-q');
+  var cardA = document.getElementById('card-a');
+  var posNum = document.getElementById('pos-num');
+  var posTotal = document.getElementById('pos-total');
+  var progressFill = document.getElementById('progress-fill');
+  var knowCount = document.getElementById('know-count');
+  var learningCount = document.getElementById('learning-count');
+  var stage = document.getElementById('stage');
+  var emptyState = document.getElementById('empty-state');
+  var markRow = document.getElementById('mark-row');
+  var navRow = document.getElementById('nav-row');
+
+  function conceptName(n){
+    for (var i=0;i<CONCEPTS.length;i++){ if (CONCEPTS[i].n === n) return CONCEPTS[i].name; }
+    return '';
+  }
+
+  function markIcon(id){
+    var s = progress[id];
+    if (s === 'know') return '&#10003;';
+    if (s === 'learning') return '&#8635;';
+    return '';
+  }
+
+  function buildDeck(){
+    deck = CARDS.filter(function(card){
+      if (conceptFilter !== 'all' && card.c !== conceptFilter) return false;
+      if (statusFilter !== 'all' && progress[card.id] !== statusFilter) return false;
+      return true;
     });
-  })();
+    pos = 0;
+    render();
+  }
+
+  function shuffleDeck(){
+    for (var i = deck.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = deck[i]; deck[i] = deck[j]; deck[j] = tmp;
+    }
+    pos = 0;
+    render();
+  }
+
+  function updateCounts(){
+    var know = 0, learning = 0;
+    CARDS.forEach(function(card){
+      if (progress[card.id] === 'know') know++;
+      else if (progress[card.id] === 'learning') learning++;
+    });
+    knowCount.textContent = know;
+    learningCount.textContent = learning;
+  }
+
+  function render(){
+    updateCounts();
+    flipped = false;
+    flashcard.classList.remove('flipped');
+
+    if (!deck.length){
+      stage.hidden = true; markRow.hidden = true; navRow.hidden = true; emptyState.hidden = false;
+      posNum.textContent = '0'; posTotal.textContent = '0'; progressFill.style.width = '0%';
+      return;
+    }
+    stage.hidden = false; markRow.hidden = false; navRow.hidden = false; emptyState.hidden = true;
+
+    var card = deck[pos];
+    var tag = 'Concept ' + card.c + ' · ' + conceptName(card.c);
+    tagFront.textContent = tag;
+    tagBack.textContent = tag;
+    cardQ.textContent = card.q;
+    cardA.textContent = card.a;
+    markFront.innerHTML = markIcon(card.id);
+    markBack.innerHTML = markIcon(card.id);
+    posNum.textContent = String(pos + 1);
+    posTotal.textContent = String(deck.length);
+    progressFill.style.width = (((pos + 1) / deck.length) * 100) + '%';
+  }
+
+  function flip(){ flipped = !flipped; flashcard.classList.toggle('flipped', flipped); }
+
+  function next(){ if (!deck.length) return; pos = (pos + 1) % deck.length; render(); }
+  function prev(){ if (!deck.length) return; pos = (pos - 1 + deck.length) % deck.length; render(); }
+
+  function mark(status){
+    if (!deck.length) return;
+    var card = deck[pos];
+    progress[card.id] = status;
+    saveProgress();
+    next();
+  }
+
+  flashcard.addEventListener('click', function(){ if (!swiped) flip(); });
+  flashcard.addEventListener('keydown', function(e){
+    if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); flip(); }
+    else if (e.key === 'ArrowRight'){ next(); }
+    else if (e.key === 'ArrowLeft'){ prev(); }
+  });
+
+  var swiped = false, touchStartX = 0, touchStartY = 0, touchStartT = 0;
+  flashcard.addEventListener('touchstart', function(e){
+    swiped = false;
+    var t = e.changedTouches[0];
+    touchStartX = t.clientX; touchStartY = t.clientY; touchStartT = Date.now();
+  }, {passive:true});
+  flashcard.addEventListener('touchend', function(e){
+    var t = e.changedTouches[0];
+    var dx = t.clientX - touchStartX, dy = t.clientY - touchStartY;
+    var dt = Date.now() - touchStartT;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.2 && dt < 800){
+      swiped = true;
+      if (dx < 0) next(); else prev();
+    }
+  }, {passive:true});
+
+  document.getElementById('prev-btn').addEventListener('click', prev);
+  document.getElementById('next-btn').addEventListener('click', next);
+  document.getElementById('shuffle-btn').addEventListener('click', shuffleDeck);
+  document.getElementById('mark-know').addEventListener('click', function(){ mark('know'); });
+  document.getElementById('mark-learning').addEventListener('click', function(){ mark('learning'); });
+
+  document.getElementById('concept-filter').querySelector('.tn').textContent = CARDS.length;
+  document.querySelectorAll('#concept-filter .tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('#concept-filter .tab').forEach(function(t){ t.classList.remove('active'); });
+      tab.classList.add('active');
+      var v = tab.getAttribute('data-concept');
+      conceptFilter = v === 'all' ? 'all' : parseInt(v, 10);
+      buildDeck();
+    });
+  });
+  document.querySelectorAll('#status-filter .tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('#status-filter .tab').forEach(function(t){ t.classList.remove('active'); });
+      tab.classList.add('active');
+      statusFilter = tab.getAttribute('data-status');
+      buildDeck();
+    });
+  });
+
+  buildDeck();
+})();
 </script>

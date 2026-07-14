@@ -1,6 +1,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Miriam's Algebra 1 — Study Kit Index</title>
+<title>Systems of Equations &amp; Inequalities — The Playground</title>
 <style>
   @font-face{
     font-family:'Anton'; font-style:normal; font-weight:400; font-display:swap;
@@ -16,6 +16,8 @@
     --line:#D5E1DE;
     --accent:#0F7A78; --accent-strong:#095452; --accent-soft:#DFF1EF;
     --gold:#C9821A; --gold-soft:#FBEBCC;
+    --good:#2E7D32; --good-soft:#E4F3E1; --bad:#B23A3A; --bad-soft:#FBE6E6;
+    --net:#0E1B1E;
     --radius:16px;
     --shadow:0 1px 2px rgba(14,27,30,.06), 0 10px 28px -14px rgba(14,27,30,.2);
     --font-display:'Anton', impact, sans-serif;
@@ -29,6 +31,7 @@
       --ink:#E9F3F1; --ink-soft:#A6BEBB; --ink-faint:#6E8583; --line:#213231;
       --accent:#2FC7C0; --accent-strong:#8FE6E1; --accent-soft:#123230;
       --gold:#E0AC52; --gold-soft:#332711;
+      --good:#5FBD5F; --good-soft:#163A18; --bad:#F0685F; --bad-soft:#3B1616;
       --shadow:0 1px 2px rgba(0,0,0,.35), 0 10px 28px -14px rgba(0,0,0,.55);
     }
   }
@@ -37,6 +40,7 @@
     --ink:#E9F3F1; --ink-soft:#A6BEBB; --ink-faint:#6E8583; --line:#213231;
     --accent:#2FC7C0; --accent-strong:#8FE6E1; --accent-soft:#123230;
     --gold:#E0AC52; --gold-soft:#332711;
+    --good:#5FBD5F; --good-soft:#163A18; --bad:#F0685F; --bad-soft:#3B1616;
     --shadow:0 1px 2px rgba(0,0,0,.35), 0 10px 28px -14px rgba(0,0,0,.55);
   }
   :root[data-theme="light"]{
@@ -44,6 +48,7 @@
     --ink:#0E1B1E; --ink-soft:#48595C; --ink-faint:#7C8C8C; --line:#D5E1DE;
     --accent:#0F7A78; --accent-strong:#095452; --accent-soft:#DFF1EF;
     --gold:#C9821A; --gold-soft:#FBEBCC;
+    --good:#2E7D32; --good-soft:#E4F3E1; --bad:#B23A3A; --bad-soft:#FBE6E6;
     --shadow:0 1px 2px rgba(14,27,30,.06), 0 10px 28px -14px rgba(14,27,30,.2);
   }
   *{box-sizing:border-box;}
@@ -52,327 +57,845 @@
     font-size:16px; line-height:1.5; -webkit-font-smoothing:antialiased;
   }
   ::selection{background:var(--gold-soft); color:var(--ink);}
-  a{color:inherit;}
-  button:focus-visible, a:focus-visible{outline:3px solid var(--gold); outline-offset:2px;}
+  button, input, select{font-family:inherit; font-size:1rem;}
+  button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible{
+    outline:3px solid var(--gold); outline-offset:2px;
+  }
 
-  header.hero{padding:2.4rem clamp(1rem,4vw,2.5rem) 1.6rem; border-bottom:1px solid var(--line);}
-  .hero-inner{max-width:1040px; margin:0 auto;}
-  .hero-eyebrow{font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; font-weight:700; color:var(--accent-strong); margin:0 0 .4rem;}
+  /* ---- Hero with net motif ---- */
+  header.hero{
+    position:relative; overflow:hidden;
+    padding: 2.4rem clamp(1rem,4vw,2.5rem) 1.6rem;
+    border-bottom:1px solid var(--line);
+    background:
+      linear-gradient(var(--ground-raised), var(--ground-raised)) padding-box;
+  }
+  header.hero canvas.net{
+    position:absolute; inset:0; width:100%; height:100%; opacity:.5; pointer-events:none;
+  }
+  .hero-inner{position:relative; max-width:1180px; margin:0 auto;}
+  .hero-eyebrow{
+    font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; font-weight:700;
+    color:var(--accent-strong); margin:0 0 .4rem;
+  }
   header.hero h1{
     font-family:var(--font-display); font-weight:400; text-transform:uppercase; letter-spacing:.01em;
-    font-size:clamp(2.1rem,5vw,3.2rem); line-height:.95; margin:0 0 .5rem; text-wrap:balance;
+    font-size:clamp(2.1rem,4.6vw,3.3rem); line-height:.95; margin:0 0 .5rem; text-wrap:balance;
   }
-  header.hero p{color:var(--ink-soft); max-width:60ch; margin:0; font-size:1.03rem;}
+  header.hero p{font-size:1.05rem; color:var(--ink-soft); max-width:56ch; margin:0;}
   .hero-actions{margin-top:1rem;}
+
+  /* ---- Tab / station nav ---- */
+  nav.stations{
+    position:sticky; top:0; z-index:20; background:var(--ground); border-bottom:1px solid var(--line);
+    overflow-x:auto; -webkit-overflow-scrolling:touch;
+  }
+  nav.stations .row{
+    display:flex; gap:.35rem; max-width:1180px; margin:0 auto; padding:.6rem clamp(1rem,4vw,2.5rem);
+  }
+  .tab{
+    flex:none; border:1px solid var(--line); background:var(--ground-raised); color:var(--ink-soft);
+    padding:.5rem .85rem; border-radius:999px; font-weight:700; font-size:.82rem; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; gap:.4rem; white-space:nowrap; min-height:2.75rem;
+  }
+  .tab .tn{font-family:var(--font-mono); color:var(--ink-faint); font-size:.72rem;}
+  .tab.active{background:var(--accent); color:#F4FFFE; border-color:var(--accent);}
+  .tab.active .tn{color:#DFFFFD;}
+
+  main{max-width:1180px; margin:0 auto; padding:1.8rem clamp(1rem,4vw,2.5rem) 4rem;}
+  .station{display:none;}
+  .station.active{display:block; animation: fadein .25s ease;}
+  @keyframes fadein{ from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;} }
+  @media (prefers-reduced-motion: reduce){ .station.active{animation:none;} }
+
+  .station-head{margin-bottom:1.1rem;}
+  .station-head h2{
+    font-family:var(--font-display); font-weight:400; text-transform:uppercase; font-size:1.7rem; margin:0 0 .3rem;
+  }
+  .station-head p{color:var(--ink-soft); margin:0; max-width:68ch;}
+
+  .card{
+    background:var(--ground-raised); border:1px solid var(--line); border-radius:var(--radius);
+    padding:1.3rem 1.4rem; box-shadow:var(--shadow); margin-bottom:1rem;
+  }
+
+  /* equation lab */
+  .eq-display{
+    font-family:var(--font-mono); font-size:1.5rem; background:var(--ground-sunken);
+    border-radius:10px; padding:1rem 1.2rem; text-align:center; letter-spacing:.02em;
+  }
+  .problem-bar{display:flex; align-items:center; gap:1rem; flex-wrap:wrap; justify-content:space-between;}
+  .problem-bar .eq-display{flex:1; min-width:240px;}
+  .controls{display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1rem; align-items:center;}
   .btn{
     border:1px solid var(--line); background:var(--ground-raised); color:var(--ink);
-    padding:.5rem .9rem; border-radius:999px; font-size:.82rem; font-weight:600; cursor:pointer; box-shadow:var(--shadow);
-    min-height:2.75rem; display:inline-flex; align-items:center; justify-content:center;
+    padding:.55rem .9rem; border-radius:10px; font-size:.85rem; font-weight:600; cursor:pointer;
+    box-shadow:var(--shadow); min-height:2.75rem; display:inline-flex; align-items:center; justify-content:center;
   }
+  .btn.primary{background:var(--accent); border-color:var(--accent); color:#F4FFFE;}
+  .btn.ghost{background:transparent; box-shadow:none;}
+  .btn.gold{background:var(--gold); border-color:var(--gold); color:#241a02;}
+  .numin{
+    width:5.5rem; padding:.5rem .6rem; border:1px solid var(--line); border-radius:10px;
+    background:var(--ground-raised); color:var(--ink); font-family:var(--font-mono);
+  }
+  .log{
+    margin-top:.8rem; max-height:120px; overflow-y:auto; font-size:.82rem; color:var(--ink-faint);
+    display:flex; flex-direction:column; gap:.2rem;
+  }
+  .log-line::before{content:"→ "; color:var(--accent-strong);}
+  .celebrate{
+    margin-top:.9rem; padding:.8rem 1rem; border-radius:10px; background:var(--good-soft); color:var(--good);
+    font-weight:700;
+  }
+  .celebrate.bad{background:var(--bad-soft); color:var(--bad);}
 
-  main{max-width:1040px; margin:0 auto; padding:2rem clamp(1rem,4vw,2.5rem) 4rem;}
+  /* literal lab */
+  .lit-formula{font-size:.85rem; color:var(--ink-faint); font-weight:700; text-transform:uppercase; letter-spacing:.06em;}
+  .lit-display{
+    font-family:var(--font-mono); font-size:1.7rem; text-align:center; padding:1.2rem; background:var(--ground-sunken);
+    border-radius:10px; margin:.6rem 0 1rem;
+  }
+  .lit-choices{display:grid; gap:.6rem;}
+  @media (min-width:560px){ .lit-choices{grid-template-columns:1fr 1fr 1fr;} }
+  .btn.choice{width:100%; text-align:left; padding:.8rem .9rem; justify-content:flex-start;}
+  .btn.choice.wrong-flash{background:var(--bad-soft); border-color:var(--bad); color:var(--bad);}
+  @keyframes shake{ 0%,100%{transform:translateX(0);} 25%{transform:translateX(-4px);} 75%{transform:translateX(4px);} }
+  .shake-wrong{animation:shake .3s ease;}
+  @media (prefers-reduced-motion: reduce){ .shake-wrong{animation:none;} }
 
-  .unit-block{margin-bottom:2.4rem;}
-  .unit-head{display:flex; align-items:baseline; gap:.9rem; flex-wrap:wrap; margin-bottom:.4rem;}
-  .unit-badge{
-    font-family:var(--font-mono); font-size:.72rem; font-weight:700; letter-spacing:.06em;
-    background:var(--accent); color:#F4FFFE; padding:.25rem .6rem; border-radius:6px;
-  }
-  .unit-head h2{
-    font-family:var(--font-display); font-weight:400; text-transform:uppercase; font-size:1.5rem; margin:0;
-  }
-  .unit-desc{color:var(--ink-faint); font-size:.88rem; margin:.2rem 0 1.1rem; max-width:70ch;}
+  /* inequality lab */
+  .marker-editors{display:grid; gap:1rem; grid-template-columns:1fr; margin-bottom:.8rem;}
+  @media (min-width:640px){ .marker-editors{grid-template-columns:1fr 1fr;} }
+  .marker-editor{background:var(--ground-sunken); border-radius:10px; padding:.8rem .9rem;}
+  .marker-editor .label{font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-faint); margin-bottom:.5rem;}
+  .marker-editor .row{display:flex; gap:.5rem; flex-wrap:wrap; align-items:center;}
+  .marker-editor select{padding:.4rem .5rem; border-radius:8px; border:1px solid var(--line); background:var(--ground-raised); color:var(--ink);}
+  .numline-wrap{margin:.6rem 0;}
+  .numline-title{font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-faint); margin-bottom:.3rem;}
+  svg text{font-family:var(--font-mono);}
+  .feedback{margin-top:.6rem; padding:.7rem 1rem; border-radius:10px; font-weight:700;}
+  .feedback.good{background:var(--good-soft); color:var(--good);}
+  .feedback.bad{background:var(--bad-soft); color:var(--bad);}
 
-  .card-grid{display:grid; gap:1rem; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));}
-  .card{
-    display:flex; flex-direction:column;
-    background:var(--ground-raised); border:1px solid var(--line); border-radius:var(--radius);
-    box-shadow:var(--shadow); transition:transform .15s ease, border-color .15s ease;
-  }
-  .card:hover{transform:translateY(-2px); border-color:var(--accent);}
-  .card-main{
-    display:flex; flex-direction:column; gap:.5rem;
-    padding:1.2rem 1.3rem 1rem; text-decoration:none; color:var(--ink); flex:1;
-  }
-  .card-icon{font-size:1.6rem; line-height:1;}
-  .card-title{font-family:var(--font-display); font-weight:400; text-transform:uppercase; font-size:1.05rem; letter-spacing:.01em;}
-  .card-desc{color:var(--ink-soft); font-size:.85rem; line-height:1.45; flex:1;}
-  .card-foot{
-    display:flex; align-items:center; justify-content:space-between; gap:.6rem;
-    padding:.7rem 1.3rem; border-top:1px solid var(--line);
-  }
-  .card-file{font-family:var(--font-mono); font-size:.72rem; color:var(--ink-faint);}
+  /* graph lab */
+  .graph-layout{display:flex; gap:1.4rem; flex-wrap:wrap; align-items:flex-start;}
+  canvas.plot{background:var(--ground-sunken); border-radius:12px; touch-action:none; cursor:crosshair; max-width:100%;}
+  .graph-side{flex:1; min-width:220px;}
+  .readout{font-size:.9rem; color:var(--ink-soft); margin-top:.6rem;}
+  .readout .pt{font-family:var(--font-mono);}
+  .legend{display:flex; gap:1rem; flex-wrap:wrap; font-size:.82rem; color:var(--ink-faint); margin-top:.6rem;}
+  .legend span{display:inline-flex; align-items:center; gap:.35rem;}
+  .dot{width:.7rem; height:.7rem; border-radius:50%; display:inline-block;}
 
-  .next-unit{
-    border:1px dashed var(--line); border-radius:var(--radius); padding:1.2rem 1.3rem;
-    color:var(--ink-faint); font-size:.88rem; text-align:center;
+  /* modeling lab */
+  .slider-row{margin-bottom:1rem;}
+  .slider-row label{display:flex; justify-content:space-between; font-size:.9rem; font-weight:600; margin-bottom:.3rem;}
+  .slider-row output{font-family:var(--font-mono); color:var(--accent-strong);}
+  input[type="range"]{width:100%; accent-color:var(--accent);}
+  .status-pill{
+    display:inline-flex; align-items:center; gap:.4rem; padding:.5rem 1rem; border-radius:999px;
+    font-weight:700; font-size:.9rem; margin-top:.4rem;
   }
+  .status-pill.good{background:var(--good-soft); color:var(--good);}
+  .status-pill.bad{background:var(--bad-soft); color:var(--bad);}
+  .total-line{font-family:var(--font-mono); font-size:1.05rem; margin-top:.5rem;}
 
   footer{text-align:center; color:var(--ink-faint); font-size:.78rem; padding:1.5rem;}
+
+  .site-nav{
+    display:flex; align-items:center; gap:.5rem; overflow-x:auto;
+    padding:.5rem clamp(1rem,4vw,2.5rem); border-bottom:1px solid var(--line);
+    background:var(--ground-sunken); -webkit-overflow-scrolling:touch; scrollbar-width:none;
+  }
+  .site-nav::-webkit-scrollbar{display:none;}
+  .site-nav a{
+    flex:none; display:inline-flex; align-items:center; justify-content:center; white-space:nowrap;
+    padding:.5rem .85rem; border-radius:999px; font-size:.78rem; font-weight:700;
+    text-decoration:none; color:var(--ink-soft); min-height:2.75rem;
+  }
+  .site-nav a.home{color:var(--accent-strong); background:var(--ground-raised); border:1px solid var(--line); box-shadow:var(--shadow);}
+  .site-nav a.page:hover{color:var(--ink);}
+  .site-nav a.page.active{background:var(--accent); color:#F4FFFE;}
 </style>
 
+<style>
+  /* ---- Unit 3 station additions ---- */
+  .graph-wrap{max-width:420px;}
+  .graph-wrap svg{width:100%; height:auto; display:block; background:var(--ground-sunken); border:1px solid var(--line); border-radius:12px; cursor:crosshair;}
+  .graph-wrap.nocursor svg{cursor:default;}
+  .sys-display{
+    font-family:var(--font-mono); font-size:1.02rem; line-height:1.6;
+    background:var(--ground-sunken); border:1px solid var(--line); border-radius:10px;
+    padding:.7rem .9rem; margin:.6rem 0 .8rem; white-space:pre-line;
+  }
+  .readout{font-family:var(--font-mono); font-size:.95rem; display:flex; flex-direction:column; gap:.35rem; margin-top:.6rem;}
+  .readout b{color:var(--accent-strong);}
+  .readout .hit{color:var(--good); font-weight:700;}
+  .stepper-row{display:flex; align-items:center; gap:.5rem; margin:.5rem 0; flex-wrap:wrap;}
+  .stepper-row .lbl{font-family:var(--font-mono); font-size:.9rem; min-width:9.5rem;}
+  .stepper-row button{
+    min-width:2.75rem; min-height:2.75rem; border-radius:10px; border:2px solid var(--line);
+    background:var(--ground-sunken); color:var(--ink); font-size:1.2rem; font-weight:700; cursor:pointer;
+  }
+  .stepper-row output{font-family:var(--font-mono); font-size:1.1rem; font-weight:700; min-width:2.4rem; text-align:center; color:var(--accent-strong);}
+  .elim-table{font-family:var(--font-mono); font-size:1rem; line-height:1.9; margin:.6rem 0;}
+  .elim-table .sum-line{border-top:2px solid var(--ink); padding-top:.3rem; font-weight:700;}
+  .elim-table .gone{color:var(--good); font-weight:700;}
+  .sym-line{display:flex; align-items:center; gap:.6rem; flex-wrap:wrap; margin:.55rem 0; font-family:var(--font-mono); font-size:1.05rem;}
+  .sym-toggle{
+    min-width:3.2rem; min-height:2.75rem; border-radius:10px; border:2px dashed var(--gold);
+    background:var(--gold-soft); color:var(--ink); font-size:1.25rem; font-weight:700; cursor:pointer;
+  }
+  .sym-line .hint{font-family:var(--font-body, inherit); font-size:.8rem; color:var(--ink-soft); flex-basis:100%;}
+  .count-pill{
+    display:inline-block; font-family:var(--font-mono); font-size:.85rem; font-weight:700;
+    background:var(--accent-soft); color:var(--accent-strong); border-radius:999px; padding:.25rem .7rem; margin-left:.4rem;
+  }
+</style>
+
+<nav class="site-nav" aria-label="Unit navigation">
+  <a class="home" href="../index.html">&larr; Index</a>
+  <a class="page" href="study-guide.html">Study Guide</a>
+  <a class="page" href="concept-explainers.html">Explainer</a>
+  <a class="page active" href="playground.html">Playground</a>
+  <a class="page" href="flashcards.html">Flashcards</a>
+  <a class="page" href="practice-quiz.html">Quiz</a>
+  <a class="page" href="cheat-sheet.html">Cheat Sheet</a>
+</nav>
+
 <header class="hero">
+  <canvas class="net" id="net-canvas"></canvas>
   <div class="hero-inner">
-    <p class="hero-eyebrow">Study Kit Index</p>
-    <h1>Miriam's Algebra 1</h1>
-    <p>One row per unit test. Each unit gets the same five pieces: a study guide for during the test, an explainer for before it, a playground to practice in, flashcards to drill on the go, and a quiz to prove it stuck.</p>
+    <p class="hero-eyebrow">The Playground · Learn By Touching It</p>
+    <h1>6 Stations.<br>One Skill Each.</h1>
+    <p>Pick a station below. Click the intersection yourself, drive the substitution slider yourself, pick the multipliers that make a variable vanish — you're not reading about systems, you're solving them.</p>
     <div class="hero-actions">
       <button class="btn" id="theme-toggle" type="button">🌓 Theme</button>
     </div>
   </div>
 </header>
 
+<nav class="stations" aria-label="Station picker">
+  <div class="row" id="tab-row">
+    <button class="tab active" data-station="1"><span class="tn">01</span> Intersection</button>
+    <button class="tab" data-station="2"><span class="tn">02</span> Substitution</button>
+    <button class="tab" data-station="3"><span class="tn">03</span> Elimination</button>
+    <button class="tab" data-station="4"><span class="tn">04</span> How Many?</button>
+    <button class="tab" data-station="5"><span class="tn">05</span> Inequalities</button>
+    <button class="tab" data-station="6"><span class="tn">06</span> Build a System</button>
+  </div>
+</nav>
+
 <main>
 
-  <section class="unit-block">
-    <div class="unit-head">
-      <span class="unit-badge">Unit 1</span>
-      <h2>Linear Equations &amp; Inequalities</h2>
+  <!-- STATION 1 -->
+  <section class="station active" id="st1">
+    <div class="station-head">
+      <h2>Station 1 — Click the Solution</h2>
+      <p>Two equations, two lines. The solution is the one point on <b>both</b> lines. Click where you think it is — the grid will tell you if you found the intersection or just a point on one line.</p>
     </div>
-    <p class="unit-desc">Solving equations, variable on one side, variables on both sides, the distributive property, literal equations, compound inequalities, graphing and modeling two-variable inequalities.</p>
-    <div class="card-grid">
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/study-guide.html">
-          <span class="card-icon">📘</span>
-          <span class="card-title">Study Guide</span>
-          <span class="card-desc">Open-notes reference — one worked example per concept. Use this one during the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">study-guide.html</span>
-        </div>
+    <div class="card">
+      <div class="sys-display" id="ix-system"></div>
+      <div class="graph-wrap">
+        <svg id="ix-svg" viewBox="0 0 340 340" aria-label="Clickable coordinate grid with two lines"></svg>
       </div>
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/concept-explainers.html">
-          <span class="card-icon">🧠</span>
-          <span class="card-title">The Explainer</span>
-          <span class="card-desc">ELI5 deep-dive with volleyball analogies, the "why," and common mistakes. Read this before the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">concept-explainers.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/playground.html">
-          <span class="card-icon">🏐</span>
-          <span class="card-title">The Playground</span>
-          <span class="card-desc">8 hands-on stations — drive an equation solver, build a graph, test points, drag sliders.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">playground.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/practice-quiz.html">
-          <span class="card-icon">🎯</span>
-          <span class="card-title">Practice Quiz</span>
-          <span class="card-desc">33 questions, instant feedback, score + streak tracker. Prove you've got it.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">practice-quiz.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/flashcards.html">
-          <span class="card-icon">🃏</span>
-          <span class="card-title">Flashcards</span>
-          <span class="card-desc">32 tap-to-flip cards by concept. Swipe through on your phone, mark what's still shaky.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">flashcards.html</span>
-        </div>
+      <div class="feedback" id="ix-feedback" hidden></div>
+      <div class="controls">
+        <button class="btn ghost" id="ix-new">🔄 New system</button>
       </div>
     </div>
   </section>
 
-  <section class="unit-block">
-    <div class="unit-head">
-      <span class="unit-badge">Unit 2</span>
-      <h2>Sets, Venn Diagrams &amp; Triangle Angles</h2>
+  <!-- STATION 2 -->
+  <section class="station" id="st2">
+    <div class="station-head">
+      <h2>Station 2 — The Substitution Machine</h2>
+      <p>Equation 1 tells you what y is for any x. Drag x and watch: the machine computes y from equation 1, then plugs the pair into equation 2. When equation 2 comes out TRUE, you've found the solution — that's all substitution is.</p>
     </div>
-    <p class="unit-desc">Sets and elements, subsets, union and intersection with Venn diagrams, sets applied to probability and geometry, the triangle angle-sum theorem, and the two proofs of why the angles always make 180°.</p>
-    <div class="card-grid">
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/study-guide.html">
-          <span class="card-icon">📘</span>
-          <span class="card-title">Study Guide</span>
-          <span class="card-desc">Open-notes reference — one worked example per concept. Use this one during the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">study-guide.html</span>
-        </div>
+    <div class="card">
+      <div class="sys-display" id="sub-system"></div>
+      <div class="slider-row" style="max-width:460px;">
+        <label><span>Slide x</span> <output id="sub-out">0</output></label>
+        <input type="range" id="sub-x" min="-8" max="8" value="0" step="1">
       </div>
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/concept-explainers.html">
-          <span class="card-icon">🧠</span>
-          <span class="card-title">The Explainer</span>
-          <span class="card-desc">ELI5 deep-dive with volleyball analogies, the "why," and common mistakes. Read this before the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">concept-explainers.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/playground.html">
-          <span class="card-icon">🏐</span>
-          <span class="card-title">The Playground</span>
-          <span class="card-desc">6 hands-on stations — build sets, click Venn regions, bend a live triangle, run the 180° proof yourself.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">playground.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/practice-quiz.html">
-          <span class="card-icon">🎯</span>
-          <span class="card-title">Practice Quiz</span>
-          <span class="card-desc">47 questions, two modes: instant-feedback practice and a no-hints exam mode. Plus a printable worksheet.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">practice-quiz.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/flashcards.html">
-          <span class="card-icon">🃏</span>
-          <span class="card-title">Flashcards</span>
-          <span class="card-desc">35 tap-to-flip cards by concept. Swipe through on your phone, mark what's still shaky.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">flashcards.html</span>
-        </div>
+      <div class="readout" id="sub-readout"></div>
+      <div class="feedback" id="sub-feedback" hidden></div>
+      <div class="controls">
+        <button class="btn ghost" id="sub-new">🔄 New system</button>
       </div>
     </div>
   </section>
 
-  <section class="unit-block">
-    <div class="unit-head">
-      <span class="unit-badge">Midterm</span>
-      <h2>Cumulative Review — First Half</h2>
+  <!-- STATION 3 -->
+  <section class="station" id="st3">
+    <div class="station-head">
+      <h2>Station 3 — The Elimination Lab</h2>
+      <p>Pick a multiplier for each equation, then read the sum. Your mission: make the multiplied coefficients of x (or y) into <b>additive inverses</b> — opposites that add to zero — so a whole variable vanishes from the sum.</p>
     </div>
-    <p class="unit-desc">Everything from the first half of the class: solving equations, literal equations &amp; formulas, inequalities, function basics, reading graphs, lines &amp; sequences, and sets. The quiz re-rolls its numbers every time, so it can't be memorized — only learned.</p>
-    <div class="card-grid">
-      <div class="card">
-        <a class="card-main" href="midterm-review/cheat-sheet.html">
-          <span class="card-icon">🗒️</span>
-          <span class="card-title">Cheat Sheet</span>
-          <span class="card-desc">The whole exam on one scannable page — 10 one-sentence big ideas plus "do this" boxes for all 7 topics. Print it.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">cheat-sheet.html</span>
-        </div>
+    <div class="card">
+      <div class="sys-display" id="el-system"></div>
+      <div class="stepper-row">
+        <span class="lbl">multiply eq. 1 by</span>
+        <button type="button" id="el-m1-down" aria-label="Decrease multiplier 1">−</button>
+        <output id="el-m1">1</output>
+        <button type="button" id="el-m1-up" aria-label="Increase multiplier 1">+</button>
       </div>
-      <div class="card">
-        <a class="card-main" href="midterm-review/practice-quiz.html">
-          <span class="card-icon">🎲</span>
-          <span class="card-title">Practice Quiz</span>
-          <span class="card-desc">41 questions, 5–6 per topic — with fresh numbers on every deal. Practice mode, exam mode, and printable worksheets that regenerate every print.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">practice-quiz.html</span>
-        </div>
+      <div class="stepper-row">
+        <span class="lbl">multiply eq. 2 by</span>
+        <button type="button" id="el-m2-down" aria-label="Decrease multiplier 2">−</button>
+        <output id="el-m2">1</output>
+        <button type="button" id="el-m2-up" aria-label="Increase multiplier 2">+</button>
       </div>
-      <div class="card">
-        <a class="card-main" href="midterm-review/flashcards.html">
-          <span class="card-icon">🃏</span>
-          <span class="card-title">Flashcards</span>
-          <span class="card-desc">40 tap-to-flip cards across all 7 topics. Swipe through on your phone, mark what's still shaky.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">flashcards.html</span>
-        </div>
+      <div class="elim-table" id="el-table"></div>
+      <div class="feedback" id="el-feedback" hidden></div>
+      <div class="controls">
+        <button class="btn ghost" id="el-new">🔄 New system</button>
       </div>
     </div>
   </section>
 
-  <section class="unit-block">
-    <div class="unit-head">
-      <span class="unit-badge">Unit 3</span>
-      <h2>Systems of Equations &amp; Inequalities</h2>
+  <!-- STATION 4 -->
+  <section class="station" id="st4">
+    <div class="station-head">
+      <h2>Station 4 — One, None, or Infinitely Many?</h2>
+      <p>Look at the system and call it: do the lines cross once, never, or are they secretly the same line? Hint: simplify, then compare slopes and intercepts.</p>
     </div>
-    <p class="unit-desc">Solving systems of linear equations by graphing, substitution, and elimination (linear combination); systems with one, no, or infinitely many solutions; modeling word problems with systems; and writing, graphing, and interpreting systems of linear inequalities.</p>
-    <div class="card-grid">
-      <div class="card">
-        <a class="card-main" href="unit-03-systems-of-equations-inequalities/study-guide.html">
-          <span class="card-icon">📘</span>
-          <span class="card-title">Study Guide</span>
-          <span class="card-desc">Open-notes reference — one worked example per concept. Use this one during the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">study-guide.html</span>
-        </div>
+    <div class="card">
+      <div class="sys-display" id="hm-system"></div>
+      <div class="lit-choices">
+        <button class="btn choice" id="hm-one" type="button">One solution — different slopes</button>
+        <button class="btn choice" id="hm-none" type="button">No solution — parallel lines</button>
+        <button class="btn choice" id="hm-inf" type="button">Infinitely many — same line</button>
       </div>
-      <div class="card">
-        <a class="card-main" href="unit-03-systems-of-equations-inequalities/cheat-sheet.html">
-          <span class="card-icon">🗒️</span>
-          <span class="card-title">Cheat Sheet</span>
-          <span class="card-desc">The whole test on one scannable page — 10 one-sentence big ideas plus "do this" boxes for all 7 topics. Print it.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">cheat-sheet.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-03-systems-of-equations-inequalities/concept-explainers.html">
-          <span class="card-icon">🧠</span>
-          <span class="card-title">The Explainer</span>
-          <span class="card-desc">ELI5 deep-dive with volleyball analogies, the "why," and common mistakes. Read this before the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">concept-explainers.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-03-systems-of-equations-inequalities/playground.html">
-          <span class="card-icon">🏐</span>
-          <span class="card-title">The Playground</span>
-          <span class="card-desc">6 hands-on stations — click the intersection, drive the substitution machine, make variables cancel, build inequality systems.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">playground.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-03-systems-of-equations-inequalities/practice-quiz.html">
-          <span class="card-icon">🎯</span>
-          <span class="card-title">Practice Quiz</span>
-          <span class="card-desc">44 questions, two modes: instant-feedback practice and a no-hints exam mode. Plus a printable worksheet.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">practice-quiz.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-03-systems-of-equations-inequalities/flashcards.html">
-          <span class="card-icon">🃏</span>
-          <span class="card-title">Flashcards</span>
-          <span class="card-desc">36 tap-to-flip cards by concept. Swipe through on your phone, mark what's still shaky.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">flashcards.html</span>
-        </div>
+      <div class="feedback" id="hm-feedback" hidden></div>
+      <div class="controls">
+        <button class="btn ghost" id="hm-new">🔄 New system</button>
       </div>
     </div>
   </section>
 
-  <div class="next-unit">Unit 4 shows up here once the next test is announced.</div>
+  <!-- STATION 5 -->
+  <section class="station" id="st5">
+    <div class="station-head">
+      <h2>Station 5 — Inequality Point Tester</h2>
+      <p>Two inequalities, two shaded regions. Click grid points and watch each rule get checked. Your mission: find <b>3 points in the overlap</b> — where BOTH rules pass. Notice the dashed boundary never counts.</p>
+    </div>
+    <div class="card">
+      <div class="sys-display" id="in-system"></div>
+      <div class="graph-wrap">
+        <svg id="in-svg" viewBox="0 0 340 340" aria-label="Clickable grid with two shaded inequality regions"></svg>
+      </div>
+      <div class="readout" id="in-readout"></div>
+      <div class="feedback" id="in-feedback" hidden></div>
+      <div class="controls">
+        <button class="btn ghost" id="in-new">🔄 New system</button>
+        <span class="count-pill" id="in-count">overlap points found: 0 / 3</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATION 6 -->
+  <section class="station" id="st6">
+    <div class="station-head">
+      <h2>Station 6 — Build the System</h2>
+      <p>Word problems live or die on ≤ vs ≥ vs &lt; vs &gt;. Read the story, then tap each gold symbol until the inequality says what the story says. Check when both look right.</p>
+    </div>
+    <div class="card">
+      <div class="lit-formula" id="wb-story" style="margin-bottom:.6rem;"></div>
+      <div id="wb-lines"></div>
+      <div class="feedback" id="wb-feedback" hidden></div>
+      <div class="controls">
+        <button class="btn primary" id="wb-check">✓ Check my system</button>
+        <button class="btn ghost" id="wb-new">🔄 New story</button>
+      </div>
+    </div>
+  </section>
 
 </main>
 
-<footer>Miriam's Algebra 1 · Study Kit Index</footer>
+<footer>Miriam's Algebra 1 · Unit 3 Playground</footer>
 
 <script>
-  (function(){
-    var root = document.documentElement;
-    var toggle = document.getElementById('theme-toggle');
-    var stored = null;
-    try { stored = localStorage.getItem('algebra-theme'); } catch(e){}
-    if (stored) root.setAttribute('data-theme', stored);
-    toggle.addEventListener('click', function(){
-      var current = root.getAttribute('data-theme');
-      var next = current === 'dark' ? 'light' : 'dark';
-      if (!current){ next = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark'; }
-      root.setAttribute('data-theme', next);
-      try { localStorage.setItem('algebra-theme', next); } catch(e){}
+(function(){
+  "use strict";
+
+  /* ================= THEME + TABS ================= */
+  var root = document.documentElement;
+  var themeToggle = document.getElementById('theme-toggle');
+  var stored = null;
+  try { stored = localStorage.getItem('algebra-theme'); } catch(e){}
+  if (stored) root.setAttribute('data-theme', stored);
+  themeToggle.addEventListener('click', function(){
+    var current = root.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    if (!current){ next = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark'; }
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('algebra-theme', next); } catch(e){}
+  });
+
+  document.querySelectorAll('.tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+      document.querySelectorAll('.station').forEach(function(s){ s.classList.remove('active'); });
+      tab.classList.add('active');
+      document.getElementById('st'+tab.getAttribute('data-station')).classList.add('active');
     });
+  });
+
+  /* ================= NET BACKGROUND ================= */
+  (function(){
+    var canvas = document.getElementById('net-canvas');
+    if(!canvas || !canvas.getContext) return;
+    function draw(){
+      var w = canvas.offsetWidth, h = canvas.offsetHeight;
+      canvas.width = w; canvas.height = h;
+      var ctx = canvas.getContext('2d');
+      ctx.clearRect(0,0,w,h);
+      ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--line').trim() || '#ccc';
+      ctx.lineWidth = 1;
+      var gap = 34;
+      for(var x=0; x<w+gap; x+=gap){ ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x-14,h); ctx.stroke(); }
+      for(var y=0; y<h+gap; y+=gap){ ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(w,y+6); ctx.stroke(); }
+    }
+    draw();
+    window.addEventListener('resize', draw);
+    new MutationObserver(draw).observe(document.documentElement, {attributes:true, attributeFilter:['data-theme']});
   })();
+
+  /* ---------- shared grid helpers (13x13 grid, -6..6) ---------- */
+  function GX(x){ return 170 + x*25; }
+  function GY(y){ return 170 - y*25; }
+  function gridBase(){
+    var s = '';
+    for (var i=-6; i<=6; i++){
+      s += '<line x1="'+GX(i)+'" y1="'+GY(-6)+'" x2="'+GX(i)+'" y2="'+GY(6)+'" stroke="currentColor" stroke-opacity=".14" stroke-width="1"/>';
+      s += '<line x1="'+GX(-6)+'" y1="'+GY(i)+'" x2="'+GX(6)+'" y2="'+GY(i)+'" stroke="currentColor" stroke-opacity=".14" stroke-width="1"/>';
+    }
+    s += '<line x1="'+GX(-6)+'" y1="'+GY(0)+'" x2="'+GX(6)+'" y2="'+GY(0)+'" stroke="currentColor" stroke-opacity=".6" stroke-width="2"/>';
+    s += '<line x1="'+GX(0)+'" y1="'+GY(-6)+'" x2="'+GX(0)+'" y2="'+GY(6)+'" stroke="currentColor" stroke-opacity=".6" stroke-width="2"/>';
+    s += '<text x="'+(GX(6)-14)+'" y="'+(GY(0)-8)+'" font-size="13" fill="currentColor">x</text>';
+    s += '<text x="'+(GX(0)+8)+'" y="'+(GY(6)+14)+'" font-size="13" fill="currentColor">y</text>';
+    return s;
+  }
+  function lineSeg(m, b, color, dashed){
+    return '<line x1="'+GX(-6.8)+'" y1="'+GY(m*-6.8+b)+'" x2="'+GX(6.8)+'" y2="'+GY(m*6.8+b)+'" stroke="'+color+'" stroke-width="3"'+(dashed?' stroke-dasharray="9,7"':'')+'/>';
+  }
+  function svgPoint(svg, e){
+    var rect = svg.getBoundingClientRect();
+    var x = (e.clientX - rect.left) * (340 / rect.width);
+    var y = (e.clientY - rect.top) * (340 / rect.height);
+    var gx = Math.round((x - 170) / 25);
+    var gy = Math.round((170 - y) / 25);
+    return {x: Math.max(-6, Math.min(6, gx)), y: Math.max(-6, Math.min(6, gy))};
+  }
+  function fmtNum(n){
+    if (n === 0.5) return '½';
+    if (n === -0.5) return '−½';
+    return String(n).replace('-', '−');
+  }
+  function mxb(m, b){
+    if (m === 0) return 'y = ' + fmtNum(b);
+    var s = 'y = ';
+    if (m === 1) s += 'x';
+    else if (m === -1) s += '−x';
+    else if (m === 0.5) s += '½x';
+    else if (m === -0.5) s += '−½x';
+    else s += fmtNum(m) + 'x';
+    if (b > 0) s += ' + ' + b;
+    else if (b < 0) s += ' − ' + (-b);
+    return s;
+  }
+
+  /* ================= STATION 1: CLICK THE SOLUTION ================= */
+  (function(){
+    var SYSTEMS = [
+      {m1:1, b1:1, m2:-1, b2:3, sol:[1,2]},
+      {m1:2, b1:-3, m2:-1, b2:3, sol:[2,1]},
+      {m1:0.5, b1:3, m2:-1, b2:0, sol:[-2,2]},
+      {m1:-2, b1:1, m2:1, b2:-5, sol:[2,-3]},
+      {m1:0, b1:3, m2:1, b2:1, sol:[2,3]},
+      {m1:1, b1:2, m2:-0.5, b2:-1, sol:[-2,0]},
+      {m1:1, b1:-4, m2:-2, b2:5, sol:[3,-1]}
+    ];
+    var svg = document.getElementById('ix-svg');
+    var sysEl = document.getElementById('ix-system');
+    var fb = document.getElementById('ix-feedback');
+    var cur = null, lastIdx = -1, solved = false;
+
+    function draw(clickPt, good){
+      var s = gridBase();
+      s += lineSeg(cur.m1, cur.b1, 'var(--accent)');
+      s += lineSeg(cur.m2, cur.b2, 'var(--bad)');
+      if (clickPt){
+        s += '<circle cx="'+GX(clickPt.x)+'" cy="'+GY(clickPt.y)+'" r="7" fill="'+(good?'var(--good)':'var(--bad)')+'" stroke="#fff" stroke-width="2"/>';
+      }
+      svg.innerHTML = s;
+    }
+    function newSystem(){
+      var i;
+      do { i = Math.floor(Math.random()*SYSTEMS.length); } while(i===lastIdx);
+      lastIdx = i;
+      cur = SYSTEMS[i];
+      solved = false;
+      fb.hidden = true;
+      sysEl.textContent = mxb(cur.m1, cur.b1) + '\n' + mxb(cur.m2, cur.b2);
+      draw(null);
+    }
+    svg.addEventListener('click', function(e){
+      if (solved) return;
+      var p = svgPoint(svg, e);
+      var on1 = Math.abs(cur.m1*p.x + cur.b1 - p.y) < 1e-9;
+      var on2 = Math.abs(cur.m2*p.x + cur.b2 - p.y) < 1e-9;
+      var good = p.x===cur.sol[0] && p.y===cur.sol[1];
+      draw(p, good);
+      fb.hidden = false;
+      if (good){
+        solved = true;
+        fb.className = 'feedback good';
+        fb.textContent = '✅ ('+fmtNum(p.x)+', '+fmtNum(p.y)+') is on BOTH lines — it makes both equations true at once. That\'s the solution.';
+      } else {
+        fb.className = 'feedback bad';
+        var where = on1 ? 'that point is on the teal line only — one promise kept, one broken' :
+                    on2 ? 'that point is on the red line only — one promise kept, one broken' :
+                    'that point isn\'t on either line';
+        fb.textContent = '❌ ('+fmtNum(p.x)+', '+fmtNum(p.y)+'): '+where+'. The solution is where the lines CROSS.';
+      }
+    });
+    document.getElementById('ix-new').addEventListener('click', newSystem);
+    newSystem();
+  })();
+
+  /* ================= STATION 2: SUBSTITUTION MACHINE ================= */
+  (function(){
+    var SYSTEMS = [
+      {m:2, b:-3, txt2:'x + y = 9',  f:function(x,y){ return x + y; },  rhs:9,  solx:4},
+      {m:1, b:4,  txt2:'2x + y = 13', f:function(x,y){ return 2*x + y; }, rhs:13, solx:3},
+      {m:3, b:0,  txt2:'x + y = 12', f:function(x,y){ return x + y; },  rhs:12, solx:3},
+      {m:-1, b:6, txt2:'2x − y = 0', f:function(x,y){ return 2*x - y; }, rhs:0,  solx:2},
+      {m:2, b:1,  txt2:'x + 2y = 12', f:function(x,y){ return x + 2*y; }, rhs:12, solx:2}
+    ];
+    var slider = document.getElementById('sub-x');
+    var out = document.getElementById('sub-out');
+    var sysEl = document.getElementById('sub-system');
+    var readout = document.getElementById('sub-readout');
+    var fb = document.getElementById('sub-feedback');
+    var cur = null, lastIdx = -1;
+
+    function fmtVal(n){ return String(n).replace('-','−'); }
+    function update(){
+      var x = parseInt(slider.value, 10);
+      out.textContent = fmtVal(x);
+      var y = cur.m*x + cur.b;
+      var lhs = cur.f(x, y);
+      var hit = lhs === cur.rhs;
+      readout.innerHTML =
+        '<span>eq. 1 says: y = '+fmtVal(cur.m)+'('+fmtVal(x)+') '+(cur.b>=0?'+ '+cur.b:'− '+(-cur.b))+' = <b>'+fmtVal(y)+'</b></span>'
+        + '<span>plug ('+fmtVal(x)+', '+fmtVal(y)+') into eq. 2: '+cur.txt2.split('=')[0].trim()+' = <b>'+fmtVal(lhs)+'</b> — needs to be '+fmtVal(cur.rhs)+'</span>'
+        + '<span>'+(hit ? '<span class="hit">TRUE — both equations satisfied at once!</span>' : 'not yet: eq. 2 is off by '+fmtVal(Math.abs(lhs-cur.rhs))+'</span>');
+      fb.hidden = !hit;
+      if (hit){
+        fb.className = 'feedback good';
+        fb.textContent = '🎯 Solution found: ('+fmtVal(x)+', '+fmtVal(y)+'). Substitution does this same hunt with algebra instead of a slider: replace y in eq. 2 with ('+mxb(cur.m,cur.b).slice(4)+') and solve — x = '+fmtVal(cur.solx)+' pops out directly.';
+      }
+    }
+    function newSystem(){
+      var i;
+      do { i = Math.floor(Math.random()*SYSTEMS.length); } while(i===lastIdx);
+      lastIdx = i;
+      cur = SYSTEMS[i];
+      sysEl.textContent = mxb(cur.m, cur.b) + '\n' + cur.txt2;
+      slider.value = 0;
+      update();
+    }
+    slider.addEventListener('input', update);
+    document.getElementById('sub-new').addEventListener('click', newSystem);
+    newSystem();
+  })();
+
+  /* ================= STATION 3: ELIMINATION LAB ================= */
+  (function(){
+    var SYSTEMS = [
+      {a1:5, b1:4, c1:8,  a2:2, b2:-3, c2:17, sol:[4,-3]},
+      {a1:3, b1:5, c1:1,  a2:7, b2:4, c2:-13, sol:[-3,2]},
+      {a1:1, b1:1, c1:10, a2:1, b2:-1, c2:4,  sol:[7,3]},
+      {a1:-1, b1:2, c1:8, a2:-2, b2:1, c2:-5, sol:[6,7]},
+      {a1:2, b1:3, c1:13, a2:-6, b2:4, c2:0,  sol:[2,3]}
+    ];
+    var m1 = 1, m2 = 1;
+    var cur = null, lastIdx = -1;
+    var tableEl = document.getElementById('el-table');
+    var sysEl = document.getElementById('el-system');
+    var fb = document.getElementById('el-feedback');
+
+    function term(coef, v, first){
+      if (coef === 0) return '';
+      var sign = coef < 0 ? '− ' : (first ? '' : '+ ');
+      var mag = Math.abs(coef);
+      return sign + (mag === 1 ? '' : mag) + v + ' ';
+    }
+    function eqStr(a, b, c){
+      var s = term(a, 'x', true);
+      s += term(b, 'y', s === '');
+      if (s === '') s = '0 ';
+      return s + '= ' + String(c).replace('-','−');
+    }
+    function render(){
+      document.getElementById('el-m1').textContent = String(m1).replace('-','−');
+      document.getElementById('el-m2').textContent = String(m2).replace('-','−');
+      var A1 = cur.a1*m1, B1 = cur.b1*m1, C1 = cur.c1*m1;
+      var A2 = cur.a2*m2, B2 = cur.b2*m2, C2 = cur.c2*m2;
+      var SA = A1+A2, SB = B1+B2, SC = C1+C2;
+      var html = '<div>'+eqStr(A1,B1,C1)+'</div><div>'+eqStr(A2,B2,C2)+'</div>';
+      html += '<div class="sum-line">sum:  '+eqStr(SA,SB,SC)+'</div>';
+      tableEl.innerHTML = html;
+      fb.hidden = false;
+      if (SA===0 && SB===0){
+        fb.className = 'feedback ' + (SC===0 ? 'good' : 'bad');
+        fb.textContent = SC===0
+          ? 'Whoa — EVERYTHING cancelled and left 0 = 0. You multiplied one equation into the other: same line, infinitely many solutions. (Try different multipliers to solve a normal system.)'
+          : 'Everything cancelled and left a false statement — that combo wiped out too much. Try making just ONE variable\'s coefficients into opposites.';
+      } else if (SA===0){
+        var y = SC/SB;
+        fb.className = 'feedback good';
+        fb.textContent = '💥 The x\'s were additive inverses ('+String(A1).replace('-','−')+' and '+String(A2).replace('-','−')+') — they cancelled! Now '+eqStr(0,SB,SC)+' → y = '+String(y).replace('-','−')+'. Back-substitute to get x = '+String(cur.sol[0]).replace('-','−')+'.';
+      } else if (SB===0){
+        var x = SC/SA;
+        fb.className = 'feedback good';
+        fb.textContent = '💥 The y\'s were additive inverses ('+String(B1).replace('-','−')+' and '+String(B2).replace('-','−')+') — they cancelled! Now '+eqStr(SA,0,SC)+' → x = '+String(x).replace('-','−')+'. Back-substitute to get y = '+String(cur.sol[1]).replace('-','−')+'.';
+      } else {
+        fb.className = 'feedback';
+        fb.textContent = 'Nothing cancelled yet — the sum still has x AND y. Aim for coefficients like +12 and −12 on one variable.';
+      }
+    }
+    function bump(which, dir){
+      if (which===1){ m1 += dir; if(m1===0) m1 += dir; if(m1>6) m1=6; if(m1<-6) m1=-6; }
+      else { m2 += dir; if(m2===0) m2 += dir; if(m2>6) m2=6; if(m2<-6) m2=-6; }
+      render();
+    }
+    document.getElementById('el-m1-up').addEventListener('click', function(){ bump(1, 1); });
+    document.getElementById('el-m1-down').addEventListener('click', function(){ bump(1, -1); });
+    document.getElementById('el-m2-up').addEventListener('click', function(){ bump(2, 1); });
+    document.getElementById('el-m2-down').addEventListener('click', function(){ bump(2, -1); });
+    function newSystem(){
+      var i;
+      do { i = Math.floor(Math.random()*SYSTEMS.length); } while(i===lastIdx);
+      lastIdx = i;
+      cur = SYSTEMS[i];
+      m1 = 1; m2 = 1;
+      sysEl.textContent = eqStr(cur.a1, cur.b1, cur.c1) + '\n' + eqStr(cur.a2, cur.b2, cur.c2);
+      render();
+    }
+    document.getElementById('el-new').addEventListener('click', newSystem);
+    newSystem();
+  })();
+
+  /* ================= STATION 4: HOW MANY SOLUTIONS ================= */
+  (function(){
+    var SYSTEMS = [
+      {t:'2y − 4x = 6\n−y = −2x − 3', ans:'inf', why:'Both simplify to y = 2x + 3 — the same line in two costumes. Every point works.'},
+      {t:'y = 2x + 3\ny = 2x + 6', ans:'none', why:'Same slope (2), different intercepts (3 vs 6): parallel lanes that never meet.'},
+      {t:'y = x + 1\ny = −x + 3', ans:'one', why:'Slopes 1 and −1 are different — different directions must cross exactly once (at (1, 2)).'},
+      {t:'−6x + 18y = 0\n4x − 12y = 20', ans:'none', why:'Linear combination collapses this to 0 = 60 — a false statement. Parallel lines, no solution. (Heather\'s question!)'},
+      {t:'y = 3x + 1\n6x − 2y = −2', ans:'inf', why:'Simplify the second: −2y = −6x − 2 → y = 3x + 1. Identical line → 0 = 0 → infinitely many.'},
+      {t:'y = ½x\ny = 2x', ans:'one', why:'Different slopes (½ vs 2). They both pass through (0, 0) — that IS the one solution.'},
+      {t:'x + y = 5\nx + y = 9', ans:'none', why:'The same x + y can\'t equal 5 AND 9. Subtracting gives 0 = 4: false → parallel → none.'},
+      {t:'3y = 6x + 9\ny = 2x + 3', ans:'inf', why:'Divide the first by 3: y = 2x + 3. Same slope AND same intercept — same line.'},
+      {t:'y = 4x − 2\ny = −4x − 2', ans:'one', why:'Slopes 4 and −4 differ (don\'t be fooled by matching intercepts — that just means they cross at (0, −2)).'}
+    ];
+    var sysEl = document.getElementById('hm-system');
+    var fb = document.getElementById('hm-feedback');
+    var cur = null, lastIdx = -1;
+    var btns = {one: document.getElementById('hm-one'), none: document.getElementById('hm-none'), inf: document.getElementById('hm-inf')};
+
+    function newSystem(){
+      var i;
+      do { i = Math.floor(Math.random()*SYSTEMS.length); } while(i===lastIdx);
+      lastIdx = i;
+      cur = SYSTEMS[i];
+      sysEl.textContent = cur.t;
+      fb.hidden = true;
+    }
+    function answer(k){
+      fb.hidden = false;
+      if (k === cur.ans){
+        fb.className = 'feedback good';
+        fb.textContent = '✅ ' + cur.why;
+      } else {
+        fb.className = 'feedback bad';
+        fb.textContent = '❌ Simplify both equations to y = mx + b first, THEN compare: different m → one · same m, different b → none · same m and b → infinite.';
+      }
+    }
+    btns.one.addEventListener('click', function(){ answer('one'); });
+    btns.none.addEventListener('click', function(){ answer('none'); });
+    btns.inf.addEventListener('click', function(){ answer('inf'); });
+    document.getElementById('hm-new').addEventListener('click', newSystem);
+    newSystem();
+  })();
+
+  /* ================= STATION 5: INEQUALITY POINT TESTER ================= */
+  (function(){
+    // ineq: {m, b, op} where op ∈ '<=','>=','<','>' meaning y OP m x + b
+    var SYSTEMS = [
+      {i1:{m:-1, b:4, op:'<='}, i2:{m:1, b:-2, op:'>'},
+       t:'y ≤ −x + 4   (solid — boundary counts)\ny > x − 2    (dashed — boundary does NOT count)'},
+      {i1:{m:2, b:3, op:'<'}, i2:{m:-0.5, b:-2, op:'>='},
+       t:'y < 2x + 3   (dashed — boundary does NOT count)\ny ≥ −½x − 2  (solid — boundary counts)'},
+      {i1:{m:0.5, b:1, op:'>='}, i2:{m:-1, b:5, op:'<'},
+       t:'y ≥ ½x + 1   (solid — boundary counts)\ny < −x + 5   (dashed — boundary does NOT count)'}
+    ];
+    var svg = document.getElementById('in-svg');
+    var sysEl = document.getElementById('in-system');
+    var readout = document.getElementById('in-readout');
+    var fb = document.getElementById('in-feedback');
+    var countEl = document.getElementById('in-count');
+    var cur = null, lastIdx = -1, found = {}, foundCount = 0, marks = [];
+
+    function shadePoly(ineq, color){
+      // polygon on the satisfied side of y = mx + b
+      var yl = ineq.m*-6.8 + ineq.b, yr = ineq.m*6.8 + ineq.b;
+      var above = ineq.op === '>' || ineq.op === '>=';
+      var edge = above ? GY(6.8) : GY(-6.8);
+      return '<polygon points="'+GX(-6.8)+','+GY(yl)+' '+GX(6.8)+','+GY(yr)+' '+GX(6.8)+','+edge+' '+GX(-6.8)+','+edge+'" fill="'+color+'" fill-opacity=".14"/>';
+    }
+    function passes(ineq, x, y){
+      var rhs = ineq.m*x + ineq.b;
+      if (ineq.op === '<=') return y <= rhs;
+      if (ineq.op === '>=') return y >= rhs;
+      if (ineq.op === '<') return y < rhs;
+      return y > rhs;
+    }
+    function opTxt(op){ return op === '<=' ? '≤' : op === '>=' ? '≥' : op; }
+    function draw(){
+      var s = gridBase();
+      s += shadePoly(cur.i1, 'var(--accent)') + shadePoly(cur.i2, 'var(--bad)');
+      s += lineSeg(cur.i1.m, cur.i1.b, 'var(--accent)', cur.i1.op === '<' || cur.i1.op === '>');
+      s += lineSeg(cur.i2.m, cur.i2.b, 'var(--bad)', cur.i2.op === '<' || cur.i2.op === '>');
+      marks.forEach(function(mk){
+        s += '<circle cx="'+GX(mk.x)+'" cy="'+GY(mk.y)+'" r="6" fill="'+(mk.good?'var(--good)':'var(--bad)')+'" stroke="#fff" stroke-width="2"/>';
+      });
+      svg.innerHTML = s;
+    }
+    function checkLine(ineq, x, y, name){
+      var rhs = ineq.m*x + ineq.b;
+      var ok = passes(ineq, x, y);
+      return '<span>'+name+': '+String(y).replace('-','−')+' '+opTxt(ineq.op)+' '+String(rhs).replace('-','−')+' — '+(ok?'<b>✓ passes</b>':'✗ fails')+'</span>';
+    }
+    function newSystem(){
+      var i;
+      do { i = Math.floor(Math.random()*SYSTEMS.length); } while(i===lastIdx);
+      lastIdx = i;
+      cur = SYSTEMS[i];
+      found = {}; foundCount = 0; marks = [];
+      countEl.textContent = 'overlap points found: 0 / 3';
+      sysEl.textContent = cur.t;
+      readout.innerHTML = '';
+      fb.hidden = true;
+      draw();
+    }
+    svg.addEventListener('click', function(e){
+      var p = svgPoint(svg, e);
+      var ok1 = passes(cur.i1, p.x, p.y);
+      var ok2 = passes(cur.i2, p.x, p.y);
+      var good = ok1 && ok2;
+      marks.push({x:p.x, y:p.y, good:good});
+      if (marks.length > 8) marks.shift();
+      draw();
+      readout.innerHTML = '<span>testing ('+String(p.x).replace('-','−')+', '+String(p.y).replace('-','−')+'):</span>'
+        + checkLine(cur.i1, p.x, p.y, 'rule 1') + checkLine(cur.i2, p.x, p.y, 'rule 2');
+      fb.hidden = false;
+      if (good){
+        var key = p.x + ',' + p.y;
+        if (!found[key]){ found[key] = true; foundCount++; }
+        countEl.textContent = 'overlap points found: ' + Math.min(foundCount,3) + ' / 3';
+        if (foundCount >= 3){
+          fb.className = 'feedback good';
+          fb.textContent = '🏆 Three solutions found! Every point where the shadings overlap satisfies BOTH rules — that whole region is the solution set.';
+        } else {
+          fb.className = 'feedback good';
+          fb.textContent = '✅ Both rules pass — ('+p.x+', '+p.y+') is in the overlap. Find '+(3-foundCount)+' more.';
+        }
+      } else {
+        fb.className = 'feedback bad';
+        var why = !ok1 && !ok2 ? 'it breaks BOTH rules' : !ok1 ? 'it breaks rule 1' : 'it breaks rule 2';
+        var onDash = (Math.abs(cur.i1.m*p.x + cur.i1.b - p.y) < 1e-9 && (cur.i1.op==='<'||cur.i1.op==='>'))
+                  || (Math.abs(cur.i2.m*p.x + cur.i2.b - p.y) < 1e-9 && (cur.i2.op==='<'||cur.i2.op==='>'));
+        fb.textContent = '❌ Not a solution — ' + why + '.' + (onDash ? ' (It\'s ON a dashed boundary — strict < or > excludes the line itself!)' : '');
+      }
+    });
+    document.getElementById('in-new').addEventListener('click', newSystem);
+    newSystem();
+  })();
+
+  /* ================= STATION 6: BUILD THE SYSTEM ================= */
+  (function(){
+    var SYMS = ['≤','≥','<','>'];
+    var STORIES = [
+      {story:'Dwayne is selling hamburgers (h) at $3 and cheeseburgers (c) at $3.50. He only has 100 buns, and he needs sales of AT LEAST $80.',
+       lines:[{pre:'h + c', post:'100', ans:'≤', hint:'a supply limit caps the count'},
+              {pre:'3h + 3.5c', post:'80', ans:'≥', hint:'"at least" sets a money floor'}]},
+      {story:'The drama club has 100 tickets to sell — s student tickets at $5 and n nonstudent at $10 — and must collect AT LEAST $800.',
+       lines:[{pre:'s + n', post:'100', ans:'≤', hint:'only 100 tickets exist'},
+              {pre:'5s + 10n', post:'800', ans:'≥', hint:'the sales goal is a floor'}]},
+      {story:'During free play there must be MORE THAN 4 campers in a group (b boys + g girls), and the boys must NOT EXCEED the girls by more than 5.',
+       lines:[{pre:'b + g', post:'4', ans:'>', hint:'"more than" is strict — exactly 4 is not allowed'},
+              {pre:'b − g', post:'5', ans:'≤', hint:'the gap can be 5, just not more'}]},
+      {story:'A salad has g ounces of greens and c ounces of carrots. Twice the greens minus the carrots is AT LEAST 3, and the greens plus twice the carrots is LESS THAN 4.',
+       lines:[{pre:'2g − c', post:'3', ans:'≥', hint:'"at least" includes the boundary'},
+              {pre:'g + 2c', post:'4', ans:'<', hint:'"less than" is strict — dashed line'}]},
+      {story:'Luka buys latex balloons (x) at $1.50 and plastic balloons (y) at $4. He wants AT LEAST 4 plastic balloons and will spend LESS THAN $30.',
+       lines:[{pre:'y', post:'4', ans:'≥', hint:'a minimum count'},
+              {pre:'1.5x + 4y', post:'30', ans:'<', hint:'strictly under budget'}]}
+    ];
+    var storyEl = document.getElementById('wb-story');
+    var linesEl = document.getElementById('wb-lines');
+    var fb = document.getElementById('wb-feedback');
+    var cur = null, lastIdx = -1, states = [];
+
+    function newStory(){
+      var i;
+      do { i = Math.floor(Math.random()*STORIES.length); } while(i===lastIdx);
+      lastIdx = i;
+      cur = STORIES[i];
+      states = cur.lines.map(function(){ return 0; });
+      storyEl.textContent = cur.story;
+      fb.hidden = true;
+      linesEl.innerHTML = '';
+      cur.lines.forEach(function(line, li){
+        var row = document.createElement('div');
+        row.className = 'sym-line';
+        var pre = document.createElement('span'); pre.textContent = line.pre;
+        var btn = document.createElement('button');
+        btn.type = 'button'; btn.className = 'sym-toggle';
+        btn.textContent = SYMS[0];
+        btn.setAttribute('aria-label', 'Toggle inequality symbol');
+        btn.addEventListener('click', function(){
+          states[li] = (states[li] + 1) % SYMS.length;
+          btn.textContent = SYMS[states[li]];
+          fb.hidden = true;
+        });
+        var post = document.createElement('span'); post.textContent = line.post;
+        row.appendChild(pre); row.appendChild(btn); row.appendChild(post);
+        linesEl.appendChild(row);
+      });
+    }
+    document.getElementById('wb-check').addEventListener('click', function(){
+      fb.hidden = false;
+      var wrong = [];
+      cur.lines.forEach(function(line, li){
+        if (SYMS[states[li]] !== line.ans) wrong.push(li);
+      });
+      if (!wrong.length){
+        fb.className = 'feedback good';
+        fb.textContent = '✅ Exactly right — ' + cur.lines.map(function(l){ return l.pre+' '+l.ans+' '+l.post; }).join('  and  ') + '. ' + cur.lines.map(function(l){ return l.hint; }).join('; ') + '.';
+      } else {
+        fb.className = 'feedback bad';
+        fb.textContent = '❌ Check line ' + wrong.map(function(w){ return w+1; }).join(' and line ') + ' again. Remember: "at most / only has" → ≤ · "at least" → ≥ · "more than" → > · "less than / fewer than" → <.';
+      }
+    });
+    document.getElementById('wb-new').addEventListener('click', newStory);
+    newStory();
+  })();
+
+})();
 </script>

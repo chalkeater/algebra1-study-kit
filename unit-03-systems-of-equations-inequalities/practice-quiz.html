@@ -1,6 +1,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Miriam's Algebra 1 — Study Kit Index</title>
+<title>Systems of Equations &amp; Inequalities — Practice Quiz</title>
 <style>
   @font-face{
     font-family:'Anton'; font-style:normal; font-weight:400; font-display:swap;
@@ -16,6 +16,7 @@
     --line:#D5E1DE;
     --accent:#0F7A78; --accent-strong:#095452; --accent-soft:#DFF1EF;
     --gold:#C9821A; --gold-soft:#FBEBCC;
+    --good:#2E7D32; --good-soft:#E4F3E1; --bad:#B23A3A; --bad-soft:#FBE6E6;
     --radius:16px;
     --shadow:0 1px 2px rgba(14,27,30,.06), 0 10px 28px -14px rgba(14,27,30,.2);
     --font-display:'Anton', impact, sans-serif;
@@ -29,6 +30,7 @@
       --ink:#E9F3F1; --ink-soft:#A6BEBB; --ink-faint:#6E8583; --line:#213231;
       --accent:#2FC7C0; --accent-strong:#8FE6E1; --accent-soft:#123230;
       --gold:#E0AC52; --gold-soft:#332711;
+      --good:#5FBD5F; --good-soft:#163A18; --bad:#F0685F; --bad-soft:#3B1616;
       --shadow:0 1px 2px rgba(0,0,0,.35), 0 10px 28px -14px rgba(0,0,0,.55);
     }
   }
@@ -37,6 +39,7 @@
     --ink:#E9F3F1; --ink-soft:#A6BEBB; --ink-faint:#6E8583; --line:#213231;
     --accent:#2FC7C0; --accent-strong:#8FE6E1; --accent-soft:#123230;
     --gold:#E0AC52; --gold-soft:#332711;
+    --good:#5FBD5F; --good-soft:#163A18; --bad:#F0685F; --bad-soft:#3B1616;
     --shadow:0 1px 2px rgba(0,0,0,.35), 0 10px 28px -14px rgba(0,0,0,.55);
   }
   :root[data-theme="light"]{
@@ -44,6 +47,7 @@
     --ink:#0E1B1E; --ink-soft:#48595C; --ink-faint:#7C8C8C; --line:#D5E1DE;
     --accent:#0F7A78; --accent-strong:#095452; --accent-soft:#DFF1EF;
     --gold:#C9821A; --gold-soft:#FBEBCC;
+    --good:#2E7D32; --good-soft:#E4F3E1; --bad:#B23A3A; --bad-soft:#FBE6E6;
     --shadow:0 1px 2px rgba(14,27,30,.06), 0 10px 28px -14px rgba(14,27,30,.2);
   }
   *{box-sizing:border-box;}
@@ -52,327 +56,967 @@
     font-size:16px; line-height:1.5; -webkit-font-smoothing:antialiased;
   }
   ::selection{background:var(--gold-soft); color:var(--ink);}
-  a{color:inherit;}
-  button:focus-visible, a:focus-visible{outline:3px solid var(--gold); outline-offset:2px;}
+  button, input{font-family:inherit; font-size:1rem;}
+  button:focus-visible, input:focus-visible{outline:3px solid var(--gold); outline-offset:2px;}
 
-  header.hero{padding:2.4rem clamp(1rem,4vw,2.5rem) 1.6rem; border-bottom:1px solid var(--line);}
-  .hero-inner{max-width:1040px; margin:0 auto;}
+  header.hero{
+    padding:2.2rem clamp(1rem,4vw,2.5rem) 1.4rem; border-bottom:1px solid var(--line);
+  }
+  .hero-inner{max-width:900px; margin:0 auto;}
   .hero-eyebrow{font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; font-weight:700; color:var(--accent-strong); margin:0 0 .4rem;}
   header.hero h1{
-    font-family:var(--font-display); font-weight:400; text-transform:uppercase; letter-spacing:.01em;
-    font-size:clamp(2.1rem,5vw,3.2rem); line-height:.95; margin:0 0 .5rem; text-wrap:balance;
+    font-family:var(--font-display); font-weight:400; text-transform:uppercase;
+    font-size:clamp(2rem,5.5vw,3rem); line-height:.95; margin:0 0 .5rem; text-wrap:balance;
   }
-  header.hero p{color:var(--ink-soft); max-width:60ch; margin:0; font-size:1.03rem;}
-  .hero-actions{margin-top:1rem;}
+  header.hero p{color:var(--ink-soft); max-width:56ch; margin:0; font-size:1.03rem;}
+  .hero-actions{margin-top:.9rem;}
   .btn{
     border:1px solid var(--line); background:var(--ground-raised); color:var(--ink);
     padding:.5rem .9rem; border-radius:999px; font-size:.82rem; font-weight:600; cursor:pointer; box-shadow:var(--shadow);
     min-height:2.75rem; display:inline-flex; align-items:center; justify-content:center;
   }
 
-  main{max-width:1040px; margin:0 auto; padding:2rem clamp(1rem,4vw,2.5rem) 4rem;}
-
-  .unit-block{margin-bottom:2.4rem;}
-  .unit-head{display:flex; align-items:baseline; gap:.9rem; flex-wrap:wrap; margin-bottom:.4rem;}
-  .unit-badge{
-    font-family:var(--font-mono); font-size:.72rem; font-weight:700; letter-spacing:.06em;
-    background:var(--accent); color:#F4FFFE; padding:.25rem .6rem; border-radius:6px;
+  .scorebar{position:sticky; top:0; z-index:30; background:var(--ground-raised); border-bottom:1px solid var(--line);}
+  .scorebar-inner{
+    max-width:900px; margin:0 auto; padding:.7rem clamp(1rem,4vw,2.5rem);
+    display:flex; align-items:center; gap:1rem; flex-wrap:wrap;
   }
-  .unit-head h2{
-    font-family:var(--font-display); font-weight:400; text-transform:uppercase; font-size:1.5rem; margin:0;
+  .chip{
+    font-size:.85rem; font-weight:700; background:var(--ground-sunken); padding:.35rem .7rem; border-radius:999px;
+    white-space:nowrap;
   }
-  .unit-desc{color:var(--ink-faint); font-size:.88rem; margin:.2rem 0 1.1rem; max-width:70ch;}
+  .chip b{color:var(--accent-strong); font-family:var(--font-mono);}
+  .chip .best{color:var(--ink-faint); font-weight:500; margin-left:.4rem;}
+  .chip .best b{color:var(--gold); font-family:var(--font-mono);}
+  .court-progress{flex:1; min-width:140px;}
+  .court-track{
+    position:relative; height:10px; border-radius:999px; background:var(--ground-sunken);
+    border:1px solid var(--line); overflow:visible;
+  }
+  .court-fill{
+    position:absolute; inset:0 auto 0 0; width:0%; background:var(--accent); border-radius:999px 0 0 999px; transition:width .3s ease;
+  }
+  .ball{position:absolute; top:50%; left:0%; transform:translate(-50%,-50%); font-size:1.1rem; transition:left .3s ease;}
 
-  .card-grid{display:grid; gap:1rem; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));}
-  .card{
-    display:flex; flex-direction:column;
+  main{max-width:900px; margin:0 auto; padding:1.6rem clamp(1rem,4vw,2.5rem) 4rem;}
+  .qconcept{margin-bottom:1.8rem;}
+  .qconcept-head{display:flex; align-items:center; gap:.7rem; margin-bottom:.7rem;}
+  .qconcept-head .badge{
+    font-family:var(--font-display); background:var(--accent); color:#F4FFFE; width:2.1rem; height:2.1rem;
+    border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1.05rem; flex:none;
+  }
+  .qconcept-head h2{font-family:var(--font-display); font-weight:400; text-transform:uppercase; font-size:1.25rem; margin:0;}
+
+  .qcard{
     background:var(--ground-raised); border:1px solid var(--line); border-radius:var(--radius);
-    box-shadow:var(--shadow); transition:transform .15s ease, border-color .15s ease;
+    padding:1.1rem 1.2rem; margin-bottom:.8rem; box-shadow:var(--shadow); transition:border-color .2s ease;
   }
-  .card:hover{transform:translateY(-2px); border-color:var(--accent);}
-  .card-main{
-    display:flex; flex-direction:column; gap:.5rem;
-    padding:1.2rem 1.3rem 1rem; text-decoration:none; color:var(--ink); flex:1;
+  .qcard.correct{border-color:var(--good);}
+  .qcard.incorrect-flash{border-color:var(--bad);}
+  .qprompt{font-size:1.02rem; margin:0 0 .8rem; font-weight:600;}
+  .qrow{display:flex; gap:.6rem; flex-wrap:wrap; align-items:center;}
+  .qinput{
+    padding:.55rem .7rem; border:1px solid var(--line); border-radius:10px; background:var(--ground-sunken);
+    color:var(--ink); font-family:var(--font-mono); width:8rem; min-height:2.75rem;
+    -moz-appearance:textfield;
   }
-  .card-icon{font-size:1.6rem; line-height:1;}
-  .card-title{font-family:var(--font-display); font-weight:400; text-transform:uppercase; font-size:1.05rem; letter-spacing:.01em;}
-  .card-desc{color:var(--ink-soft); font-size:.85rem; line-height:1.45; flex:1;}
-  .card-foot{
-    display:flex; align-items:center; justify-content:space-between; gap:.6rem;
-    padding:.7rem 1.3rem; border-top:1px solid var(--line);
+  .qinput::-webkit-outer-spin-button, .qinput::-webkit-inner-spin-button{-webkit-appearance:none; margin:0;}
+  .sign-btn{width:2.75rem; padding:.5rem; font-size:1rem; font-weight:800;}
+  .qcard.correct .qinput, .qcard.correct .mc-btn.picked{border-color:var(--good); background:var(--good-soft);}
+  .mc-list{display:grid; gap:.55rem;}
+  @media (min-width:520px){ .mc-list{grid-template-columns:1fr 1fr;} }
+  .mc-btn{
+    text-align:left; padding:.65rem .8rem; border:1px solid var(--line); background:var(--ground-sunken);
+    border-radius:10px; cursor:pointer; font-size:.92rem;
   }
-  .card-file{font-family:var(--font-mono); font-size:.72rem; color:var(--ink-faint);}
+  .mc-btn.correct-pick{background:var(--good-soft); border-color:var(--good); color:var(--good); font-weight:700;}
+  .mc-btn.wrong-pick{background:var(--bad-soft); border-color:var(--bad); color:var(--bad); font-weight:700;}
 
-  .next-unit{
-    border:1px dashed var(--line); border-radius:var(--radius); padding:1.2rem 1.3rem;
-    color:var(--ink-faint); font-size:.88rem; text-align:center;
+  .check-list{display:flex; flex-direction:column; gap:.5rem;}
+  .check-item{
+    display:flex; align-items:flex-start; gap:.6rem; text-align:left; width:100%;
+    padding:.65rem .8rem; border:1px solid var(--line); background:var(--ground-sunken);
+    border-radius:10px; cursor:pointer; font-size:.92rem; color:var(--ink); font-family:inherit;
   }
+  .check-item .box{
+    flex:none; width:1.3rem; height:1.3rem; margin-top:.05rem; border:2px solid var(--ink-faint); border-radius:5px;
+    display:flex; align-items:center; justify-content:center; font-size:.85rem; font-weight:800; line-height:1;
+  }
+  .check-item.picked{border-color:var(--accent);}
+  .check-item.picked .box{background:var(--accent); border-color:var(--accent); color:#F4FFFE;}
+  .check-item.picked .box::after{content:'✓';}
+  .check-item.resolved-true{background:var(--good-soft); border-color:var(--good);}
+  .check-item.resolved-true .box{background:var(--good); border-color:var(--good); color:#fff;}
+  .check-item.resolved-true .box::after{content:'✓';}
+  .check-item.resolved-false .box{background:transparent; border-color:var(--ink-faint); color:var(--ink-faint);}
+  .check-item.resolved-false .box::after{content:'✕';}
+  .check-submit{margin-top:.2rem;}
+  .mc-btn[disabled]{cursor:default;}
+  .graph-list{display:grid; gap:.6rem; grid-template-columns:repeat(2,1fr);}
+  @media (min-width:520px){ .graph-list{grid-template-columns:repeat(4,1fr);} }
+  .graph-btn{
+    padding:.4rem; border:2px solid var(--line); border-radius:10px; background:var(--ground-sunken);
+    color:var(--ink); cursor:pointer; min-height:2.75rem;
+  }
+  .graph-btn svg{width:100%; height:auto; display:block;}
+  .graph-btn.correct-pick{border-color:var(--good); background:var(--good-soft);}
+  .graph-btn.wrong-pick{border-color:var(--bad); background:var(--bad-soft);}
+  .graph-btn[disabled]{cursor:default;}
+  .feedback{margin-top:.6rem; font-weight:700; font-size:.92rem;}
+  .feedback.good{color:var(--good);}
+  .feedback.bad{color:var(--bad);}
+  details.steps{margin-top:.6rem;}
+  details.steps summary{cursor:pointer; font-size:.78rem; color:var(--ink-faint); font-weight:700; text-transform:uppercase; letter-spacing:.05em;}
+  details.steps .steps-body{
+    margin-top:.5rem; background:var(--ground-sunken); border-radius:8px; padding:.6rem .8rem;
+    font-family:var(--font-mono); font-size:.88rem; display:flex; flex-direction:column; gap:.25rem;
+  }
+  @keyframes shake{ 0%,100%{transform:translateX(0);} 25%{transform:translateX(-5px);} 75%{transform:translateX(5px);} }
+  .shake{animation:shake .3s ease;}
+  @media (prefers-reduced-motion: reduce){ .shake{animation:none;} }
+
+  .finale{
+    display:none; text-align:center; padding:2rem 1.2rem; background:var(--ground-raised); border:1px solid var(--line);
+    border-radius:var(--radius); box-shadow:var(--shadow); margin-top:1rem;
+  }
+  .finale.show{display:block;}
+  .finale h2{font-family:var(--font-display); font-weight:400; text-transform:uppercase; font-size:2rem; margin:0 0 .4rem;}
+  .finale p{color:var(--ink-soft); margin:.2rem 0 0;}
 
   footer{text-align:center; color:var(--ink-faint); font-size:.78rem; padding:1.5rem;}
+
+  .site-nav{
+    display:flex; align-items:center; gap:.5rem; overflow-x:auto;
+    padding:.5rem clamp(1rem,4vw,2.5rem); border-bottom:1px solid var(--line);
+    background:var(--ground-sunken); -webkit-overflow-scrolling:touch; scrollbar-width:none;
+  }
+  .site-nav::-webkit-scrollbar{display:none;}
+  .site-nav a{
+    flex:none; display:inline-flex; align-items:center; justify-content:center; white-space:nowrap;
+    padding:.5rem .85rem; border-radius:999px; font-size:.78rem; font-weight:700;
+    text-decoration:none; color:var(--ink-soft); min-height:2.75rem;
+  }
+  .site-nav a.home{color:var(--accent-strong); background:var(--ground-raised); border:1px solid var(--line); box-shadow:var(--shadow);}
+  .site-nav a.page:hover{color:var(--ink);}
+  .site-nav a.page.active{background:var(--accent); color:#F4FFFE;}
 </style>
+
+<style>
+  /* ---- Unit 3 additions: figures, exam mode, printable worksheet ---- */
+  .qfigure{margin:0 0 .8rem;}
+  .qfigure svg{
+    max-width:320px; width:100%; height:auto; display:block;
+    background:var(--ground-sunken); border:1px solid var(--line); border-radius:10px;
+  }
+  .mc-btn.picked{border-color:var(--accent); background:var(--accent-soft); font-weight:700;}
+  .qcard.exam-wrong{border-color:var(--bad);}
+  .exambar{
+    position:sticky; top:0; z-index:30; background:var(--gold-soft); color:var(--gold);
+    border-bottom:1px solid var(--line); font-weight:700; font-size:.9rem;
+    padding:.7rem clamp(1rem,4vw,2.5rem); text-align:center;
+  }
+  body.exam-mode .scorebar{display:none;}
+  .exam-submit-card{
+    background:var(--ground-raised); border:1px solid var(--line); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:1.4rem; text-align:center; margin-top:1.5rem;
+  }
+  .exam-submit-card p{color:var(--ink-soft); margin:.4rem 0 .9rem;}
+  .btn.primary{background:var(--accent); border-color:var(--accent); color:#F4FFFE;}
+  .exam-summary{
+    background:var(--ground-raised); border:2px solid var(--accent); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:1.4rem; margin-bottom:1.5rem;
+  }
+  .exam-summary h2{font-family:var(--font-display); font-weight:400; text-transform:uppercase; font-size:1.8rem; margin:0 0 .3rem;}
+  .exam-summary .big-score{font-family:var(--font-display); font-size:2.6rem; color:var(--accent-strong); margin:.2rem 0;}
+  .exam-summary ul{list-style:none; padding:0; margin:.6rem 0 0; display:flex; flex-direction:column; gap:.3rem;}
+  .exam-summary li{font-size:.92rem;}
+  .exam-summary li b{font-family:var(--font-mono); color:var(--accent-strong);}
+  .exam-summary .controls{display:flex; gap:.6rem; flex-wrap:wrap; margin-top:1rem;}
+
+  #worksheet{display:none;}
+  @media print{
+    body.print-worksheet > *:not(#worksheet){display:none !important;}
+    body.print-worksheet #worksheet{
+      display:block; color:#000;
+      --ink:#000; --ink-soft:#333; --line:#999;
+      --accent:#0F7A78; --gold:#C9821A; --bad:#B23A3A;
+      --ground-sunken:#fff;
+      font-size:12pt;
+    }
+    body.print-worksheet #worksheet svg{background:#fff;}
+  }
+  #worksheet .ws-head{border-bottom:2px solid #000; padding-bottom:.5rem; margin-bottom:1.2rem;}
+  #worksheet .ws-head h2{font-family:var(--font-display); font-weight:400; text-transform:uppercase; margin:0 0 .3rem;}
+  #worksheet .ws-head p{margin:.2rem 0;}
+  #worksheet .ws-q{page-break-inside:avoid; margin:0 0 1.6rem; padding-bottom:.9rem; border-bottom:1px dotted #bbb;}
+  #worksheet .ws-q p{margin:.3rem 0;}
+  #worksheet .ws-fig svg{max-width:280px; height:auto; display:block; margin:.4rem 0;}
+  #worksheet .ws-choices{list-style:upper-alpha; margin:.4rem 0 0 1.6rem; padding:0;}
+  #worksheet .ws-choices li{margin:.25rem 0;}
+  #worksheet .ws-answer{margin-top:.9rem; font-weight:700;}
+  #worksheet .ws-work{color:#888; font-size:.8rem; margin-top:.8rem; min-height:3.2rem;}
+  #worksheet .ws-key{page-break-before:always; border-top:2px solid #000; padding-top:.6rem;}
+  #worksheet .ws-key h2{font-family:var(--font-display); font-weight:400; text-transform:uppercase;}
+  #worksheet .ws-key ol{columns:2; column-gap:2rem; margin:.5rem 0 0 1.2rem; padding:0;}
+  #worksheet .ws-key li{margin:.25rem 0; break-inside:avoid;}
+</style>
+
+<nav class="site-nav" aria-label="Unit navigation">
+  <a class="home" href="../index.html">&larr; Index</a>
+  <a class="page" href="study-guide.html">Study Guide</a>
+  <a class="page" href="concept-explainers.html">Explainer</a>
+  <a class="page" href="playground.html">Playground</a>
+  <a class="page" href="flashcards.html">Flashcards</a>
+  <a class="page active" href="practice-quiz.html">Quiz</a>
+  <a class="page" href="cheat-sheet.html">Cheat Sheet</a>
+</nav>
 
 <header class="hero">
   <div class="hero-inner">
-    <p class="hero-eyebrow">Study Kit Index</p>
-    <h1>Miriam's Algebra 1</h1>
-    <p>One row per unit test. Each unit gets the same five pieces: a study guide for during the test, an explainer for before it, a playground to practice in, flashcards to drill on the go, and a quiz to prove it stuck.</p>
-    <div class="hero-actions">
+    <p class="hero-eyebrow">Practice Quiz · Two Modes</p>
+    <h1>Prove You Actually<br>Got It</h1>
+    <p>44 questions, all 6 concepts. <b>Practice mode</b> gives instant feedback and step-by-step reveals. <b>Exam mode</b> is the dress rehearsal — no feedback until you submit, just like the real test. Do practice first, exam mode the night before, and print the worksheet for one pass on paper.</p>
+    <div class="hero-actions" style="display:flex; gap:.5rem; flex-wrap:wrap;">
       <button class="btn" id="theme-toggle" type="button">🌓 Theme</button>
+      <button class="btn" id="exam-toggle" type="button">🎯 Exam mode</button>
+      <button class="btn" id="print-ws" type="button">🖨️ Print worksheet</button>
+      <button class="btn" id="reset-quiz" type="button">🔁 Reset practice</button>
     </div>
   </div>
 </header>
 
-<main>
+<div class="exambar" id="exam-bar" hidden>🎯 Exam mode — answer everything, then hit Submit at the bottom. No hints, no steps, no feedback until then. Just like the real thing.</div>
 
-  <section class="unit-block">
-    <div class="unit-head">
-      <span class="unit-badge">Unit 1</span>
-      <h2>Linear Equations &amp; Inequalities</h2>
+<div class="scorebar">
+  <div class="scorebar-inner">
+    <div class="chip">Score <b id="score-val">0</b>/<span id="score-total">0</span></div>
+    <div class="chip">🔥 <b id="streak-val">0</b> streak <span class="best">best <b id="streak-best">0</b></span></div>
+    <div class="court-progress">
+      <div class="court-track"><div class="court-fill" id="court-fill"></div><div class="ball" id="court-ball">🏐</div></div>
     </div>
-    <p class="unit-desc">Solving equations, variable on one side, variables on both sides, the distributive property, literal equations, compound inequalities, graphing and modeling two-variable inequalities.</p>
-    <div class="card-grid">
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/study-guide.html">
-          <span class="card-icon">📘</span>
-          <span class="card-title">Study Guide</span>
-          <span class="card-desc">Open-notes reference — one worked example per concept. Use this one during the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">study-guide.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/concept-explainers.html">
-          <span class="card-icon">🧠</span>
-          <span class="card-title">The Explainer</span>
-          <span class="card-desc">ELI5 deep-dive with volleyball analogies, the "why," and common mistakes. Read this before the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">concept-explainers.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/playground.html">
-          <span class="card-icon">🏐</span>
-          <span class="card-title">The Playground</span>
-          <span class="card-desc">8 hands-on stations — drive an equation solver, build a graph, test points, drag sliders.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">playground.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/practice-quiz.html">
-          <span class="card-icon">🎯</span>
-          <span class="card-title">Practice Quiz</span>
-          <span class="card-desc">33 questions, instant feedback, score + streak tracker. Prove you've got it.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">practice-quiz.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/flashcards.html">
-          <span class="card-icon">🃏</span>
-          <span class="card-title">Flashcards</span>
-          <span class="card-desc">32 tap-to-flip cards by concept. Swipe through on your phone, mark what's still shaky.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">flashcards.html</span>
-        </div>
-      </div>
-    </div>
-  </section>
+  </div>
+</div>
 
-  <section class="unit-block">
-    <div class="unit-head">
-      <span class="unit-badge">Unit 2</span>
-      <h2>Sets, Venn Diagrams &amp; Triangle Angles</h2>
-    </div>
-    <p class="unit-desc">Sets and elements, subsets, union and intersection with Venn diagrams, sets applied to probability and geometry, the triangle angle-sum theorem, and the two proofs of why the angles always make 180°.</p>
-    <div class="card-grid">
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/study-guide.html">
-          <span class="card-icon">📘</span>
-          <span class="card-title">Study Guide</span>
-          <span class="card-desc">Open-notes reference — one worked example per concept. Use this one during the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">study-guide.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/concept-explainers.html">
-          <span class="card-icon">🧠</span>
-          <span class="card-title">The Explainer</span>
-          <span class="card-desc">ELI5 deep-dive with volleyball analogies, the "why," and common mistakes. Read this before the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">concept-explainers.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/playground.html">
-          <span class="card-icon">🏐</span>
-          <span class="card-title">The Playground</span>
-          <span class="card-desc">6 hands-on stations — build sets, click Venn regions, bend a live triangle, run the 180° proof yourself.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">playground.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/practice-quiz.html">
-          <span class="card-icon">🎯</span>
-          <span class="card-title">Practice Quiz</span>
-          <span class="card-desc">47 questions, two modes: instant-feedback practice and a no-hints exam mode. Plus a printable worksheet.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">practice-quiz.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/flashcards.html">
-          <span class="card-icon">🃏</span>
-          <span class="card-title">Flashcards</span>
-          <span class="card-desc">35 tap-to-flip cards by concept. Swipe through on your phone, mark what's still shaky.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">flashcards.html</span>
-        </div>
-      </div>
-    </div>
-  </section>
+<main id="quiz-root"></main>
 
-  <section class="unit-block">
-    <div class="unit-head">
-      <span class="unit-badge">Midterm</span>
-      <h2>Cumulative Review — First Half</h2>
-    </div>
-    <p class="unit-desc">Everything from the first half of the class: solving equations, literal equations &amp; formulas, inequalities, function basics, reading graphs, lines &amp; sequences, and sets. The quiz re-rolls its numbers every time, so it can't be memorized — only learned.</p>
-    <div class="card-grid">
-      <div class="card">
-        <a class="card-main" href="midterm-review/cheat-sheet.html">
-          <span class="card-icon">🗒️</span>
-          <span class="card-title">Cheat Sheet</span>
-          <span class="card-desc">The whole exam on one scannable page — 10 one-sentence big ideas plus "do this" boxes for all 7 topics. Print it.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">cheat-sheet.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="midterm-review/practice-quiz.html">
-          <span class="card-icon">🎲</span>
-          <span class="card-title">Practice Quiz</span>
-          <span class="card-desc">41 questions, 5–6 per topic — with fresh numbers on every deal. Practice mode, exam mode, and printable worksheets that regenerate every print.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">practice-quiz.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="midterm-review/flashcards.html">
-          <span class="card-icon">🃏</span>
-          <span class="card-title">Flashcards</span>
-          <span class="card-desc">40 tap-to-flip cards across all 7 topics. Swipe through on your phone, mark what's still shaky.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">flashcards.html</span>
-        </div>
-      </div>
-    </div>
-  </section>
+<div id="worksheet" aria-hidden="true"></div>
 
-  <section class="unit-block">
-    <div class="unit-head">
-      <span class="unit-badge">Unit 3</span>
-      <h2>Systems of Equations &amp; Inequalities</h2>
-    </div>
-    <p class="unit-desc">Solving systems of linear equations by graphing, substitution, and elimination (linear combination); systems with one, no, or infinitely many solutions; modeling word problems with systems; and writing, graphing, and interpreting systems of linear inequalities.</p>
-    <div class="card-grid">
-      <div class="card">
-        <a class="card-main" href="unit-03-systems-of-equations-inequalities/study-guide.html">
-          <span class="card-icon">📘</span>
-          <span class="card-title">Study Guide</span>
-          <span class="card-desc">Open-notes reference — one worked example per concept. Use this one during the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">study-guide.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-03-systems-of-equations-inequalities/cheat-sheet.html">
-          <span class="card-icon">🗒️</span>
-          <span class="card-title">Cheat Sheet</span>
-          <span class="card-desc">The whole test on one scannable page — 10 one-sentence big ideas plus "do this" boxes for all 7 topics. Print it.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">cheat-sheet.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-03-systems-of-equations-inequalities/concept-explainers.html">
-          <span class="card-icon">🧠</span>
-          <span class="card-title">The Explainer</span>
-          <span class="card-desc">ELI5 deep-dive with volleyball analogies, the "why," and common mistakes. Read this before the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">concept-explainers.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-03-systems-of-equations-inequalities/playground.html">
-          <span class="card-icon">🏐</span>
-          <span class="card-title">The Playground</span>
-          <span class="card-desc">6 hands-on stations — click the intersection, drive the substitution machine, make variables cancel, build inequality systems.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">playground.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-03-systems-of-equations-inequalities/practice-quiz.html">
-          <span class="card-icon">🎯</span>
-          <span class="card-title">Practice Quiz</span>
-          <span class="card-desc">44 questions, two modes: instant-feedback practice and a no-hints exam mode. Plus a printable worksheet.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">practice-quiz.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-03-systems-of-equations-inequalities/flashcards.html">
-          <span class="card-icon">🃏</span>
-          <span class="card-title">Flashcards</span>
-          <span class="card-desc">36 tap-to-flip cards by concept. Swipe through on your phone, mark what's still shaky.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">flashcards.html</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="next-unit">Unit 4 shows up here once the next test is announced.</div>
-
-</main>
-
-<footer>Miriam's Algebra 1 · Study Kit Index</footer>
+<footer>Miriam's Algebra 1 · Unit 3 Practice Quiz</footer>
 
 <script>
-  (function(){
-    var root = document.documentElement;
-    var toggle = document.getElementById('theme-toggle');
-    var stored = null;
-    try { stored = localStorage.getItem('algebra-theme'); } catch(e){}
-    if (stored) root.setAttribute('data-theme', stored);
-    toggle.addEventListener('click', function(){
-      var current = root.getAttribute('data-theme');
-      var next = current === 'dark' ? 'light' : 'dark';
-      if (!current){ next = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark'; }
-      root.setAttribute('data-theme', next);
-      try { localStorage.setItem('algebra-theme', next); } catch(e){}
+(function(){
+  "use strict";
+  var root = document.documentElement;
+  var themeToggle = document.getElementById('theme-toggle');
+  var stored = null;
+  try { stored = localStorage.getItem('algebra-theme'); } catch(e){}
+  if (stored) root.setAttribute('data-theme', stored);
+  themeToggle.addEventListener('click', function(){
+    var current = root.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    if (!current){ next = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark'; }
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('algebra-theme', next); } catch(e){}
+  });
+
+  var CONCEPTS = [
+    {n:1, name:'Solving by Graphing'},
+    {n:2, name:'Substitution'},
+    {n:3, name:'Elimination (Linear Combination)'},
+    {n:4, name:'One, None, or Infinitely Many'},
+    {n:5, name:'Word Problems → Systems'},
+    {n:6, name:'Systems of Inequalities'}
+  ];
+
+  /* ---------- SVG figures ---------- */
+  function linesFig(m1, b1, m2, b2, ix, iy, label){
+    // 13x13 grid, -6..6, two lines, dot + label at the intersection
+    function X(x){ return 150 + x*22; }
+    function Y(y){ return 150 - y*22; }
+    var s = '<svg viewBox="0 0 300 300" aria-label="Graph of two lines crossing at the point '+label+'">';
+    for (var i=-6; i<=6; i++){
+      s += '<line x1="'+X(i)+'" y1="'+Y(-6)+'" x2="'+X(i)+'" y2="'+Y(6)+'" stroke="currentColor" stroke-opacity=".14" stroke-width="1"/>';
+      s += '<line x1="'+X(-6)+'" y1="'+Y(i)+'" x2="'+X(6)+'" y2="'+Y(i)+'" stroke="currentColor" stroke-opacity=".14" stroke-width="1"/>';
+    }
+    s += '<line x1="'+X(-6)+'" y1="'+Y(0)+'" x2="'+X(6)+'" y2="'+Y(0)+'" stroke="currentColor" stroke-opacity=".6" stroke-width="2"/>';
+    s += '<line x1="'+X(0)+'" y1="'+Y(-6)+'" x2="'+X(0)+'" y2="'+Y(6)+'" stroke="currentColor" stroke-opacity=".6" stroke-width="2"/>';
+    s += '<line x1="'+X(-6.6)+'" y1="'+Y(m1*-6.6+b1)+'" x2="'+X(6.6)+'" y2="'+Y(m1*6.6+b1)+'" stroke="var(--accent)" stroke-width="3"/>';
+    s += '<line x1="'+X(-6.6)+'" y1="'+Y(m2*-6.6+b2)+'" x2="'+X(6.6)+'" y2="'+Y(m2*6.6+b2)+'" stroke="var(--bad)" stroke-width="3"/>';
+    s += '<circle cx="'+X(ix)+'" cy="'+Y(iy)+'" r="6" fill="var(--gold)" stroke="currentColor" stroke-width="2"/>';
+    s += '<text x="'+(X(ix)+10)+'" y="'+(Y(iy)-10)+'" font-size="14" fill="currentColor" font-weight="bold">'+label+'</text></svg>';
+    return s;
+  }
+
+  var QUESTIONS = [
+    // ---- Concept 1: Solving by Graphing ----
+    {concept:1, type:'mc', prompt:'A system of two linear equations is graphed as two lines. What does the solution to the system represent?',
+      choices:['The point where the two lines intersect — the (x, y) that makes BOTH equations true','Any point on either line','The y-intercept of the first line','The point where each line crosses the x-axis'], correct:0,
+      steps:['each line is a picture of every point that makes ITS equation true','the solution has to keep both promises at once','only the crossing point sits on both lines']},
+    {concept:1, type:'mc', prompt:'Lukas graphed 2x + 3y = 2 and y = ½x + 3 (shown). What is the solution to the system?', figure:['lines', 0.5, 3, -2/3, 2/3, -2, 2, '(−2, 2)'],
+      choices:['(0, 3)','(−2, 2)','(1, 0)','(0, 0.67)'], correct:1,
+      steps:['the labeled intercepts sit on only ONE line each — decoys','the lines CROSS at (−2, 2)','check: 2(−2) + 3(2) = −4 + 6 = 2 ✓ and ½(−2) + 3 = 2 ✓']},
+    {concept:1, type:'mc', prompt:'Which point is a solution to the system y = x + 1 and y = −x + 5?',
+      choices:['(0, 1)','(1, 4)','(2, 3)','(5, 0)'], correct:2,
+      steps:['test each choice in BOTH equations','(2, 3): 2 + 1 = 3 ✓ and −2 + 5 = 3 ✓','(0, 1) is only on the first line; (1, 4) is only on the second']},
+    {concept:1, type:'mc', prompt:'The point (4, 1) makes the first equation of a system true but NOT the second. What is (4, 1)?',
+      choices:['A solution to the system','The y-intercept of the system','Not a solution to the system','A solution only if the lines are parallel'], correct:2,
+      steps:['a solution must make BOTH equations true','one promise kept, one broken → not a solution','on the graph, (4, 1) is on the first line but not at the intersection']},
+    {concept:1, type:'numeric', prompt:'The lines y = x + 2 and y = −x + 8 cross at one point. What is the x-value of that point?', answer:3,
+      steps:['at the crossing, the two y\'s are equal: x + 2 = −x + 8','2x = 6','x = 3 (and y = 5 — the point is (3, 5))']},
+    {concept:1, type:'mc', prompt:'Two graphed lines clearly cross, but NOT at a corner of the grid — it looks close to (1, −3). What is the right move?',
+      choices:['Say the system has no solution','Estimate the solution, or use a graphing calculator to trace to the exact intersection — then check by substituting','Round the answer to (1, −3) and move on without checking','Pick the nearest labeled intercept'], correct:1,
+      steps:['a crossing between grid lines is still exactly one solution','estimate it, or let the calculator snap to the intersection (like (1.1, −2.8))','the check is what confirms it: plug into BOTH equations']},
+    {concept:1, type:'checkbox', prompt:'Check every statement that is TRUE about solutions of systems.',
+      statements:[
+        {text:'The solution to a system makes both equations true.', correct:true},
+        {text:'A point on just one of the two lines is still a solution.', correct:false},
+        {text:'A system of linear equations can have one solution, no solution, or infinitely many.', correct:true},
+        {text:'The x- and y-intercepts of the lines are always solutions to the system.', correct:false}
+      ],
+      steps:['solution = true in BOTH equations = on both lines','one line only → not a solution','crossing / parallel / same line → one / none / infinite','intercepts belong to single lines — decoys on the graph']},
+
+    // ---- Concept 2: Substitution ----
+    {concept:2, type:'mc', prompt:'What is the solution to the system? y = 2x − 3.5 and x − 2y = −14',
+      choices:['(−7, 3.5)','(3.5, −7)','(7, 10.5)','(10.5, 7)'], correct:2,
+      steps:['substitute: x − 2(2x − 3.5) = −14','x − 4x + 7 = −14 → −3x = −21 → x = 7','y = 2(7) − 3.5 = 10.5 → (7, 10.5), x first','(10.5, 7) is the trap for writing (y, x)']},
+    {concept:2, type:'mc', prompt:'What is the solution to the system? 2x + 4y = 12 and y = ¼x − 3',
+      choices:['(8, −1)','(−1, 8)','(5, ½)','(½, 5)'], correct:0,
+      steps:['substitute: 2x + 4(¼x − 3) = 12','2x + x − 12 = 12 → 3x = 24 → x = 8','y = ¼(8) − 3 = 2 − 3 = −1 → (8, −1)']},
+    {concept:2, type:'mc', prompt:'For the system y = 2x − 3.5 and x − 2y = −14, what is the correct FIRST move of the substitution method?',
+      choices:['Add the two equations together','Replace y in the second equation with (2x − 3.5), in parentheses','Replace x in the first equation with −14','Graph both lines and estimate'], correct:1,
+      steps:['y is already isolated — that expression IS y','swap it in for y in the OTHER equation','parentheses on, so the −2 can distribute to the whole thing']},
+    {concept:2, type:'mc', prompt:'After substituting, Ana has x − 2(2x − 3.5) = −14. Which equation comes next?',
+      choices:['x − 4x − 7 = −14','x − 4x + 7 = −14','x − 4x − 3.5 = −14','3x + 7 = −14'], correct:1,
+      steps:['distribute the −2 to BOTH terms','−2 · 2x = −4x and −2 · (−3.5) = +7 — the sign flips','x − 4x + 7 = −14 → −3x = −21 → x = 7']},
+    {concept:2, type:'numeric', prompt:'What is the x-value of the solution? y = 3x and x + y = 12', answer:3,
+      steps:['substitute: x + (3x) = 12','4x = 12','x = 3 (and y = 9)']},
+    {concept:2, type:'numeric', prompt:'What is the y-value of the solution? y = x + 4 and 2x + y = 13', answer:7,
+      steps:['substitute: 2x + (x + 4) = 13','3x = 9 → x = 3','y = 3 + 4 = 7']},
+    {concept:2, type:'checkbox', prompt:'Check every statement that is TRUE about the substitution method.',
+      statements:[
+        {text:'The substituted expression goes in with parentheses around it.', correct:true},
+        {text:'You substitute into the same equation the expression came from.', correct:false},
+        {text:'If neither variable is isolated, isolate the one with a coefficient of 1.', correct:true},
+        {text:'Once you find x, you are done.', correct:false}
+      ],
+      steps:['parentheses protect the distribute step','substituting into the SAME equation gives 0 = 0 and no info — use the other one','coefficient of 1 → one step, no fractions','a solution is a PAIR — back-substitute for the other variable']},
+
+    // ---- Concept 3: Elimination ----
+    {concept:3, type:'mc', prompt:'To eliminate y from the system 5x + 4y = 8 and 2x − 3y = 17, what can you multiply the equations by?',
+      choices:['×3 and ×4, so the y-coefficients become +12 and −12','×5 and ×2, so the x-coefficients match','×4 and ×3, so the y-coefficients become +16 and −9','Nothing — you can only add equations as written'], correct:0,
+      steps:['elimination needs ADDITIVE INVERSES — coefficients that add to 0','3(4y) = 12y and 4(−3y) = −12y → they cancel when added','matching signs (+ and +) would NOT cancel by adding']},
+    {concept:3, type:'numeric', prompt:'What is the y-value of the solution? 3x + 5y = 1 and 7x + 4y = −13', answer:2,
+      steps:['×7 and ×(−3): 21x + 35y = 7 and −21x − 12y = 39','add: 23y = 46','y = 2 (and x = −3)']},
+    {concept:3, type:'numeric', prompt:'What is the x-value of the solution? 5x + 4y = 8 and 2x − 3y = 17', answer:4,
+      steps:['×3 and ×4: 15x + 12y = 24 and 8x − 12y = 68','add: 23x = 92','x = 4 (and y = −3)']},
+    {concept:3, type:'mc', prompt:'A table shows: original system 2y − x = 8 and y − 2x = −5 → equivalent system 2y − x = 8 and −2y + 4x = 10 → sum 3x = 18. Which solution fills BOTH blank columns ("solution to system" and "solution to new system")?',
+      choices:['(1, 6)','(6, 1)','(7, 6)','(6, 7)'], correct:3,
+      steps:['3x = 18 → x = 6','back into 2y − x = 8: 2y − 6 = 8 → y = 7','equivalent systems were made with legal moves → SAME solution in both blanks: (6, 7)']},
+    {concept:3, type:'mc', prompt:'A table shows: original system 2x − 2y = 6 and 4x + 4y = 28 → equivalent system 4x − 4y = 12 and 4x + 4y = 28 → sum 8x = 40. Which solution fills both blanks?',
+      choices:['(2, 5)','(5, 2)','(5, −8)','(−8, 5)'], correct:1,
+      steps:['8x = 40 → x = 5','back into 4x + 4y = 28: 20 + 4y = 28 → y = 2','same solution everywhere in the table: (5, 2)']},
+    {concept:3, type:'numeric', prompt:'What is the x-value of the solution? x + y = 10 and x − y = 4', answer:7,
+      steps:['+y and −y are already additive inverses','add: 2x = 14 → x = 7','(and y = 3 — check: 7 + 3 = 10 ✓, 7 − 3 = 4 ✓)']},
+    {concept:3, type:'mc', prompt:'Why does the "new system" made during linear combination (like 2y − x = 8 with 3x = 18) have the SAME solution as the original system?',
+      choices:['Because multiplying an equation by a constant and adding equations are legal moves that create equivalent equations','Because every system of equations has the same solution','Because 3x = 18 is a horizontal line','It doesn\'t — the new system has a new solution'], correct:0,
+      steps:['multiplying every term keeps the exact same line (equivalent equation)','adding equal amounts to both sides keeps equality true','graph all three lines and they pass through the SAME point']},
+    {concept:3, type:'checkbox', prompt:'Check every statement that is TRUE about elimination.',
+      statements:[
+        {text:'When you multiply an equation by −2, you must multiply the right side too.', correct:true},
+        {text:'Coefficients of +12y and +12y will cancel when the equations are added.', correct:false},
+        {text:'Sometimes BOTH equations need a multiplier before anything cancels.', correct:true},
+        {text:'After eliminating and solving for one variable, you substitute back to find the other.', correct:true}
+      ],
+      steps:['EVERY term, both sides — the constant included','+12 and +12 add to 24, not 0; you need opposites like +12 and −12','5x+4y / 2x−3y needs ×3 and ×4 (nothing lines up for free)','x alone is half an answer — go get y']},
+
+    // ---- Concept 4: One, None, or Infinitely Many ----
+    {concept:4, type:'mc', prompt:'A system of equations has infinitely many solutions. If 2y − 4x = 6 is one of the equations, which could be the other equation?',
+      choices:['y = 2x + 6','y = 4x + 6','−y = −2x − 3','−y = −4x + 6'], correct:2,
+      steps:['infinitely many = the SAME line twice','2y − 4x = 6 simplifies to y = 2x + 3','−y = −2x − 3 → multiply by −1 → y = 2x + 3 ✓ same line','y = 2x + 6 has the same slope but different intercept — that\'s parallel → NO solution']},
+    {concept:4, type:'mc', prompt:'Heather applies linear combination to −6x + 18y = 0 and 4x − 12y = 20 and arrives at 0 = 60. What conclusion can she draw?',
+      choices:['The system has a solution at (0, 60)','The equation has no solution; therefore, the system of equations has no solution','The equation has infinite solutions; therefore, the system has infinite solutions','The system has a solution at (0, 0)'], correct:1,
+      steps:['all the variables cancelled — what\'s left is a VERDICT, not a point','0 = 60 is FALSE, no matter what x and y are','false statement → no solution → the lines are parallel']},
+    {concept:4, type:'mc', prompt:'While solving a system, every variable cancels and you\'re left with 0 = 0. How many solutions does the system have?',
+      choices:['None','Exactly one, at (0, 0)','Infinitely many','Exactly two'], correct:2,
+      steps:['0 = 0 is TRUE for every x and y','the two equations were the same line in disguise','every point on the line works → infinitely many']},
+    {concept:4, type:'mc', prompt:'Without solving: how many solutions does the system y = 2x + 3 and y = 2x − 4 have?',
+      choices:['No solution','One solution','Infinitely many solutions','Cannot be determined'], correct:0,
+      steps:['same slope (2), different y-intercepts (3 vs −4)','same direction, different starting height → parallel','parallel lines never touch → no solution']},
+    {concept:4, type:'mc', prompt:'How many solutions does the system y = 3x + 1 and 6x − 2y = −2 have?',
+      choices:['One solution','No solution','Infinitely many solutions','Exactly three'], correct:2,
+      steps:['simplify the second: 6x − 2y = −2 → −2y = −6x − 2 → y = 3x + 1','same slope AND same intercept — the identical line','always simplify before comparing: disguises are the whole trick']},
+    {concept:4, type:'numeric', prompt:'For what value of b does the system y = 4x + b and y = 4x + 7 have infinitely many solutions?', answer:7,
+      steps:['the slopes already match (4 and 4)','infinitely many needs the SAME line — intercepts must match too','b = 7 (any other b would make them parallel → no solution)']},
+    {concept:4, type:'checkbox', prompt:'Check every statement that is TRUE.',
+      statements:[
+        {text:'Lines with different slopes cross exactly once — one solution.', correct:true},
+        {text:'Ending at 0 = 5 means the solution is the point (0, 5).', correct:false},
+        {text:'Same slope + different y-intercepts → parallel → no solution.', correct:true},
+        {text:'Multiplying an entire equation by 3 produces an equation with the same line.', correct:true}
+      ],
+      steps:['different directions must cross once, somewhere','0 = 5 is a false VERDICT — no point at all','parallel lanes never meet','×3 on every term is a legal move: equivalent equation, same line']},
+
+    // ---- Concept 5: Word Problems → Systems ----
+    {concept:5, type:'numeric', prompt:'Shawn\'s shop: y = 10 + 3.5x. Dorian\'s shop: y = 6x. They rented for the same hours and paid the same price. How much did EACH PAY (in dollars)?', answer:24,
+      steps:['same price, same hours → set the expressions equal: 10 + 3.5x = 6x','10 = 2.5x → x = 4 hours','the question asks what they PAID: y = 6(4) = $24 (not 4!)']},
+    {concept:5, type:'mc', prompt:'The math team wraps gifts: 10 plain + 9 decorative = $47, and 25 plain + 12 decorative = $86. What did the team charge?',
+      choices:['$1 plain, $2 with a bow','$2 plain, $3 with a bow','$3 plain, $4 with a bow','$4 plain, $5 with a bow'], correct:1,
+      steps:['10p + 9d = 47 and 25p + 12d = 86','×4 and ×(−3): 40p + 36d = 188, −75p − 36d = −258','add: −35p = −70 → p = 2, then 9d = 27 → d = 3','check with the spare row: 16(2) + 12(3) = 68 ✓']},
+    {concept:5, type:'mc', prompt:'Gym A costs $25 to join plus $4 per visit. Gym B costs $10 to join plus $7 per visit. Which equation finds the number of visits x where the costs are EQUAL?',
+      choices:['25 + 4x = 10 + 7x','25 + 7x = 10 + 4x','25 + 10 = 4x + 7x','4x = 7x'], correct:0,
+      steps:['cost A = 25 + 4x, cost B = 10 + 7x','"equal cost" → set the two expressions equal','join fee goes with its own gym\'s per-visit rate']},
+    {concept:5, type:'numeric', prompt:'Solve it: 25 + 4x = 10 + 7x. After how many visits do the gyms cost the same?', answer:5,
+      steps:['subtract 4x: 25 = 10 + 3x','subtract 10: 15 = 3x','x = 5 visits (both cost $45 there)']},
+    {concept:5, type:'numeric', prompt:'A class sells 20 tickets total. Adult tickets are $10 and child tickets are $6, and the class collects $152. How many ADULT tickets were sold?', answer:8,
+      steps:['a + c = 20 and 10a + 6c = 152','substitute c = 20 − a: 10a + 6(20 − a) = 152','10a + 120 − 6a = 152 → 4a = 32 → a = 8 (and c = 12)']},
+    {concept:5, type:'mc', prompt:'"The drama club has 100 tickets to sell" — s student tickets and n nonstudent tickets. Which equation represents that sentence?',
+      choices:['5s + 10n = 100','s + n = 100','s − n = 100','100s + 100n = 800'], correct:1,
+      steps:['a COUNT sentence talks about how many, not about money','number of student tickets + number of nonstudent tickets = 100','prices only enter through the money sentence (5s + 10n …)']},
+    {concept:5, type:'checkbox', prompt:'Check every statement that is TRUE about modeling with systems.',
+      statements:[
+        {text:'Define the variables in words before writing any equation.', correct:true},
+        {text:'A "total items" sentence and a "total money" sentence give two different equations.', correct:true},
+        {text:'Once you solve for x, that number is always the final answer.', correct:false},
+        {text:'A good final check is plugging the answer back into the original story.', correct:true}
+      ],
+      steps:['"let x = …" prevents every downstream mix-up','count equation: x + y = total · money equation: price·x + price·y = $','the question might ask for y, or dollars, or a total — interpret in context','equations can be translated wrong; the story is the truth']},
+
+    // ---- Concept 6: Systems of Inequalities ----
+    {concept:6, type:'mc', prompt:'Dwayne has 100 burger buns. Hamburgers sell for $3 and cheeseburgers for $3.50, and he wants sales of AT LEAST $80. Which system models this?',
+      choices:['h + c ≤ 80 and 3h + 3.5c ≤ 100','h + c ≤ 80 and 3h + 3.5c ≥ 100','h + c ≤ 100 and 3h + 3.5c ≤ 80','h + c ≤ 100 and 3h + 3.5c ≥ 80'], correct:3,
+      steps:['100 buns is a SUPPLY limit on the count → h + c ≤ 100','"at least $80" is a money FLOOR → 3h + 3.5c ≥ 80','the wrong choices swap the 100/80 or flip the direction']},
+    {concept:6, type:'mc', prompt:'Drama club: s + n ≤ 100 and 5s + 10n ≥ 800. What is the MAXIMUM number of student tickets that can be sold while meeting the sales goal?',
+      choices:['40','60','80','100'], correct:0,
+      steps:['the max hides at the corner — push both rules to their boundaries','s + n = 100 and 5s + 10n = 800 → substitute n = 100 − s','5s + 1000 − 10s = 800 → −5s = −200 → s = 40','a 41st $5 ticket would drop the money below $800']},
+    {concept:6, type:'mc', prompt:'Which symbol translates "at least 4 plastic balloons"?',
+      choices:['y < 4','y ≤ 4','y ≥ 4','y > 4'], correct:2,
+      steps:['"at least 4" means 4 is allowed, and more is allowed','floor with the boundary included → ≥','"more than 4" would be the strict version: >']},
+    {concept:6, type:'mc', prompt:'How is y > x − 5 graphed?',
+      choices:['Solid line, shade below','Solid line, shade above','Dashed line, shade below','Dashed line, shade above'], correct:3,
+      steps:['strict > (no equals) → DASHED line, boundary not included','y > … → shade ABOVE the line','check: (0, 0) gives 0 > −5 ✓ and (0,0) is above this line']},
+    {concept:6, type:'mc', prompt:'Is (20, 80) a solution to the drama club system s + n ≤ 100 and 5s + 10n ≥ 800?',
+      choices:['Yes — it satisfies both inequalities','No — it fails the ticket limit','No — it fails the sales goal','Only if the lines are dashed'], correct:0,
+      steps:['count: 20 + 80 = 100 ≤ 100 ✓ (equal is fine with ≤)','money: 5(20) + 10(80) = 100 + 800 = 900 ≥ 800 ✓','true in BOTH → in the overlap → a solution']},
+    {concept:6, type:'mc', prompt:'During free play there must be MORE THAN 4 campers in a group, and the number of boys b must NOT EXCEED the number of girls g by more than 5. Which system models this?',
+      choices:['b + g > 4 and b ≤ g + 5','b + g ≥ 4 and b ≥ g + 5','b + g < 4 and b ≤ g + 5','b + g > 4 and b ≥ g − 5'], correct:0,
+      steps:['"more than 4 campers" → b + g > 4 (strict — exactly 4 is not allowed, dashed line)','"boys don\'t exceed girls by more than 5" → b − g ≤ 5, i.e. b ≤ g + 5 (solid line)','the graph answer is the region where the two shadings overlap']},
+    {concept:6, type:'mc', prompt:'Luka buys latex balloons at $1.50 (x of them) and plastic balloons at $4 (y of them). He wants at least 4 plastic balloons and will spend less than $30. Which system models this?',
+      choices:['y ≥ 4 and 1.5x + 4y < 30 and x ≥ 0','y ≤ 4 and 1.5x + 4y < 30','y ≥ 4 and 1.5x + 4y > 30','y > 4 and 4x + 1.5y < 30 and x ≥ 0'], correct:0,
+      steps:['"at least 4 plastic" → y ≥ 4','"spend less than $30" → 1.5x + 4y < 30 (strict, dashed)','you can\'t buy negative balloons → x ≥ 0 — real-world systems can have THREE inequalities']},
+    {concept:6, type:'checkbox', prompt:'Check every statement that is TRUE about graphing systems of inequalities.',
+      statements:[
+        {text:'≤ and ≥ get a solid boundary line; < and > get a dashed one.', correct:true},
+        {text:'A point ON a dashed line counts as a solution.', correct:false},
+        {text:'The solution set is the region where all the shadings overlap.', correct:true},
+        {text:'A system of inequalities can have no solution (parallel boundaries shaded apart).', correct:true}
+      ],
+      steps:['solid = boundary included, dashed = boundary excluded','dashed means strictly < or > — the line itself fails','overlap = every rule happy at once','two parallel lines shaded away from each other overlap nowhere']}
+  ];
+
+  function figureSvg(f){
+    if (Object.prototype.toString.call(f) === '[object Array]'){
+      if (f[0] === 'lines') return linesFig(f[1], f[2], f[3], f[4], f[5], f[6], f[7]);
+    }
+    return '';
+  }
+
+  var GOOD_MSGS = ['Bet. That\'s correct. 🏐','No cap, you nailed it.','That\'s a W — certified correct.','Ate that. 💯','Correct. Main character energy.','Big brain move. Correct!','Locked in. Let\'s go.'];
+  var BAD_MSGS = ['Ehh, that ain\'t it, chief.','L take — run it back.','Not quite, bestie. Recheck your steps.','That\'s giving wrong-answer energy.','Mid attempt. Try again.','Negative, ghost rider. Try again.'];
+  function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+  /* ---------- shared state ---------- */
+  var quizRoot = document.getElementById('quiz-root');
+  var scorebarEl = document.querySelector('.scorebar');
+  var examBar = document.getElementById('exam-bar');
+  var examToggle = document.getElementById('exam-toggle');
+  var mode = 'practice';
+
+  var PROGRESS_KEY = 'algebra-quiz-progress:' + location.pathname + ':v1';
+  var progress = null;
+  try { progress = JSON.parse(localStorage.getItem(PROGRESS_KEY)); } catch(e){}
+  if(!progress || typeof progress !== 'object') progress = {score:0, streak:0, answered:{}};
+  if(!progress.answered) progress.answered = {};
+
+  function saveProgress(){
+    try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress)); } catch(e){}
+  }
+
+  var score = progress.score||0, streak = progress.streak||0, best = 0;
+  try { best = parseInt(localStorage.getItem('algebra-quiz-best')||'0',10) || 0; } catch(e){}
+  document.getElementById('score-total').textContent = QUESTIONS.length;
+  document.getElementById('streak-best').textContent = best;
+
+  function updateScorebar(){
+    document.getElementById('score-val').textContent = score;
+    document.getElementById('streak-val').textContent = streak;
+    if(streak>best){ best=streak; document.getElementById('streak-best').textContent = best; try{ localStorage.setItem('algebra-quiz-best', String(best)); }catch(e){} }
+    var pct = Math.round((score/QUESTIONS.length)*100);
+    document.getElementById('court-fill').style.width = pct+'%';
+    document.getElementById('court-ball').style.left = pct+'%';
+    if(score===QUESTIONS.length) showFinale();
+  }
+  function showFinale(){
+    var f = document.getElementById('finale');
+    if(f) { f.classList.add('show'); return; }
+    f = document.createElement('div');
+    f.className = 'finale show';
+    f.id = 'finale';
+    f.innerHTML = '<h2>🏆 Match Point.</h2><p>All '+QUESTIONS.length+'/'+QUESTIONS.length+' — you didn\'t just study, you served. Now take it in exam mode with zero help.</p>';
+    quizRoot.appendChild(f);
+  }
+
+  function addFigure(card, q){
+    if(!q.figure) return;
+    var fig = document.createElement('div');
+    fig.className = 'qfigure';
+    fig.innerHTML = figureSvg(q.figure);
+    card.appendChild(fig);
+  }
+
+  /* ================= PRACTICE MODE ================= */
+  function renderPractice(){
+    quizRoot.innerHTML = '';
+    var qIndex = 0;
+    CONCEPTS.forEach(function(c){
+      var section = document.createElement('section');
+      section.className = 'qconcept';
+      var head = document.createElement('div');
+      head.className = 'qconcept-head';
+      head.innerHTML = '<span class="badge">'+c.n+'</span><h2>'+c.name+'</h2>';
+      section.appendChild(head);
+
+      QUESTIONS.filter(function(q){ return q.concept===c.n; }).forEach(function(q){
+        var myIndex = qIndex++;
+        var saved = progress.answered[myIndex];
+        var card = document.createElement('div');
+        card.className = 'qcard';
+        var answered = false;
+
+        addFigure(card, q);
+        var promptEl = document.createElement('p');
+        promptEl.className = 'qprompt';
+        promptEl.textContent = q.prompt;
+        card.appendChild(promptEl);
+
+        var feedback = document.createElement('div');
+        feedback.className = 'feedback';
+
+        function lockCorrect(persistedValue){
+          answered = true;
+          card.classList.add('correct');
+          if(persistedValue===undefined){
+            score++; streak++;
+            updateScorebar();
+            progress.score = score; progress.streak = streak;
+            saveProgress();
+          }
+          feedback.className = 'feedback good';
+          feedback.textContent = '✅ ' + pick(GOOD_MSGS);
+        }
+        function markWrong(){
+          streak = 0;
+          updateScorebar();
+          progress.streak = streak;
+          saveProgress();
+          card.classList.add('shake');
+          setTimeout(function(){ card.classList.remove('shake'); }, 320);
+          feedback.className = 'feedback bad';
+          feedback.textContent = '❌ ' + pick(BAD_MSGS);
+        }
+
+        if(q.type==='numeric'){
+          var row = document.createElement('div');
+          row.className = 'qrow';
+          var signBtn = document.createElement('button');
+          signBtn.type = 'button'; signBtn.className='btn sign-btn'; signBtn.textContent='±';
+          signBtn.setAttribute('aria-label', 'Toggle negative sign');
+          var input = document.createElement('input');
+          input.type = 'number'; input.className='qinput'; input.placeholder='?';
+          var checkBtn = document.createElement('button');
+          checkBtn.className = 'btn'; checkBtn.textContent = 'Check';
+          signBtn.addEventListener('click', function(){
+            if(answered) return;
+            input.value = input.value.charAt(0) === '-' ? input.value.slice(1) : '-' + input.value;
+            input.focus();
+          });
+          row.appendChild(signBtn); row.appendChild(input); row.appendChild(checkBtn);
+          card.appendChild(row);
+          var tryAnswer = function(){
+            if(answered) return;
+            var v = parseFloat(input.value);
+            if(isNaN(v)) return;
+            if(Math.abs(v - q.answer) < 1e-6){
+              input.disabled=true; checkBtn.disabled=true; signBtn.disabled=true;
+              progress.answered[myIndex] = {type:'numeric', value:v};
+              lockCorrect();
+            }
+            else { markWrong(); }
+          };
+          checkBtn.addEventListener('click', tryAnswer);
+          input.addEventListener('keydown', function(e){ if(e.key==='Enter') tryAnswer(); });
+          if(saved && saved.type==='numeric'){
+            input.value = saved.value;
+            input.disabled = true; checkBtn.disabled = true; signBtn.disabled = true;
+            lockCorrect(saved.value);
+          }
+        } else if(q.type==='mc'){
+          var list = document.createElement('div');
+          list.className = 'mc-list';
+          q.choices.forEach(function(choice, ci){
+            var btn = document.createElement('button');
+            btn.className = 'mc-btn';
+            btn.textContent = choice;
+            btn.addEventListener('click', function(){
+              if(answered) return;
+              if(ci===q.correct){
+                btn.classList.add('correct-pick');
+                Array.prototype.forEach.call(list.children, function(b){ b.disabled = true; });
+                progress.answered[myIndex] = {type:'mc', choice:ci};
+                lockCorrect();
+              } else {
+                btn.classList.add('wrong-pick');
+                markWrong();
+              }
+            });
+            list.appendChild(btn);
+          });
+          card.appendChild(list);
+          if(saved && saved.type==='mc'){
+            list.children[saved.choice].classList.add('correct-pick');
+            Array.prototype.forEach.call(list.children, function(b){ b.disabled = true; });
+            lockCorrect(saved.choice);
+          }
+        } else if(q.type==='checkbox'){
+          var clist = document.createElement('div');
+          clist.className = 'check-list';
+          var picked = q.statements.map(function(){ return false; });
+          var checkSubmit = document.createElement('button');
+          var resolveChecklist = function(){
+            Array.prototype.forEach.call(clist.children, function(item, si){
+              item.classList.remove('picked');
+              item.classList.add(q.statements[si].correct ? 'resolved-true' : 'resolved-false');
+              item.disabled = true;
+            });
+            checkSubmit.disabled = true;
+          };
+          q.statements.forEach(function(st, si){
+            var item = document.createElement('button');
+            item.type = 'button';
+            item.className = 'check-item';
+            var box = document.createElement('span'); box.className = 'box';
+            var text = document.createElement('span'); text.className = 'check-text'; text.textContent = st.text;
+            item.appendChild(box); item.appendChild(text);
+            item.addEventListener('click', function(){
+              if(answered) return;
+              picked[si] = !picked[si];
+              item.classList.toggle('picked', picked[si]);
+            });
+            clist.appendChild(item);
+          });
+          card.appendChild(clist);
+          checkSubmit.type = 'button'; checkSubmit.className = 'btn check-submit'; checkSubmit.textContent = 'Check';
+          card.appendChild(checkSubmit);
+          checkSubmit.addEventListener('click', function(){
+            if(answered) return;
+            var allMatch = q.statements.every(function(st, si){ return picked[si] === st.correct; });
+            if(allMatch){
+              resolveChecklist();
+              progress.answered[myIndex] = {type:'checkbox', picked: picked.slice()};
+              lockCorrect();
+            } else {
+              markWrong();
+            }
+          });
+          if(saved && saved.type==='checkbox'){
+            picked = saved.picked.slice();
+            resolveChecklist();
+            lockCorrect(saved.picked);
+          }
+        }
+
+        card.appendChild(feedback);
+
+        var details = document.createElement('details');
+        details.className = 'steps';
+        var summary = document.createElement('summary');
+        summary.textContent = 'Show steps';
+        var body = document.createElement('div');
+        body.className = 'steps-body';
+        q.steps.forEach(function(s){
+          var line = document.createElement('div');
+          line.textContent = s;
+          body.appendChild(line);
+        });
+        details.appendChild(summary);
+        details.appendChild(body);
+        card.appendChild(details);
+
+        section.appendChild(card);
+      });
+
+      quizRoot.appendChild(section);
     });
-  })();
+    updateScorebar();
+  }
+
+  /* ================= EXAM MODE ================= */
+  function renderExam(){
+    quizRoot.innerHTML = '';
+    var examAnswers = QUESTIONS.map(function(){ return null; });
+    var cardEls = [];
+    var submitted = false;
+    var qIndex = 0;
+
+    CONCEPTS.forEach(function(c){
+      var section = document.createElement('section');
+      section.className = 'qconcept';
+      var head = document.createElement('div');
+      head.className = 'qconcept-head';
+      head.innerHTML = '<span class="badge">'+c.n+'</span><h2>'+c.name+'</h2>';
+      section.appendChild(head);
+
+      QUESTIONS.filter(function(q){ return q.concept===c.n; }).forEach(function(q){
+        var myIndex = qIndex++;
+        var card = document.createElement('div');
+        card.className = 'qcard';
+        addFigure(card, q);
+        var promptEl = document.createElement('p');
+        promptEl.className = 'qprompt';
+        promptEl.textContent = q.prompt;
+        card.appendChild(promptEl);
+
+        var ctl = {card: card, inputs: []};
+
+        if(q.type==='numeric'){
+          var row = document.createElement('div');
+          row.className = 'qrow';
+          var signBtn = document.createElement('button');
+          signBtn.type='button'; signBtn.className='btn sign-btn'; signBtn.textContent='±';
+          signBtn.setAttribute('aria-label','Toggle negative sign');
+          var input = document.createElement('input');
+          input.type='number'; input.className='qinput'; input.placeholder='?';
+          signBtn.addEventListener('click', function(){
+            if(submitted) return;
+            input.value = input.value.charAt(0)==='-' ? input.value.slice(1) : '-'+input.value;
+            examAnswers[myIndex] = input.value;
+            input.focus();
+          });
+          input.addEventListener('input', function(){ if(!submitted) examAnswers[myIndex] = input.value; });
+          row.appendChild(signBtn); row.appendChild(input);
+          card.appendChild(row);
+          ctl.inputs = [signBtn, input];
+        } else if(q.type==='mc'){
+          var list = document.createElement('div');
+          list.className = 'mc-list';
+          q.choices.forEach(function(choice, ci){
+            var btn = document.createElement('button');
+            btn.className = 'mc-btn';
+            btn.textContent = choice;
+            btn.addEventListener('click', function(){
+              if(submitted) return;
+              Array.prototype.forEach.call(list.children, function(b){ b.classList.remove('picked'); });
+              btn.classList.add('picked');
+              examAnswers[myIndex] = ci;
+            });
+            list.appendChild(btn);
+            ctl.inputs.push(btn);
+          });
+          card.appendChild(list);
+          ctl.list = list;
+        } else if(q.type==='checkbox'){
+          var clist = document.createElement('div');
+          clist.className = 'check-list';
+          var picked = q.statements.map(function(){ return false; });
+          examAnswers[myIndex] = picked;
+          q.statements.forEach(function(st, si){
+            var item = document.createElement('button');
+            item.type='button'; item.className='check-item';
+            var box = document.createElement('span'); box.className='box';
+            var text = document.createElement('span'); text.className='check-text'; text.textContent = st.text;
+            item.appendChild(box); item.appendChild(text);
+            item.addEventListener('click', function(){
+              if(submitted) return;
+              picked[si] = !picked[si];
+              item.classList.toggle('picked', picked[si]);
+            });
+            clist.appendChild(item);
+            ctl.inputs.push(item);
+          });
+          card.appendChild(clist);
+          ctl.clist = clist;
+        }
+
+        var feedback = document.createElement('div');
+        feedback.className = 'feedback';
+        card.appendChild(feedback);
+        ctl.feedback = feedback;
+        ctl.q = q;
+
+        cardEls[myIndex] = ctl;
+        section.appendChild(card);
+      });
+      quizRoot.appendChild(section);
+    });
+
+    var submitCard = document.createElement('div');
+    submitCard.className = 'exam-submit-card';
+    submitCard.innerHTML = '<p>Done? Look back over anything you skipped — on the real test, blank = wrong.</p>';
+    var submitBtn = document.createElement('button');
+    submitBtn.type='button'; submitBtn.className='btn primary'; submitBtn.textContent='📬 Submit exam';
+    submitCard.appendChild(submitBtn);
+    quizRoot.appendChild(submitCard);
+
+    function isCorrect(q, a){
+      if(a === null || a === undefined) return false;
+      if(q.type==='numeric'){
+        var v = parseFloat(a);
+        return !isNaN(v) && Math.abs(v - q.answer) < 1e-6;
+      }
+      if(q.type==='mc') return a === q.correct;
+      if(q.type==='checkbox') return q.statements.every(function(st, si){ return a[si] === st.correct; });
+      return false;
+    }
+    function correctAnswerText(q){
+      if(q.type==='numeric') return String(q.answer);
+      if(q.type==='mc') return q.choices[q.correct];
+      if(q.type==='checkbox') return 'check: ' + q.statements.filter(function(st){ return st.correct; }).map(function(st){ return '“'+st.text+'”'; }).join('  +  ');
+      return '';
+    }
+
+    submitBtn.addEventListener('click', function(){
+      if(submitted) return;
+      submitted = true;
+      submitBtn.disabled = true;
+
+      var totalRight = 0;
+      var byConcept = {};
+      CONCEPTS.forEach(function(c){ byConcept[c.n] = {right:0, total:0}; });
+
+      QUESTIONS.forEach(function(q, i){
+        var ctl = cardEls[i];
+        var right = isCorrect(q, examAnswers[i]);
+        byConcept[q.concept].total++;
+        ctl.inputs.forEach(function(el){ el.disabled = true; });
+
+        if(right){
+          totalRight++;
+          byConcept[q.concept].right++;
+          ctl.card.classList.add('correct');
+          ctl.feedback.className = 'feedback good';
+          ctl.feedback.textContent = '✅ Correct.';
+        } else {
+          ctl.card.classList.add('exam-wrong');
+          ctl.feedback.className = 'feedback bad';
+          ctl.feedback.textContent = (examAnswers[i]===null || examAnswers[i]===undefined || examAnswers[i]==='' ? '❌ No answer. ' : '❌ ') + 'Correct answer: ' + correctAnswerText(q);
+          if(q.type==='mc' && ctl.list) ctl.list.children[q.correct].classList.add('correct-pick');
+        }
+
+        var details = document.createElement('details');
+        details.className = 'steps';
+        details.open = !right;
+        var summary = document.createElement('summary');
+        summary.textContent = 'Show steps';
+        var body = document.createElement('div');
+        body.className = 'steps-body';
+        q.steps.forEach(function(s){
+          var line = document.createElement('div');
+          line.textContent = s;
+          body.appendChild(line);
+        });
+        details.appendChild(summary); details.appendChild(body);
+        ctl.card.appendChild(details);
+      });
+
+      var pct = Math.round((totalRight / QUESTIONS.length) * 100);
+      var summaryEl = document.createElement('div');
+      summaryEl.className = 'exam-summary';
+      var listHtml = '';
+      CONCEPTS.forEach(function(c){
+        var r = byConcept[c.n];
+        listHtml += '<li><b>'+r.right+'/'+r.total+'</b> — '+c.name+(r.right===r.total?' ✅':'')+'</li>';
+      });
+      var vibe = pct===100 ? 'Perfect score. Go get that W. 🏆' : pct>=80 ? 'Solid — review the misses below (steps are already open) and re-run exam mode.' : 'The misses below matter more than the score — every one has its steps open. Read them, then run it back.';
+      summaryEl.innerHTML = '<h2>Exam Results</h2><div class="big-score">'+totalRight+'/'+QUESTIONS.length+' · '+pct+'%</div><p>'+vibe+'</p><ul>'+listHtml+'</ul>';
+      var controls = document.createElement('div');
+      controls.className = 'controls';
+      var retake = document.createElement('button');
+      retake.type='button'; retake.className='btn'; retake.textContent='🔁 Retake exam';
+      retake.addEventListener('click', function(){ renderExam(); window.scrollTo({top:0}); });
+      var backBtn = document.createElement('button');
+      backBtn.type='button'; backBtn.className='btn'; backBtn.textContent='📝 Back to practice';
+      backBtn.addEventListener('click', function(){ setMode('practice'); });
+      controls.appendChild(retake); controls.appendChild(backBtn);
+      summaryEl.appendChild(controls);
+      quizRoot.insertBefore(summaryEl, quizRoot.firstChild);
+      summaryEl.scrollIntoView({block:'start', behavior:'smooth'});
+    });
+  }
+
+  /* ================= MODE SWITCH ================= */
+  function setMode(m){
+    mode = m;
+    document.body.classList.toggle('exam-mode', m==='exam');
+    examBar.hidden = m!=='exam';
+    examToggle.textContent = m==='exam' ? '📝 Practice mode' : '🎯 Exam mode';
+    if(m==='exam') renderExam(); else renderPractice();
+    window.scrollTo({top:0});
+  }
+  examToggle.addEventListener('click', function(){
+    setMode(mode==='exam' ? 'practice' : 'exam');
+  });
+
+  /* ================= PRINT WORKSHEET ================= */
+  function buildWorksheet(){
+    var html = '<div class="ws-head"><h2>Unit 3 Worksheet — Systems of Equations &amp; Inequalities</h2>'
+      + '<p>Name: ____________________&nbsp;&nbsp;&nbsp;Date: ____________</p>'
+      + '<p>All '+QUESTIONS.length+' quiz questions, on paper — because working systems out by hand is the whole game. Show your work in the space under each question. The answer key is on the last page: fold it back, grade yourself honestly, then look up the steps for anything you missed on the quiz page.</p></div>';
+    QUESTIONS.forEach(function(q, i){
+      html += '<div class="ws-q"><p><b>'+(i+1)+'.</b> '+q.prompt+'</p>';
+      if(q.figure) html += '<div class="ws-fig">'+figureSvg(q.figure)+'</div>';
+      if(q.type==='mc'){
+        html += '<ol class="ws-choices">';
+        q.choices.forEach(function(ch){ html += '<li>'+ch+'</li>'; });
+        html += '</ol>';
+      } else if(q.type==='checkbox'){
+        html += '<ol class="ws-choices">';
+        q.statements.forEach(function(st){ html += '<li>☐ '+st.text+'</li>'; });
+        html += '</ol>';
+      }
+      html += '<div class="ws-work">work:</div>';
+      html += '<p class="ws-answer">Answer: ______________________</p></div>';
+    });
+    html += '<div class="ws-key"><h2>Answer Key</h2><ol>';
+    QUESTIONS.forEach(function(q){
+      var a = '';
+      if(q.type==='numeric') a = String(q.answer);
+      else if(q.type==='mc') a = String.fromCharCode(65+q.correct) + ' — ' + q.choices[q.correct];
+      else if(q.type==='checkbox'){
+        var letters = [];
+        q.statements.forEach(function(st, si){ if(st.correct) letters.push(String.fromCharCode(65+si)); });
+        a = 'check ' + letters.join(' and ');
+      }
+      html += '<li>'+a+'</li>';
+    });
+    html += '</ol></div>';
+    return html;
+  }
+  document.getElementById('print-ws').addEventListener('click', function(){
+    document.getElementById('worksheet').innerHTML = buildWorksheet();
+    document.body.classList.add('print-worksheet');
+    window.print();
+  });
+  window.addEventListener('afterprint', function(){
+    document.body.classList.remove('print-worksheet');
+  });
+
+  /* ================= RESET ================= */
+  document.getElementById('reset-quiz').addEventListener('click', function(){
+    if(confirm('Reset your practice score, streak, and saved answers for this quiz?')){
+      try { localStorage.removeItem(PROGRESS_KEY); } catch(e){}
+      location.reload();
+    }
+  });
+
+  renderPractice();
+})();
 </script>
