@@ -167,6 +167,7 @@
   .mini-graph .pt-miss{fill:var(--ground-raised); stroke:var(--ink-faint); stroke-width:1.5;}
   .mini-graph .pt-hit{fill:var(--good); stroke:var(--good);}
   .mini-graph .pt-label{font-family:var(--font-body); font-size:9px; font-weight:700; fill:var(--ink);}
+  .mini-graph .feas{fill:var(--accent); fill-opacity:.18; stroke:none;}
   .mini-graph figcaption{font-size:.78rem; color:var(--ink-faint); text-align:center; margin-top:.35rem;}
   .mini-graph figcaption .dot{display:inline-block; width:.6em; height:.6em; border-radius:50%; margin-right:.3em; vertical-align:middle;}
 
@@ -184,6 +185,40 @@
     font-size:.95rem;
   }
   .sayback b{color:var(--ink);}
+
+  .term{
+    display:inline; background:none; border:none; padding:0; margin:0; font:inherit; font-weight:700;
+    color:var(--accent-strong); cursor:help; position:relative;
+    border-bottom:1.5px dotted var(--accent);
+  }
+  .term:hover, .term:focus-visible, .term.open{color:var(--accent);}
+  .term .term-card{
+    position:absolute; left:50%; top:calc(100% + 8px); transform:translateX(-50%);
+    z-index:30; width:max-content; max-width:260px; text-align:left;
+    background:var(--ground-raised); border:1px solid var(--line); border-radius:10px;
+    box-shadow:var(--shadow); padding:.65rem .8rem;
+    font-family:var(--font-body); font-weight:400; font-size:.82rem; line-height:1.4; color:var(--ink-soft);
+    opacity:0; visibility:hidden; transition:opacity .15s ease; pointer-events:none;
+  }
+  .term:hover .term-card, .term:focus-visible .term-card, .term.open .term-card{
+    opacity:1; visibility:visible; pointer-events:auto;
+  }
+  .term .term-card b{color:var(--ink);}
+  @media (max-width:480px){ .term .term-card{max-width:220px;} }
+
+  .mini-table{
+    width:100%; max-width:420px; margin:.6rem auto; border-collapse:collapse;
+    background:var(--ground-raised); border:1px solid var(--line); border-radius:10px;
+    overflow:hidden; font-size:.85rem;
+  }
+  .mini-table th, .mini-table td{padding:.5rem .7rem; text-align:center; border-bottom:1px solid var(--line);}
+  .mini-table th{
+    background:var(--ground-sunken); color:var(--ink-soft); font-weight:700;
+    font-size:.72rem; text-transform:uppercase; letter-spacing:.04em;
+  }
+  .mini-table td{font-family:var(--font-mono); color:var(--ink);}
+  .mini-table tr:last-child td{border-bottom:none;}
+  .mini-table tbody tr:last-child{background:var(--accent-soft);}
 
   footer{text-align:center; color:var(--ink-faint); font-size:.78rem; margin-top:2rem;}
 
@@ -248,7 +283,7 @@
       <h3>Why It Actually Works</h3>
       <p>A graphed line isn't just a shape — it's every single (x, y) pair that makes that one equation true, drawn out as a picture. So a point sitting exactly on both lines isn't a coincidence: its coordinates satisfy both equations simultaneously, which is the actual definition of "solving the system." If the crossing point lands right on a grid line, read it straight off the graph. If it lands between grid lines — like (1.1, −2.8) — estimate from the picture, or let a graphing calculator trace to the exact value. Either way, one move always confirms you nailed it: plug the point into both equations and get TRUE twice.</p>
       <h3>Walk-Through (the review question)</h3>
-      <p>2x + 3y = 2 &nbsp;and&nbsp; y = ½x + 3. Each line got plotted by finding its intercepts — where it crosses the x-axis and y-axis — then drawing straight through those two points. Edgenuity hands you a graph like this one with a few points already marked, and your job is to spot which single point sits on <b>both</b> lines:</p>
+      <p>2x + 3y = 2 &nbsp;and&nbsp; y = ½x + 3. Each line got plotted by finding its <button type="button" class="term">intercepts<span class="term-card" role="tooltip">Where a line crosses an axis. The <b>y-intercept</b> crosses the y-axis (x = 0). The <b>x-intercept</b> crosses the x-axis (y = 0).</span></button> then drawing straight through those two points. Edgenuity hands you a graph like this one with a few points already marked, and your job is to spot which single point sits on <b>both</b> lines:</p>
       <figure class="mini-graph">
         <svg viewBox="0 0 286 234" role="img" aria-label="Graph of 2x plus 3y equals 2 and y equals one half x plus 3, crossing at negative 2, 2">
           <line x1="26" y1="208" x2="26" y2="26" class="gg"/><line x1="52" y1="208" x2="52" y2="26" class="gg"/><line x1="78" y1="208" x2="78" y2="26" class="gg"/><line x1="104" y1="208" x2="104" y2="26" class="gg"/><line x1="130" y1="208" x2="130" y2="26" class="gg"/><line x1="156" y1="208" x2="156" y2="26" class="gg"/><line x1="182" y1="208" x2="182" y2="26" class="gg"/><line x1="208" y1="208" x2="208" y2="26" class="gg"/><line x1="234" y1="208" x2="234" y2="26" class="gg"/><line x1="260" y1="208" x2="260" y2="26" class="gg"/>
@@ -297,9 +332,9 @@
     <div class="concept-body">
       <h3>The Idea</h3>
       <p class="analogy"><b>Substitution means exactly what it means on a team: a substitute comes in and does the same job.</b> If the first equation says <span style="font-family:var(--font-mono)">y = 2x − 3.5</span>, that's saying y and (2x − 3.5) do the <em>exact same job</em> — anywhere you needed y, (2x − 3.5) can play that spot instead, because they're equal. So wherever y shows up in the OTHER equation, sub it out and send in (2x − 3.5). That's not a coincidence in wording, either — "substitution" is the literal same word for both. Suddenly that equation only has x's in it, and you already know how to solve a one-variable equation. That's the whole trick: turn two-variables-two-equations into one-variable-one-equation.</p>
-      <p>When to reach for it: whenever one equation is already solved for a variable (y = … or x = …), or one step away — look for the variable with a <b>coefficient of 1</b>, since isolating it takes one move and creates no fractions.</p>
+      <p>When to reach for it: whenever one equation is already solved for a variable (y = … or x = …), or one step away — look for the variable with a <button type="button" class="term">coefficient of 1<span class="term-card" role="tooltip">A <b>coefficient</b> is just the number multiplying a variable. A coefficient of 1 usually isn't even written — the x in <span style="font-family:var(--font-mono)">x − 2y = −14</span> secretly means 1x. No number glued to the front? It's already a 1.</span></button>, since isolating it takes one move and creates no fractions.</p>
       <h3>Why It Actually Works</h3>
-      <p>The equals sign means "these two things are interchangeable." Replacing y with an expression that <em>equals</em> y changes nothing about which points work — it just squeezes both promises into a single equation. The parentheses are non-negotiable: you're substituting the <em>whole</em> expression, so anything multiplying y has to distribute across all of it.</p>
+      <p>The equals sign means "these two things are interchangeable" — so replacing y with an expression that <em>equals</em> y changes nothing about which points work; it just squeezes both promises into a single equation. Here's the part that trips people up, though: y is rarely alone in the other equation. In <span style="font-family:var(--font-mono)">x − 2y = −14</span>, y is stapled to a −2, so subbing it out doesn't mean dropping in a lone number — it means dropping in the <em>whole</em> expression, parentheses and all: <span style="font-family:var(--font-mono)">x − 2(2x − 3.5)</span>. Skip the parentheses and you've silently changed the problem: <span style="font-family:var(--font-mono)">−2 · (−3.5)</span> is +7, but without the parentheses that sign gets lost. The parentheses are the thing making sure "substitute the whole expression" doesn't quietly turn into "substitute part of it."</p>
       <h3>Walk-Through</h3>
       <div class="walk">
         <ol>
@@ -326,10 +361,10 @@
     <summary><span class="badge">3</span><div><h2>Elimination — Linear Combination</h2><span class="tagline">add the equations, one variable spikes out</span></div><span class="chev">›</span></summary>
     <div class="concept-body">
       <h3>The Idea</h3>
-      <p class="analogy"><b>Some pairs cancel each other perfectly — +12y and −12y are like two players jumping at the same time on opposite sides of the net: they meet in the middle and the ball goes nowhere.</b> Numbers like that are called <b>additive inverses</b> (they add to zero). The linear combination method engineers this on purpose: multiply one or both equations by constants until one variable has opposite coefficients, then add the equations top-to-bottom. That variable vanishes, and you're left with one easy equation like 23x = 92.</p>
+      <p class="analogy"><b>Some pairs cancel each other perfectly — like a $12 deposit and a $12 withdrawal on the same day.</b> Do both, and your balance hasn't moved: +12 and −12 add up to exactly 0. Numbers like that are called <button type="button" class="term">additive inverses<span class="term-card" role="tooltip">Two numbers that add up to 0 — same size, opposite sign. Like +12 and −12, or a $12 deposit and a $12 withdrawal.</span></button>. The linear combination method engineers this on purpose: multiply one or both equations by constants until one variable's coefficients become a matched deposit-and-withdrawal pair like +12y and −12y, then add the equations top-to-bottom. That variable cancels out completely, and you're left with one easy equation like 23x = 92.</p>
       <p>Why is adding two equations even legal? The addition property of equality: the second equation says its two sides are <em>equal</em>, so adding its left side to one side and its right side to the other adds the <em>same amount</em> to both sides. Equal stays equal.</p>
       <h3>Why It Actually Works</h3>
-      <p>Multiplying an equation by a constant (every term — both sides!) creates an <b>equivalent equation</b>: the exact same line, so the exact same solutions. That's why the test's table questions work the way they do. The "equivalent system" column, the "sum" equation like 3x = 18, the "new system" — every one of them was made with legal moves, so <b>every one of them has the same solution as the original.</b> When the table asks which pair fills both blanks: it's the same pair, twice. In fact, if you graphed the original two lines AND the new equation, all three lines pass through the one solution point.</p>
+      <p>Multiplying an equation by a constant (every term — both sides!) creates an <button type="button" class="term">equivalent equation<span class="term-card" role="tooltip">A different-looking equation with the <b>exact same solutions</b> — same line, just multiplied, rearranged, or combined. Legal algebra moves never change what makes it true.</span></button>: the exact same line, so the exact same solutions. That's why the test's table questions work the way they do. The "equivalent system" column, the "sum" equation like 3x = 18, the "new system" — every one of them was made with legal moves, so <b>every one of them has the same solution as the original.</b> When the table asks which pair fills both blanks: it's the same pair, twice. In fact, if you graphed the original two lines AND the new equation, all three lines pass through the one solution point.</p>
       <h3>Walk-Through</h3>
       <div class="walk">
         <ol>
@@ -356,7 +391,7 @@
     <div class="concept-body">
       <h3>The Idea</h3>
       <p class="analogy"><b>Two lines on a plane can only do three things.</b> Different directions (different slopes)? They cross exactly once — <b>one solution</b>. Same direction (same slope) but starting at different heights? They're parallel lanes on a highway, never touching — <b>no solution</b>. Same slope AND same starting point? It's literally the same line drawn twice, agreeing everywhere — <b>infinitely many solutions</b>.</p>
-      <p>You can see this <em>before solving anything</em>: put both equations in y = mx + b and compare. Different m → one. Same m, different b → none. Same m, same b → infinite.</p>
+      <p>You can see this <em>before solving anything</em>: put both equations in <button type="button" class="term">y = mx + b<span class="term-card" role="tooltip"><b>Slope-intercept form.</b> m is the slope (how steep, and which way it tilts). b is the y-intercept (where it crosses the y-axis).</span></button> and compare. Different m → one. Same m, different b → none. Same m, same b → infinite.</p>
       <h3>Why It Actually Works</h3>
       <p>The algebra tells the same story, and this is the part the test loves. Solve any system with substitution or elimination, and if all the variables cancel out, look at the statement left behind. <b>0 = 0 (true)?</b> The two equations never disagreed — same line, infinitely many solutions. <b>0 = 60, or 13 = 0 (false)?</b> The equations flat-out contradict each other — parallel lines, no solution. The variables vanishing means the answer isn't a point; it's a <em>verdict</em>.</p>
       <p>And building an infinite-solutions partner is one move: multiply an entire equation by any constant. 2y − 4x = 6 times (−½) gives −y = −2x − 3 — a perfect disguise for the same line.</p>
@@ -366,7 +401,7 @@
           <li>2y − 4x = 6 simplifies to y = 2x + 3 <span class="note">divide by 2, move the x term</span></li>
           <li>−y = −2x − 3 → multiply by −1 → y = 2x + 3 <span class="note">SAME line → infinitely many ✓</span></li>
           <li>y = 2x + 6 → same slope, different b <span class="note">that one's parallel → no solution (the decoy)</span></li>
-          <li>Heather: elimination gives 0 = 60 <span class="note">false statement → "the equation has no solution; therefore, the system has no solution"</span></li>
+          <li>a second system, solved by elimination: 0 = 60 <span class="note">false statement → "the equation has no solution; therefore, the system has no solution"</span></li>
         </ol>
         <span class="answer">Infinite = same line = 0 = 0 · None = parallel = 0 = something false</span>
       </div>
@@ -390,6 +425,17 @@
       <h3>Why It Actually Works</h3>
       <p>Each sentence is a promise about the same two unknowns, exactly like each equation is a promise about the same x and y. Finding the pair that keeps both promises IS solving the system. The last step the test genuinely grades: <b>interpret the solution in the original context</b>. x = 4 isn't an answer — "$24 each" or "4 hours" or "40 student tickets" is, depending on what was asked.</p>
       <h3>Walk-Through (the gift-wrap table)</h3>
+      <p>Edgenuity hands you this as an actual table — three orders, two wrap styles, one total each. Each row is just a sentence wearing a costume:</p>
+      <table class="mini-table">
+        <thead>
+          <tr><th>Order</th><th>Plain (p)</th><th>Decorative (d)</th><th>Total</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Row 1</td><td>10</td><td>9</td><td>$47</td></tr>
+          <tr><td>Row 2</td><td>25</td><td>12</td><td>$86</td></tr>
+          <tr><td>Row 3 (check)</td><td>16</td><td>12</td><td>$68</td></tr>
+        </tbody>
+      </table>
       <div class="walk">
         <ol>
           <li>let p = price of a plain wrap, d = price of a decorative wrap <span class="note">variables in words first</span></li>
@@ -415,11 +461,33 @@
     <summary><span class="badge">6</span><div><h2>Systems of Inequalities</h2><span class="tagline">the overlap is where every rule is happy</span></div><span class="chev">›</span></summary>
     <div class="concept-body">
       <h3>The Idea</h3>
-      <p class="analogy"><b>To make the travel team you need a GPA of at least 3.0 AND at most one missed practice.</b> Neither rule alone is enough — you have to be in the group that satisfies <em>every</em> rule at once. A system of inequalities is that, drawn: each inequality shades the half of the plane it's happy with, and the <b>solution set is the overlap</b>, the region where all the shadings pile up. Any point in the overlap works; any point outside it breaks at least one rule.</p>
+      <p class="analogy"><b>To make the travel team you need a GPA of at least 3.0 AND at most one missed practice.</b> Neither rule alone is enough — you have to be in the group that satisfies <em>every</em> rule at once. A system of inequalities is that, drawn: each inequality shades the half of the plane it's happy with, and the <button type="button" class="term">solution set<span class="term-card" role="tooltip">Not just one point — the <b>whole region</b> of (x, y) pairs that make every inequality true at the same time.</span></button> is the overlap, the region where all the shadings pile up. Any point in the overlap works; any point outside it breaks at least one rule.</p>
       <p>Translation is half the battle: <b>"at most," "no more than," "only has 100 buns" → ≤</b>. <b>"At least," "needs a minimum of $800" → ≥</b>. "More than" → &gt;, "fewer than" → &lt;. And since you can't sell −3 tickets, real problems quietly add x ≥ 0 and y ≥ 0 — which is why a system can have <em>three</em> inequalities.</p>
       <h3>Why It Actually Works</h3>
-      <p>An inequality's line is its <b>boundary</b> — the "exactly equal" edge. ≤ and ≥ include the boundary, so the line is <b>solid</b>; &lt; and &gt; exclude it, so the line is <b>dashed</b> and points ON it don't count. In y = mx + b form, y &gt; shades above and y &lt; shades below; when in doubt, test (0, 0) in the original inequality — true means shade the side it's on. And watch for the trap: two parallel boundaries shaded <em>away</em> from each other overlap nowhere — a system of inequalities can have <b>no solution</b>.</p>
+      <p>An inequality's line is its <button type="button" class="term">boundary<span class="term-card" role="tooltip">The line itself — the exact points where the two sides are <b>equal</b>. It's the edge between "shaded" and "not shaded."</span></button> — the "exactly equal" edge. ≤ and ≥ include the boundary, so the line is <b>solid</b>; &lt; and &gt; exclude it, so the line is <b>dashed</b> and points ON it don't count. In y = mx + b form, y &gt; shades above and y &lt; shades below; when in doubt, test (0, 0) in the original inequality — true means shade the side it's on. And watch for the trap: two parallel boundaries shaded <em>away</em> from each other overlap nowhere — a system of inequalities can have <b>no solution</b>.</p>
       <h3>Walk-Through (drama club, the max question)</h3>
+      <p>s + n ≤ 100 (only 100 tickets exist) &nbsp;·&nbsp; 5s + 10n ≥ 800 (need at least $800). Both boundaries are solid — ≤ and ≥ both include their edge — and the shaded triangle is where every rule is happy at once:</p>
+      <figure class="mini-graph">
+        <svg viewBox="0 0 276 276" role="img" aria-label="Graph of s plus n less than or equal to 100 and 5s plus 10n greater than or equal to 800, shaded overlap triangle with corner at 40, 60">
+          <line x1="28" y1="248" x2="28" y2="28" class="gg"/><line x1="68" y1="248" x2="68" y2="28" class="gg"/><line x1="108" y1="248" x2="108" y2="28" class="gg"/><line x1="148" y1="248" x2="148" y2="28" class="gg"/><line x1="188" y1="248" x2="188" y2="28" class="gg"/><line x1="228" y1="248" x2="228" y2="28" class="gg"/>
+          <line x1="28" y1="248" x2="248" y2="248" class="gg"/><line x1="28" y1="208" x2="248" y2="208" class="gg"/><line x1="28" y1="168" x2="248" y2="168" class="gg"/><line x1="28" y1="128" x2="248" y2="128" class="gg"/><line x1="28" y1="88" x2="248" y2="88" class="gg"/><line x1="28" y1="48" x2="248" y2="48" class="gg"/>
+          <line x1="28" y1="248" x2="28" y2="28" class="ax"/>
+          <line x1="28" y1="248" x2="248" y2="248" class="ax"/>
+          <text x="28" y="264" class="lbl" text-anchor="middle">0</text>
+          <text x="108" y="264" class="lbl" text-anchor="middle">40</text>
+          <text x="228" y="264" class="lbl" text-anchor="middle">100</text>
+          <text x="22" y="92" class="lbl" text-anchor="end">80</text>
+          <text x="22" y="52" class="lbl" text-anchor="end">100</text>
+          <text x="22" y="132" class="lbl" text-anchor="end">60</text>
+          <polygon points="28.0,88.0 28.0,48.0 108.0,128.0" class="feas"/>
+          <line x1="28.0" y1="48.0" x2="228.0" y2="248.0" class="l1"/>
+          <line x1="28.0" y1="88.0" x2="248.0" y2="198.0" class="l2"/>
+          <circle cx="28.0" cy="88.0" r="3.5" class="pt-miss"/><text x="36.0" y="92.0" class="pt-label">(0, 80)</text>
+          <circle cx="28.0" cy="48.0" r="3.5" class="pt-miss"/><text x="36.0" y="52.0" class="pt-label">(0, 100)</text>
+          <circle cx="108.0" cy="128.0" r="4.5" class="pt-hit"/><text x="116.0" y="122.0" class="pt-label">(40, 60)</text>
+        </svg>
+        <figcaption><span class="dot" style="background:var(--gold)"></span>s + n = 100&emsp;<span class="dot" style="background:var(--accent)"></span>5s + 10n = 800&emsp;shaded = the overlap</figcaption>
+      </figure>
       <div class="walk">
         <ol>
           <li>s + n ≤ 100 &nbsp;·&nbsp; 5s + 10n ≥ 800 <span class="note">100 tickets exist; need at least $800</span></li>
@@ -507,5 +575,25 @@
     var storedFocus = null;
     try { storedFocus = localStorage.getItem('algebra-explainer-focus'); } catch(e){}
     if(storedFocus === '1') setFocusMode(true);
+
+    /* ---------- Term hover-cards (tap to toggle on touch) ---------- */
+    var termButtons = Array.prototype.slice.call(document.querySelectorAll('.term'));
+    termButtons.forEach(function(btn){
+      btn.setAttribute('aria-expanded', 'false');
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        var isOpen = btn.classList.contains('open');
+        termButtons.forEach(function(b){ b.classList.remove('open'); b.setAttribute('aria-expanded', 'false'); });
+        if(!isOpen){ btn.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
+      });
+    });
+    document.addEventListener('click', function(){
+      termButtons.forEach(function(b){ b.classList.remove('open'); b.setAttribute('aria-expanded', 'false'); });
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape'){
+        termButtons.forEach(function(b){ b.classList.remove('open'); b.setAttribute('aria-expanded', 'false'); });
+      }
+    });
   })();
 </script>
