@@ -444,15 +444,15 @@
     <summary><span class="badge">5</span><div><h2>Word Problems → Systems</h2><span class="tagline">one sentence, one equation</span></div><span class="chev">›</span></summary>
     <div class="concept-body">
       <h3>The Idea</h3>
-      <p class="analogy"><b>A word problem is a system of equations wearing a story as a costume.</b> The pep club sells $3 raffle tickets and $4 raffle tickets; two bike shops charge different rates; the math team wraps plain and fancy gifts. Every time: <b>define two variables in words</b> ("let p = price of a plain wrap"), then turn <b>each sentence into one equation</b>. A count sentence ("100 tickets total") becomes x + y = 100. A money sentence becomes price·x + price·y = total. Two sentences, two equations — now it's just concept 2 or 3.</p>
-      <p>The "catch-up" flavor: two shops charge y = 10 + 3.5x and y = 6x. If both people paid the <em>same price</em> for the <em>same hours</em>, the two y's are equal — so set the expressions equal to each other: 10 + 3.5x = 6x. That's substitution eating both equations in one bite.</p>
+      <p class="analogy"><b>A word problem is a system of equations wearing a story as a costume.</b> Start by naming the two things you do not know. Then translate each fact in the story into an equation. For example, if a sale included 100 student and adult tickets altogether, let s = student tickets and a = adult tickets; the count fact becomes <span style="font-family:var(--font-mono)">s + a = 100</span>. If the story also gives the ticket prices and total revenue, use <b>price × number sold</b> to write the second equation. Two facts about the same two unknowns make one system.</p>
+      <p>Another common version asks when two costs are equal. Suppose Bike Shop A charges a $10 starting fee plus $3.50 per hour, while Bike Shop B charges $6 per hour with no starting fee. Let x be the number of hours and y be the total cost. The two rules are <span style="font-family:var(--font-mono)">y = 10 + 3.5x</span> and <span style="font-family:var(--font-mono)">y = 6x</span>. At the moment the shops cost the same, both expressions equal the same y, so set them equal: <span style="font-family:var(--font-mono)">10 + 3.5x = 6x</span>.</p>
       <h3>Why It Actually Works</h3>
-      <p>Each sentence is a promise about the same two unknowns, exactly like each equation is a promise about the same x and y. Finding the pair that keeps both promises IS solving the system. The last step the test genuinely grades: <b>interpret the solution in the original context</b>. x = 4 isn't an answer — "$24 each" or "4 hours" or "40 student tickets" is, depending on what was asked.</p>
-      <h3>Walk-Through (the gift-wrap table)</h3>
-      <p>Edgenuity hands you this as an actual table — three orders, two wrap styles, one total each. Each row is just a sentence wearing a costume:</p>
+      <p>Each equation is one promise about the same two unknowns. Solving the system finds the one pair that keeps both promises at once. Then translate the numbers back into the story. In the bike-shop example, solving gives x = 4 and y = 24. That means <b>after 4 hours, either shop costs $24</b>. The variables are only labels; the meaning of the answer comes from how you defined them.</p>
+      <h3>Walk-Through (prices from a table)</h3>
+      <p>A school store sells pens and notebooks, but the unit prices are missing. The table shows the quantities and total cost for three purchases. Let p = the price of one pen and n = the price of one notebook. Each row gives an equation because <b>quantity × unit price</b> adds up to the total:</p>
       <table class="mini-table">
         <thead>
-          <tr><th>Order</th><th>Plain (p)</th><th>Decorative (d)</th><th>Total</th></tr>
+          <tr><th>Purchase</th><th>Pens</th><th>Notebooks</th><th>Total</th></tr>
         </thead>
         <tbody>
           <tr><td>Row 1</td><td>10</td><td>9</td><td>$47</td></tr>
@@ -462,22 +462,22 @@
       </table>
       <div class="walk">
         <ol>
-          <li>let p = price of a plain wrap, d = price of a decorative wrap <span class="note">variables in words first</span></li>
-          <li>row 1: 10p + 9d = 47 · row 2: 25p + 12d = 86 <span class="note">each table row is a sentence → an equation</span></li>
-          <li>×4: 40p + 36d = 188 · ×(−3): −75p − 36d = −258 <span class="note">make the d's additive inverses</span></li>
-          <li>add: −35p = −70 → p = 2, then 9d = 27 → d = 3 <span class="note">eliminate, back-substitute</span></li>
-          <li>row 3 check: 16(2) + 12(3) = 68 ✓ <span class="note">the unused row confirms it</span></li>
+          <li>p = price of one pen; n = price of one notebook <span class="note">define the variables with units</span></li>
+          <li>row 1: 10p + 9n = 47 · row 2: 25p + 12n = 86 <span class="note">quantity × price, then add</span></li>
+          <li>×4: 40p + 36n = 188 · ×(−3): −75p − 36n = −258 <span class="note">make the n-terms additive inverses</span></li>
+          <li>add: −35p = −70 → p = 2, then 10(2) + 9n = 47 → n = 3 <span class="note">eliminate, then back-substitute</span></li>
+          <li>row 3 check: 16(2) + 12(3) = 68 ✓ <span class="note">the unused purchase confirms both prices</span></li>
         </ol>
-        <span class="answer">$2 for no bow, $3 with a bow — say it in dollars, not in p's and d's</span>
+        <span class="answer">Pens cost $2 each and notebooks cost $3 each — state the meaning and the units</span>
       </div>
       <h3>Where People Trip Up</h3>
       <ul class="mistakes">
-        <li>Answering the variable instead of the question. The bike problem solves to x = 4 hours — but it asked what they PAID: $24.</li>
-        <li>Mixing up which number is a price and which is a count. Prices multiply variables; counts and totals sit alone.</li>
-        <li>Skipping "let x = …". Thirty seconds of defining variables prevents every downstream mix-up.</li>
+        <li>Stopping as soon as one variable is found. If the question asks when the bike-shop prices match, x = 4 gives the time, but you still need y = 24 to give the matching cost.</li>
+        <li>Mixing up a unit price and a quantity. In 10p, 10 is the number of pens and p is the price of each pen.</li>
+        <li>Skipping the variable definitions. Writing "p = price of one pen" keeps both the meaning and the units attached to the algebra.</li>
         <li>Checking against your equations but not the story — if you translated wrong, your equations agree with each other and the story still says no.</li>
       </ul>
-      <p class="sayback"><b>Say it back:</b> "Shawn's shop charges $10 plus $3.50 an hour; Dorian's charges $6 an hour; they paid the same." Turn those into equations out loud, then say what the x you'd solve for MEANS.</p>
+      <p class="sayback"><b>Say it back:</b> Bike Shop A charges $10 plus $3.50 per hour; Bike Shop B charges $6 per hour. Define x and y, write both equations, and explain in words what the solution (4, 24) means.</p>
     </div>
   </details>
 
