@@ -154,6 +154,22 @@
     background:var(--good-soft); color:var(--good); font-weight:700; font-family:var(--font-mono); font-size:.9rem;
   }
 
+  .mini-graph{margin:.6rem 0;}
+  .mini-graph svg{
+    width:100%; max-width:320px; height:auto; display:block; margin:0 auto;
+    background:var(--ground-raised); border:1px solid var(--line); border-radius:12px;
+  }
+  .mini-graph .gg{stroke:var(--line); stroke-width:1;}
+  .mini-graph .ax{stroke:var(--ink-faint); stroke-width:1.5;}
+  .mini-graph .lbl{font-family:var(--font-body); font-size:8px; fill:var(--ink-faint);}
+  .mini-graph .l1{stroke:var(--gold); stroke-width:2.5;}
+  .mini-graph .l2{stroke:var(--accent); stroke-width:2.5;}
+  .mini-graph .pt-miss{fill:var(--ground-raised); stroke:var(--ink-faint); stroke-width:1.5;}
+  .mini-graph .pt-hit{fill:var(--good); stroke:var(--good);}
+  .mini-graph .pt-label{font-family:var(--font-body); font-size:9px; font-weight:700; fill:var(--ink);}
+  .mini-graph figcaption{font-size:.78rem; color:var(--ink-faint); text-align:center; margin-top:.35rem;}
+  .mini-graph figcaption .dot{display:inline-block; width:.6em; height:.6em; border-radius:50%; margin-right:.3em; vertical-align:middle;}
+
   .mistakes li::marker{content: "🚫 ";}
   .mistakes{list-style:none; padding-left:0;}
   .mistakes li{
@@ -231,11 +247,35 @@
       <p>That's the entire trick behind "solving by graphing": draw both promises as lines, find where they touch, done. That crossing point's x and y make equation one true <em>and</em> equation two true. Any other point on either line kept one promise and broke the other — texted the right street but the wrong time. Not a match.</p>
       <h3>Why It Actually Works</h3>
       <p>A graphed line isn't just a shape — it's every single (x, y) pair that makes that one equation true, drawn out as a picture. So a point sitting exactly on both lines isn't a coincidence: its coordinates satisfy both equations simultaneously, which is the actual definition of "solving the system." If the crossing point lands right on a grid line, read it straight off the graph. If it lands between grid lines — like (1.1, −2.8) — estimate from the picture, or let a graphing calculator trace to the exact value. Either way, one move always confirms you nailed it: plug the point into both equations and get TRUE twice.</p>
-      <h3>Walk-Through (this year's review question)</h3>
+      <h3>Walk-Through (the review question)</h3>
+      <p>2x + 3y = 2 &nbsp;and&nbsp; y = ½x + 3. Each line got plotted by finding its intercepts — where it crosses the x-axis and y-axis — then drawing straight through those two points. Edgenuity hands you a graph like this one with a few points already marked, and your job is to spot which single point sits on <b>both</b> lines:</p>
+      <figure class="mini-graph">
+        <svg viewBox="0 0 286 234" role="img" aria-label="Graph of 2x plus 3y equals 2 and y equals one half x plus 3, crossing at negative 2, 2">
+          <line x1="26" y1="208" x2="26" y2="26" class="gg"/><line x1="52" y1="208" x2="52" y2="26" class="gg"/><line x1="78" y1="208" x2="78" y2="26" class="gg"/><line x1="104" y1="208" x2="104" y2="26" class="gg"/><line x1="130" y1="208" x2="130" y2="26" class="gg"/><line x1="156" y1="208" x2="156" y2="26" class="gg"/><line x1="182" y1="208" x2="182" y2="26" class="gg"/><line x1="208" y1="208" x2="208" y2="26" class="gg"/><line x1="234" y1="208" x2="234" y2="26" class="gg"/><line x1="260" y1="208" x2="260" y2="26" class="gg"/>
+          <line x1="26" y1="208" x2="260" y2="208" class="gg"/><line x1="26" y1="182" x2="260" y2="182" class="gg"/><line x1="26" y1="156" x2="260" y2="156" class="gg"/><line x1="26" y1="130" x2="260" y2="130" class="gg"/><line x1="26" y1="104" x2="260" y2="104" class="gg"/><line x1="26" y1="78" x2="260" y2="78" class="gg"/><line x1="26" y1="52" x2="260" y2="52" class="gg"/><line x1="26" y1="26" x2="260" y2="26" class="gg"/>
+          <line x1="208" y1="208" x2="208" y2="26" class="ax"/>
+          <line x1="26" y1="156" x2="260" y2="156" class="ax"/>
+          <text x="52" y="222" class="lbl" text-anchor="middle">−6</text>
+          <text x="156" y="222" class="lbl" text-anchor="middle">−2</text>
+          <text x="208" y="222" class="lbl" text-anchor="middle">0</text>
+          <text x="234" y="222" class="lbl" text-anchor="middle">1</text>
+          <text x="18" y="160" class="lbl" text-anchor="end">0</text>
+          <text x="18" y="108" class="lbl" text-anchor="end">2</text>
+          <text x="18" y="82" class="lbl" text-anchor="end">3</text>
+          <line x1="39" y1="26" x2="260" y2="173" class="l1"/>
+          <line x1="26" y1="169" x2="260" y2="52" class="l2"/>
+          <circle cx="234" cy="156" r="4" class="pt-miss"/><text x="234" y="145" class="pt-label" text-anchor="middle">(1, 0)</text>
+          <circle cx="208" cy="78" r="4" class="pt-miss"/><text x="216" y="72" class="pt-label">(0, 3)</text>
+          <circle cx="52" cy="156" r="4" class="pt-miss"/><text x="52" y="145" class="pt-label" text-anchor="middle">(−6, 0)</text>
+          <circle cx="156" cy="104" r="5" class="pt-hit"/><text x="164" y="98" class="pt-label">(−2, 2)</text>
+        </svg>
+        <figcaption><span class="dot" style="background:var(--gold)"></span>2x + 3y = 2&emsp;<span class="dot" style="background:var(--accent)"></span>y = ½x + 3</figcaption>
+      </figure>
       <div class="walk">
         <ol>
-          <li>2x + 3y = 2 &nbsp;and&nbsp; y = ½x + 3 <span class="note">the graph shows four labeled points</span></li>
-          <li>the lines cross at (−2, 2) <span class="note">the OTHER labeled points are just intercepts</span></li>
+          <li>(1, 0) and (−6, 0) <span class="note">each an x-intercept — only on ONE line, not both</span></li>
+          <li>(0, 3) <span class="note">a y-intercept — also only on one line</span></li>
+          <li>(−2, 2) is the only point sitting on both lines <span class="note">that's the crossing point — the answer</span></li>
           <li>2(−2) + 3(2) = −4 + 6 = 2 ✓ <span class="note">first promise kept</span></li>
           <li>½(−2) + 3 = 2 ✓ <span class="note">second promise kept — it's the solution</span></li>
         </ol>
