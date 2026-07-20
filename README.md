@@ -54,6 +54,15 @@ work well as Claude Artifacts if you want a shareable link.
   This unit has a sixth piece: `cheat-sheet.html` (the printable 1-page
   format introduced by the midterm review).
 
+- **`unit-04-nonlinear-functions-part-two/`** — solving and graphing absolute
+  value equations and inequalities, verifying solutions by substitution,
+  absolute value functions and their vertical/horizontal translations
+  (including reading increasing/decreasing intervals off a translated
+  graph), adding and subtracting rational expressions with common
+  denominators, and simplifying/multiplying/dividing radical expressions
+  (including rationalizing the denominator). This unit has six pieces too
+  (the standard five plus `cheat-sheet.html`).
+
 - **`midterm-review/`** — cumulative review for the first half of the class
   (built from the 25-question Edgenuity cumulative exam review). Three pieces
   instead of five: `cheat-sheet.html` (the whole exam on 1–2 scannable,

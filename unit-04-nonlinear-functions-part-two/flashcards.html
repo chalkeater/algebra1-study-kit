@@ -1,6 +1,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Miriam's Algebra 1 — Study Kit Index</title>
+<title>Nonlinear Functions — Part Two — Flashcards</title>
 <style>
   @font-face{
     font-family:'Anton'; font-style:normal; font-weight:400; font-display:swap;
@@ -16,6 +16,7 @@
     --line:#D5E1DE;
     --accent:#0F7A78; --accent-strong:#095452; --accent-soft:#DFF1EF;
     --gold:#C9821A; --gold-soft:#FBEBCC;
+    --good:#2E7D32; --good-soft:#E4F3E1; --bad:#B23A3A; --bad-soft:#FBE6E6;
     --radius:16px;
     --shadow:0 1px 2px rgba(14,27,30,.06), 0 10px 28px -14px rgba(14,27,30,.2);
     --font-display:'Anton', impact, sans-serif;
@@ -29,6 +30,7 @@
       --ink:#E9F3F1; --ink-soft:#A6BEBB; --ink-faint:#6E8583; --line:#213231;
       --accent:#2FC7C0; --accent-strong:#8FE6E1; --accent-soft:#123230;
       --gold:#E0AC52; --gold-soft:#332711;
+      --good:#5FBD5F; --good-soft:#163A18; --bad:#F0685F; --bad-soft:#3B1616;
       --shadow:0 1px 2px rgba(0,0,0,.35), 0 10px 28px -14px rgba(0,0,0,.55);
     }
   }
@@ -37,6 +39,7 @@
     --ink:#E9F3F1; --ink-soft:#A6BEBB; --ink-faint:#6E8583; --line:#213231;
     --accent:#2FC7C0; --accent-strong:#8FE6E1; --accent-soft:#123230;
     --gold:#E0AC52; --gold-soft:#332711;
+    --good:#5FBD5F; --good-soft:#163A18; --bad:#F0685F; --bad-soft:#3B1616;
     --shadow:0 1px 2px rgba(0,0,0,.35), 0 10px 28px -14px rgba(0,0,0,.55);
   }
   :root[data-theme="light"]{
@@ -44,6 +47,7 @@
     --ink:#0E1B1E; --ink-soft:#48595C; --ink-faint:#7C8C8C; --line:#D5E1DE;
     --accent:#0F7A78; --accent-strong:#095452; --accent-soft:#DFF1EF;
     --gold:#C9821A; --gold-soft:#FBEBCC;
+    --good:#2E7D32; --good-soft:#E4F3E1; --bad:#B23A3A; --bad-soft:#FBE6E6;
     --shadow:0 1px 2px rgba(14,27,30,.06), 0 10px 28px -14px rgba(14,27,30,.2);
   }
   *{box-sizing:border-box;}
@@ -52,397 +56,428 @@
     font-size:16px; line-height:1.5; -webkit-font-smoothing:antialiased;
   }
   ::selection{background:var(--gold-soft); color:var(--ink);}
-  a{color:inherit;}
-  button:focus-visible, a:focus-visible{outline:3px solid var(--gold); outline-offset:2px;}
+  button, input{font-family:inherit; font-size:1rem;}
+  button:focus-visible, input:focus-visible{outline:3px solid var(--gold); outline-offset:2px;}
 
-  header.hero{padding:2.4rem clamp(1rem,4vw,2.5rem) 1.6rem; border-bottom:1px solid var(--line);}
-  .hero-inner{max-width:1040px; margin:0 auto;}
+  header.hero{
+    padding:2.2rem clamp(1rem,4vw,2.5rem) 1.4rem; border-bottom:1px solid var(--line);
+  }
+  .hero-inner{max-width:900px; margin:0 auto;}
   .hero-eyebrow{font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; font-weight:700; color:var(--accent-strong); margin:0 0 .4rem;}
   header.hero h1{
-    font-family:var(--font-display); font-weight:400; text-transform:uppercase; letter-spacing:.01em;
-    font-size:clamp(2.1rem,5vw,3.2rem); line-height:.95; margin:0 0 .5rem; text-wrap:balance;
+    font-family:var(--font-display); font-weight:400; text-transform:uppercase;
+    font-size:clamp(2rem,5.5vw,3rem); line-height:.95; margin:0 0 .5rem; text-wrap:balance;
   }
-  header.hero p{color:var(--ink-soft); max-width:60ch; margin:0; font-size:1.03rem;}
-  .hero-actions{margin-top:1rem;}
+  header.hero p{color:var(--ink-soft); max-width:56ch; margin:0; font-size:1.03rem;}
+  .hero-actions{margin-top:.9rem;}
   .btn{
     border:1px solid var(--line); background:var(--ground-raised); color:var(--ink);
     padding:.5rem .9rem; border-radius:999px; font-size:.82rem; font-weight:600; cursor:pointer; box-shadow:var(--shadow);
     min-height:2.75rem; display:inline-flex; align-items:center; justify-content:center;
   }
+  .deck-controls{max-width:900px; margin:0 auto; padding:.9rem clamp(1rem,4vw,2.5rem) 0;}
+  .filter-row{display:flex; gap:.5rem; overflow-x:auto; padding-bottom:.5rem; -webkit-overflow-scrolling:touch; scrollbar-width:none;}
+  .filter-row::-webkit-scrollbar{display:none;}
+  .tab{
+    flex:none; border:1px solid var(--line); background:var(--ground-raised); color:var(--ink-soft);
+    padding:.5rem .85rem; border-radius:999px; font-weight:700; font-size:.82rem; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; gap:.4rem; white-space:nowrap; min-height:2.75rem;
+  }
+  .tab .tn{font-family:var(--font-mono); color:var(--ink-faint); font-size:.72rem;}
+  .tab.active{background:var(--accent); color:#F4FFFE; border-color:var(--accent);}
+  .tab.active .tn{color:#DFFFFD;}
+  .status-row{display:flex; gap:.5rem; margin-top:.55rem; flex-wrap:wrap;}
+  .status-row .tab{font-size:.78rem; padding:.4rem .75rem; min-height:2.4rem;}
 
-  main{max-width:1040px; margin:0 auto; padding:2rem clamp(1rem,4vw,2.5rem) 4rem;}
+  .progress-wrap{
+    max-width:900px; margin:0 auto; padding:.9rem clamp(1rem,4vw,2.5rem) 0;
+    display:flex; align-items:center; gap:.7rem; flex-wrap:wrap;
+  }
+  .progress-count{font-size:.85rem; font-weight:700; color:var(--ink-soft); white-space:nowrap;}
+  .progress-count b{color:var(--accent-strong); font-family:var(--font-mono);}
+  .progress-track{
+    flex:1; min-width:120px; height:8px; border-radius:999px;
+    background:var(--ground-sunken); border:1px solid var(--line); overflow:hidden;
+  }
+  .progress-fill{height:100%; background:var(--accent); border-radius:999px; transition:width .25s ease;}
+  .stat-chip{font-size:.78rem; font-weight:700; padding:.3rem .6rem; border-radius:999px; white-space:nowrap; font-family:var(--font-mono);}
+  .stat-chip.know{background:var(--good-soft); color:var(--good);}
+  .stat-chip.learning{background:var(--gold-soft); color:var(--gold);}
 
-  .unit-block{margin-bottom:2.4rem;}
-  .unit-head{display:flex; align-items:baseline; gap:.9rem; flex-wrap:wrap; margin-bottom:.4rem;}
-  .unit-badge{
-    font-family:var(--font-mono); font-size:.72rem; font-weight:700; letter-spacing:.06em;
-    background:var(--accent); color:#F4FFFE; padding:.25rem .6rem; border-radius:6px;
-  }
-  .unit-head h2{
-    font-family:var(--font-display); font-weight:400; text-transform:uppercase; font-size:1.5rem; margin:0;
-  }
-  .unit-desc{color:var(--ink-faint); font-size:.88rem; margin:.2rem 0 1.1rem; max-width:70ch;}
+  main{max-width:640px; margin:0 auto; padding:1.6rem clamp(1rem,4vw,2.5rem) 3rem;}
 
-  .card-grid{display:grid; gap:1rem; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));}
-  .card{
-    display:flex; flex-direction:column;
-    background:var(--ground-raised); border:1px solid var(--line); border-radius:var(--radius);
-    box-shadow:var(--shadow); transition:transform .15s ease, border-color .15s ease;
+  .stage{perspective:1600px; margin:0 auto; touch-action:pan-y;}
+  .flashcard{
+    position:relative; width:100%; min-height:320px; cursor:pointer;
+    transform-style:preserve-3d; transition:transform .5s cubic-bezier(.2,.8,.2,1);
   }
-  .card:hover{transform:translateY(-2px); border-color:var(--accent);}
-  .card-main{
-    display:flex; flex-direction:column; gap:.5rem;
-    padding:1.2rem 1.3rem 1rem; text-decoration:none; color:var(--ink); flex:1;
+  .flashcard.flipped{transform:rotateY(180deg);}
+  .card-face{
+    position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden;
+    display:flex; flex-direction:column; gap:1rem;
+    background:var(--ground-raised); border:1px solid var(--line); border-radius:20px;
+    box-shadow:var(--shadow); padding:1.8rem 1.6rem 2.6rem;
   }
-  .card-icon{font-size:1.6rem; line-height:1;}
-  .card-title{font-family:var(--font-display); font-weight:400; text-transform:uppercase; font-size:1.05rem; letter-spacing:.01em;}
-  .card-desc{color:var(--ink-soft); font-size:.85rem; line-height:1.45; flex:1;}
-  .card-foot{
-    display:flex; align-items:center; justify-content:space-between; gap:.6rem;
-    padding:.7rem 1.3rem; border-top:1px solid var(--line);
+  .card-face.back{transform:rotateY(180deg);}
+  .card-tag{font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; font-weight:700; color:var(--accent-strong);}
+  .card-body{flex:1; display:flex; align-items:center;}
+  .card-q{font-size:1.22rem; line-height:1.5; font-weight:600;}
+  .card-a{font-size:1.1rem; line-height:1.55; color:var(--ink-soft);}
+  .card-hint{
+    position:absolute; bottom:.9rem; left:0; right:0; text-align:center;
+    font-size:.7rem; color:var(--ink-faint); letter-spacing:.05em; text-transform:uppercase;
   }
-  .card-file{font-family:var(--font-mono); font-size:.72rem; color:var(--ink-faint);}
+  .card-mark{position:absolute; top:1.2rem; right:1.3rem; font-size:1.1rem;}
 
-  .next-unit{
-    border:1px dashed var(--line); border-radius:var(--radius); padding:1.2rem 1.3rem;
-    color:var(--ink-faint); font-size:.88rem; text-align:center;
+  .mark-row{display:flex; gap:.7rem; margin-top:1.3rem;}
+  .mark-row .btn{flex:1;}
+  .btn.learning-btn{border-color:var(--gold); color:var(--gold);}
+  .btn.know-btn{border-color:var(--good); color:var(--good);}
+
+  .nav-row{display:flex; align-items:center; justify-content:space-between; gap:.6rem; margin-top:1rem;}
+  .mark-row[hidden], .nav-row[hidden]{display:none;}
+
+  .empty-state{
+    text-align:center; padding:3.5rem 1.5rem; color:var(--ink-faint);
+    border:1px dashed var(--line); border-radius:20px; font-size:.95rem;
   }
+  .empty-state b{color:var(--ink-soft);}
+
+  @media (prefers-reduced-motion: reduce){ .flashcard{transition:none;} }
 
   footer{text-align:center; color:var(--ink-faint); font-size:.78rem; padding:1.5rem;}
+
+  .site-nav{
+    display:flex; align-items:center; gap:.5rem; overflow-x:auto;
+    padding:.5rem clamp(1rem,4vw,2.5rem); border-bottom:1px solid var(--line);
+    background:var(--ground-sunken); -webkit-overflow-scrolling:touch; scrollbar-width:none;
+  }
+  .site-nav::-webkit-scrollbar{display:none;}
+  .site-nav a{
+    flex:none; display:inline-flex; align-items:center; justify-content:center; white-space:nowrap;
+    padding:.5rem .85rem; border-radius:999px; font-size:.78rem; font-weight:700;
+    text-decoration:none; color:var(--ink-soft); min-height:2.75rem;
+  }
+  .site-nav a.home{color:var(--accent-strong); background:var(--ground-raised); border:1px solid var(--line); box-shadow:var(--shadow);}
+  .site-nav a.page:hover{color:var(--ink);}
+  .site-nav a.page.active{background:var(--accent); color:#F4FFFE;}
 </style>
+
+<nav class="site-nav" aria-label="Unit navigation">
+  <a class="home" href="../index.html">&larr; Index</a>
+  <a class="page" href="study-guide.html">Study Guide</a>
+  <a class="page" href="concept-explainers.html">Explainer</a>
+  <a class="page" href="playground.html">Playground</a>
+  <a class="page active" href="flashcards.html">Flashcards</a>
+  <a class="page" href="practice-quiz.html">Quiz</a>
+  <a class="page" href="cheat-sheet.html">Cheat Sheet</a>
+</nav>
 
 <header class="hero">
   <div class="hero-inner">
-    <p class="hero-eyebrow">Study Kit Index</p>
-    <h1>Miriam's Algebra 1</h1>
-    <p>One row per unit test. Each unit gets the same five pieces: a study guide for during the test, an explainer for before it, a playground to practice in, flashcards to drill on the go, and a quiz to prove it stuck.</p>
+    <p class="hero-eyebrow">Unit 4 &middot; Flashcards &middot; Quick Review</p>
+    <h1>Drill It Until It's Automatic</h1>
+    <p>Tap a card to flip it. Swipe or use the buttons to move on. Mark what you know — the deck remembers, so you can drill just what's still shaky.</p>
     <div class="hero-actions">
-      <button class="btn" id="theme-toggle" type="button">🌓 Theme</button>
+      <button class="btn" id="theme-toggle" type="button">&#127769; Theme</button>
     </div>
   </div>
 </header>
 
+<div class="deck-controls">
+  <div class="filter-row" id="concept-filter" role="tablist" aria-label="Filter by concept">
+    <button class="tab active" data-concept="all" type="button">All <span class="tn"></span></button>
+    <button class="tab" data-concept="1" type="button">01 AV Equations</button>
+    <button class="tab" data-concept="2" type="button">02 AV Inequalities</button>
+    <button class="tab" data-concept="3" type="button">03 AV Functions</button>
+    <button class="tab" data-concept="4" type="button">04 Rational Expr.</button>
+    <button class="tab" data-concept="5" type="button">05 Radicals</button>
+    <button class="tab" data-concept="6" type="button">06 Dividing Radicals</button>
+  </div>
+  <div class="status-row" id="status-filter">
+    <button class="tab active" data-status="all" type="button">All cards</button>
+    <button class="tab" data-status="learning" type="button">&#8635; Still learning</button>
+    <button class="tab" data-status="know" type="button">&#10003; Known</button>
+  </div>
+</div>
+
+<div class="progress-wrap">
+  <span class="progress-count">Card <b id="pos-num">1</b> / <b id="pos-total">1</b></span>
+  <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+  <span class="stat-chip know">&#10003; <b id="know-count">0</b></span>
+  <span class="stat-chip learning">&#8635; <b id="learning-count">0</b></span>
+</div>
+
 <main>
+  <div class="stage" id="stage">
+    <div class="flashcard" id="flashcard" tabindex="0" role="button" aria-label="Flashcard. Tap or press enter to flip.">
+      <div class="card-face front">
+        <span class="card-tag" id="tag-front">&nbsp;</span>
+        <span class="card-mark" id="mark-front"></span>
+        <div class="card-body"><p class="card-q" id="card-q"></p></div>
+        <span class="card-hint">Tap to flip</span>
+      </div>
+      <div class="card-face back">
+        <span class="card-tag" id="tag-back">&nbsp;</span>
+        <span class="card-mark" id="mark-back"></span>
+        <div class="card-body"><p class="card-a" id="card-a"></p></div>
+        <span class="card-hint">Tap to flip back</span>
+      </div>
+    </div>
+  </div>
 
-  <section class="unit-block">
-    <div class="unit-head">
-      <span class="unit-badge">Unit 1</span>
-      <h2>Linear Equations &amp; Inequalities</h2>
-    </div>
-    <p class="unit-desc">Solving equations, variable on one side, variables on both sides, the distributive property, literal equations, compound inequalities, graphing and modeling two-variable inequalities.</p>
-    <div class="card-grid">
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/study-guide.html">
-          <span class="card-icon">📘</span>
-          <span class="card-title">Study Guide</span>
-          <span class="card-desc">Open-notes reference — one worked example per concept. Use this one during the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">study-guide.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/concept-explainers.html">
-          <span class="card-icon">🧠</span>
-          <span class="card-title">The Explainer</span>
-          <span class="card-desc">ELI5 deep-dive with volleyball analogies, the "why," and common mistakes. Read this before the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">concept-explainers.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/playground.html">
-          <span class="card-icon">🏐</span>
-          <span class="card-title">The Playground</span>
-          <span class="card-desc">8 hands-on stations — drive an equation solver, build a graph, test points, drag sliders.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">playground.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/practice-quiz.html">
-          <span class="card-icon">🎯</span>
-          <span class="card-title">Practice Quiz</span>
-          <span class="card-desc">33 questions, instant feedback, score + streak tracker. Prove you've got it.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">practice-quiz.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/flashcards.html">
-          <span class="card-icon">🃏</span>
-          <span class="card-title">Flashcards</span>
-          <span class="card-desc">32 tap-to-flip cards by concept. Swipe through on your phone, mark what's still shaky.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">flashcards.html</span>
-        </div>
-      </div>
-    </div>
-  </section>
+  <div class="empty-state" id="empty-state" hidden>
+    Nothing here yet. <b>Still learning</b> and <b>Known</b> fill up as you mark cards — switch back to <b>All cards</b> to keep drilling.
+  </div>
 
-  <section class="unit-block">
-    <div class="unit-head">
-      <span class="unit-badge">Unit 2</span>
-      <h2>Sets, Venn Diagrams &amp; Triangle Angles</h2>
-    </div>
-    <p class="unit-desc">Sets and elements, subsets, union and intersection with Venn diagrams, sets applied to probability and geometry, the triangle angle-sum theorem, and the two proofs of why the angles always make 180°.</p>
-    <div class="card-grid">
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/study-guide.html">
-          <span class="card-icon">📘</span>
-          <span class="card-title">Study Guide</span>
-          <span class="card-desc">Open-notes reference — one worked example per concept. Use this one during the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">study-guide.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/concept-explainers.html">
-          <span class="card-icon">🧠</span>
-          <span class="card-title">The Explainer</span>
-          <span class="card-desc">ELI5 deep-dive with volleyball analogies, the "why," and common mistakes. Read this before the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">concept-explainers.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/playground.html">
-          <span class="card-icon">🏐</span>
-          <span class="card-title">The Playground</span>
-          <span class="card-desc">6 hands-on stations — build sets, click Venn regions, bend a live triangle, run the 180° proof yourself.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">playground.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/practice-quiz.html">
-          <span class="card-icon">🎯</span>
-          <span class="card-title">Practice Quiz</span>
-          <span class="card-desc">47 questions, two modes: instant-feedback practice and a no-hints exam mode. Plus a printable worksheet.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">practice-quiz.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/flashcards.html">
-          <span class="card-icon">🃏</span>
-          <span class="card-title">Flashcards</span>
-          <span class="card-desc">35 tap-to-flip cards by concept. Swipe through on your phone, mark what's still shaky.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">flashcards.html</span>
-        </div>
-      </div>
-    </div>
-  </section>
+  <div class="mark-row" id="mark-row">
+    <button class="btn learning-btn" id="mark-learning" type="button">&#8635; Still learning</button>
+    <button class="btn know-btn" id="mark-know" type="button">&#10003; Know it</button>
+  </div>
 
-  <section class="unit-block">
-    <div class="unit-head">
-      <span class="unit-badge">Midterm</span>
-      <h2>Cumulative Review — First Half</h2>
-    </div>
-    <p class="unit-desc">Everything from the first half of the class: solving equations, literal equations &amp; formulas, inequalities, function basics, reading graphs, lines &amp; sequences, and sets. The quiz re-rolls its numbers every time, so it can't be memorized — only learned.</p>
-    <div class="card-grid">
-      <div class="card">
-        <a class="card-main" href="midterm-review/cheat-sheet.html">
-          <span class="card-icon">🗒️</span>
-          <span class="card-title">Cheat Sheet</span>
-          <span class="card-desc">The whole exam on one scannable page — 10 one-sentence big ideas plus "do this" boxes for all 7 topics. Print it.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">cheat-sheet.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="midterm-review/practice-quiz.html">
-          <span class="card-icon">🎲</span>
-          <span class="card-title">Practice Quiz</span>
-          <span class="card-desc">41 questions, 5–6 per topic — with fresh numbers on every deal. Practice mode, exam mode, and printable worksheets that regenerate every print.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">practice-quiz.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="midterm-review/flashcards.html">
-          <span class="card-icon">🃏</span>
-          <span class="card-title">Flashcards</span>
-          <span class="card-desc">40 tap-to-flip cards across all 7 topics. Swipe through on your phone, mark what's still shaky.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">flashcards.html</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="unit-block">
-    <div class="unit-head">
-      <span class="unit-badge">Unit 3</span>
-      <h2>Systems of Equations &amp; Inequalities</h2>
-    </div>
-    <p class="unit-desc">Solving systems of linear equations by graphing, substitution, and elimination (linear combination); systems with one, no, or infinitely many solutions; modeling word problems with systems; and writing, graphing, and interpreting systems of linear inequalities.</p>
-    <div class="card-grid">
-      <div class="card">
-        <a class="card-main" href="unit-03-systems-of-equations-inequalities/study-guide.html">
-          <span class="card-icon">📘</span>
-          <span class="card-title">Study Guide</span>
-          <span class="card-desc">Open-notes reference — one worked example per concept. Use this one during the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">study-guide.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-03-systems-of-equations-inequalities/cheat-sheet.html">
-          <span class="card-icon">🗒️</span>
-          <span class="card-title">Cheat Sheet</span>
-          <span class="card-desc">The whole test on one scannable page — 10 one-sentence big ideas plus "do this" boxes for all 7 topics. Print it.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">cheat-sheet.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-03-systems-of-equations-inequalities/concept-explainers.html">
-          <span class="card-icon">🧠</span>
-          <span class="card-title">The Explainer</span>
-          <span class="card-desc">ELI5 deep-dive with volleyball analogies, the "why," and common mistakes. Read this before the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">concept-explainers.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-03-systems-of-equations-inequalities/playground.html">
-          <span class="card-icon">🏐</span>
-          <span class="card-title">The Playground</span>
-          <span class="card-desc">6 hands-on stations — click the intersection, drive the substitution machine, make variables cancel, build inequality systems.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">playground.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-03-systems-of-equations-inequalities/practice-quiz.html">
-          <span class="card-icon">🎯</span>
-          <span class="card-title">Practice Quiz</span>
-          <span class="card-desc">44 questions, two modes: instant-feedback practice and a no-hints exam mode. Plus a printable worksheet.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">practice-quiz.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-03-systems-of-equations-inequalities/flashcards.html">
-          <span class="card-icon">🃏</span>
-          <span class="card-title">Flashcards</span>
-          <span class="card-desc">36 tap-to-flip cards by concept. Swipe through on your phone, mark what's still shaky.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">flashcards.html</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="unit-block">
-    <div class="unit-head">
-      <span class="unit-badge">Unit 4</span>
-      <h2>Nonlinear Functions — Part Two</h2>
-    </div>
-    <p class="unit-desc">Solving and graphing absolute value equations and inequalities; absolute value functions and their vertical/horizontal translations; adding and subtracting rational expressions with common denominators; and simplifying, multiplying, and dividing radical expressions (including rationalizing the denominator).</p>
-    <div class="card-grid">
-      <div class="card">
-        <a class="card-main" href="unit-04-nonlinear-functions-part-two/study-guide.html">
-          <span class="card-icon">📘</span>
-          <span class="card-title">Study Guide</span>
-          <span class="card-desc">Open-notes reference — one worked example per concept. Use this one during the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">study-guide.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-04-nonlinear-functions-part-two/cheat-sheet.html">
-          <span class="card-icon">🗒️</span>
-          <span class="card-title">Cheat Sheet</span>
-          <span class="card-desc">The whole test on one scannable page — 10 one-sentence big ideas plus "do this" boxes for all 6 topics. Print it.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">cheat-sheet.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-04-nonlinear-functions-part-two/concept-explainers.html">
-          <span class="card-icon">🧠</span>
-          <span class="card-title">The Explainer</span>
-          <span class="card-desc">ELI5 deep-dive with the odometer/two-way-radio/chess-rook analogies, the "why," and common mistakes. Read this before the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">concept-explainers.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-04-nonlinear-functions-part-two/playground.html">
-          <span class="card-icon">🎮</span>
-          <span class="card-title">The Playground</span>
-          <span class="card-desc">6 hands-on stations — predict then prove absolute value solutions, drag the vertex to see translations live, catch the sign mistake.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">playground.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-04-nonlinear-functions-part-two/practice-quiz.html">
-          <span class="card-icon">🎯</span>
-          <span class="card-title">Practice Quiz</span>
-          <span class="card-desc">23 questions, two modes: instant-feedback practice and a no-hints exam mode. Plus a printable worksheet.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">practice-quiz.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-04-nonlinear-functions-part-two/flashcards.html">
-          <span class="card-icon">🃏</span>
-          <span class="card-title">Flashcards</span>
-          <span class="card-desc">42 tap-to-flip cards by concept. Swipe through on your phone, mark what's still shaky.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">flashcards.html</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="next-unit">Unit 5 shows up here once the next test is announced.</div>
-
+  <div class="nav-row" id="nav-row">
+    <button class="btn" id="prev-btn" type="button" aria-label="Previous card">&lsaquo; Prev</button>
+    <button class="btn" id="shuffle-btn" type="button">&#128256; Shuffle</button>
+    <button class="btn" id="next-btn" type="button" aria-label="Next card">Next &rsaquo;</button>
+  </div>
 </main>
 
-<footer>Miriam's Algebra 1 · Study Kit Index</footer>
+<footer>Miriam's Algebra 1 &middot; Unit 4 Flashcards</footer>
 
 <script>
-  (function(){
-    var root = document.documentElement;
-    var toggle = document.getElementById('theme-toggle');
-    var stored = null;
-    try { stored = localStorage.getItem('algebra-theme'); } catch(e){}
-    if (stored) root.setAttribute('data-theme', stored);
-    toggle.addEventListener('click', function(){
-      var current = root.getAttribute('data-theme');
-      var next = current === 'dark' ? 'light' : 'dark';
-      if (!current){ next = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark'; }
-      root.setAttribute('data-theme', next);
-      try { localStorage.setItem('algebra-theme', next); } catch(e){}
+(function(){
+  "use strict";
+  var root = document.documentElement;
+  var themeToggle = document.getElementById('theme-toggle');
+  var stored = null;
+  try { stored = localStorage.getItem('algebra-theme'); } catch(e){}
+  if (stored) root.setAttribute('data-theme', stored);
+  themeToggle.addEventListener('click', function(){
+    var current = root.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    if (!current){ next = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark'; }
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('algebra-theme', next); } catch(e){}
+  });
+
+  var CONCEPTS = [
+    {n:1, name:'Solving Absolute Value Equations'},
+    {n:2, name:'Absolute Value Inequalities'},
+    {n:3, name:'Absolute Value Functions & Translations'},
+    {n:4, name:'Adding & Subtracting Rational Expressions'},
+    {n:5, name:'Simplifying, Adding & Multiplying Radicals'},
+    {n:6, name:'Dividing Radicals'}
+  ];
+
+  var CARDS = [
+    {c:1, q:"What does |x| actually mean?", a:"The distance from x to 0 on the number line — always ≥ 0. No direction, just distance."},
+    {c:1, q:"4 steps to solve an absolute value equation?", a:"(1) Isolate the AV expression. (2) Split into two cases: inside = value, AND inside = −value. (3) Solve each like a normal equation. (4) Check BOTH solutions in the ORIGINAL equation."},
+    {c:1, q:"|k| = 5. Solve.", a:"k = 5 or k = −5 — both are exactly 5 units from 0."},
+    {c:1, q:"Solve |a + 2| = 8.", a:"Case 1: a + 2 = 8 → a = 6. Case 2: a + 2 = −8 → a = −10. Check both back in the original."},
+    {c:1, q:"How many solutions does |x| = −3 have? What about |x| = 0?", a:"|x| = −3 → ZERO solutions (distance can't be negative). |x| = 0 → ONE solution, x = 0 (zero has no opposite)."},
+    {c:1, q:"2/7 − |4x − 11| = −12/7 — what's the very first move?", a:"Isolate the absolute value completely BEFORE splitting into two cases — subtract/multiply to get it alone on one side first."},
+    {c:1, q:"Trap: a student isolates |0.5x+1.5| = 0.5, solves 0.5x+1.5 = 0.5, and stops. What's missing?", a:"The SECOND case: 0.5x + 1.5 = −0.5. An absolute value set equal to a positive number always has two cases — don't stop after one."},
+
+    {c:2, q:"|expr| < c (or ≤). What shape is the solution set?", a:"ONE connected interval — \"less than = between.\" Join the two cases with AND."},
+    {c:2, q:"|expr| > c (or ≥). What shape is the solution set?", a:"TWO separate rays — \"greater than = split apart.\" Join the two cases with OR."},
+    {c:2, q:"Solve |x + 12| − 5 > 22.", a:"Isolate: |x+12| > 27. Split: x+12 > 27 OR x+12 < −27 (flip the sign AND negate on the second case). Solve: x > 15 or x < −39."},
+    {c:2, q:"You found the solution x < −34 or x > 10. How do you verify it?", a:"Plug a value OUTSIDE the set into the ORIGINAL inequality — it should be false. Plug a value INSIDE — it should be true. Both checks must hold."},
+    {c:2, q:"Solution is −12 < x < 7. Give 3 other ways to write it.", a:"Interval notation: (−12, 7). Set-builder: {x | −12 < x < 7}. Graph: open circles at −12 and 7, shaded between them."},
+    {c:2, q:"Open circle or closed circle on the number line?", a:"< and > → open circle (endpoint NOT included). ≤ and ≥ → closed circle (endpoint IS included)."},
+    {c:2, q:"Trap: |x + 3| ≥ 2 — one interval or two?", a:"TWO rays (≥ means OR/split): x ≤ −5 or x ≥ −1. Don't shade just the middle — that's the < pattern, not this one."},
+
+    {c:3, q:"Describe the parent function f(x) = |x|.", a:"V-shape opening up, vertex at (0, 0), symmetric about the y-axis. Domain: all reals. Range: y ≥ 0."},
+    {c:3, q:"In g(x) = |x − h| + k, what does k control?", a:"Vertical shift. k positive → moves UP. k negative → moves DOWN. Matches your intuition."},
+    {c:3, q:"In g(x) = |x − h| + k, what does h control — and what's the trap?", a:"Horizontal shift, but the sign is BACKWARDS: since it's x MINUS h, a positive h moves RIGHT and negative moves LEFT. |x+1| = |x−(−1)| → h=−1 → shifts LEFT."},
+    {c:3, q:"g(x) = |x + 1| − 7. Where's the vertex?", a:"Rewrite as |x − (−1)| + (−7): vertex is (−1, −7)."},
+    {c:3, q:"g(x) = |x + 1| − 7. On which interval is it decreasing?", a:"(−∞, −1) — decreasing/increasing intervals shift with the vertex's x-coordinate (h), NOT the k-value. −7 is a tempting WRONG answer."},
+    {c:3, q:"Does shifting |x| ever change its domain?", a:"No — domain is always all real numbers, no matter the shift. Only the RANGE changes (becomes y ≥ k)."},
+    {c:3, q:"A graph shows a V with vertex at (−4.5, 0). Write the function.", a:"h = −4.5, k = 0 → f(x) = |x − (−4.5)| = |x + 4.5|."},
+
+    {c:4, q:"What makes a value \"excluded\" from a rational expression's domain?", a:"Any value that makes the DENOMINATOR equal 0. Set the denominator = 0 and solve for those values."},
+    {c:4, q:"(x−1)/(2x−8) evaluated at x = 4 — what happens?", a:"Denominator = 2(4)−8 = 0 → the expression is UNDEFINED, not zero. Always check the denominator before evaluating."},
+    {c:4, q:"Steps to add/subtract rational expressions with a common denominator?", a:"(1) Rewrite as ONE fraction. (2) If subtracting, distribute the negative sign to EVERY term in the second numerator. (3) Combine like terms. (4) Simplify if numerator and denominator share a factor."},
+    {c:4, q:"(4y+6)/(y−5) − (2y+1)/(y−5) = ?", a:"Combine numerators: (4y+6) − (2y+1) = 2y+5. Answer: (2y+5)/(y−5)."},
+    {c:4, q:"Trap: (3t²−4t+1)/(t+3) − (t²+2t+2)/(t+3) — the #1 error here?", a:"Forgetting to distribute the minus sign to BOTH the t² and constant terms of the second numerator — it becomes −t²−2t−2, not −t²+2t+2."},
+    {c:4, q:"After combining, when can you simplify a rational expression further?", a:"Only if the numerator FACTORS to share a common factor with the denominator — always check before calling it done."},
+    {c:4, q:"Why do rational expressions add/subtract just like plain fractions?", a:"The closure property: adding or subtracting two rational expressions (common denominator) always gives back another rational expression."},
+
+    {c:5, q:"How do you simplify √24?", a:"Factor out a perfect square: 24 = 4 × 6 → √4 × √6 → 2√6."},
+    {c:5, q:"How do you simplify √(x⁷)?", a:"Split into pairs: x⁷ = x⁶ · x → √(x⁶) · √x → x³√x."},
+    {c:5, q:"Can you add √20 and 3√45 directly?", a:"No — different radicands. Simplify each first (√20 = 2√5, 3√45 = 9√5), THEN combine coefficients like like terms."},
+    {c:5, q:"5√6 × 3√2 = ?", a:"Multiply coefficients (5×3=15) and radicands (√6×√2=√12), then SIMPLIFY: √12 = 2√3 → 15 × 2√3 = 30√3. Don't stop at 15√12!"},
+    {c:5, q:"√5 × (2 + √10) = ?", a:"Distribute: 2√5 + √50 → simplify √50 = 5√2 → final answer 2√5 + 5√2."},
+    {c:5, q:"Trap: what's the most-skipped step after multiplying two radicals?", a:"Simplifying the result — the multiplied radicand often hides a perfect-square (or perfect-cube) factor. Always check before you're done."},
+    {c:5, q:"Area = (2+√2)(6+√3) — how do you expand it?", a:"Distribute/FOIL like any binomial: 12 + 2√3 + 6√2 + √2·√3, and √2·√3 combines to √6. Final: 12 + 6√2 + 2√3 + √6."},
+
+    {c:6, q:"State the quotient property of radicals.", a:"The nth root of (a/b) = (nth root of a) ÷ (nth root of b) — works in either direction, as long as the indices (root number) MATCH."},
+    {c:6, q:"Simplify √(1/5).", a:"= 1/√5 → rationalize by multiplying top and bottom by √5 → √5 / 5."},
+    {c:6, q:"Why can't you rationalize ∛5 by multiplying by ∛5?", a:"∛5 × ∛5 = ∛25 — still not a whole number! Multiply by ∛25 instead, so you get ∛125 = 5, a perfect cube."},
+    {c:6, q:"How do you rationalize 5/(3 − √7)?", a:"Multiply top and bottom by the CONJUGATE, 3 + √7. The middle terms cancel, leaving 3² − (√7)² = 9 − 7 = 2 in the denominator."},
+    {c:6, q:"Does the conjugate trick work for cube-root denominators?", a:"No — conjugates only rationalize a SQUARE-root binomial denominator. A different technique is needed for other indices."},
+    {c:6, q:"√(x⁸y¹⁰) ÷ ∛(x³) — can you use the quotient property directly?", a:"No — the indices don't match (2 vs 3). Rewrite both as rational exponents, get a common denominator on the exponents, combine, then convert back to radical form."},
+    {c:6, q:"∛(144/y) — what makes this a whole number, for positive integer y?", a:"You need 144/y to be a perfect cube (like 8 or 27) — test factors of 144 that leave a perfect cube behind."}
+  ];
+
+  CARDS.forEach(function(card, i){ card.id = card.c + '-' + i; });
+
+  var PROGRESS_KEY = 'algebra-flashcards-progress:' + location.pathname;
+  var progress = {};
+  try { progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}'); } catch(e){ progress = {}; }
+  function saveProgress(){
+    try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress)); } catch(e){}
+  }
+
+  var conceptFilter = 'all';
+  var statusFilter = 'all';
+  var deck = [];
+  var pos = 0;
+  var flipped = false;
+
+  var flashcard = document.getElementById('flashcard');
+  var tagFront = document.getElementById('tag-front');
+  var tagBack = document.getElementById('tag-back');
+  var markFront = document.getElementById('mark-front');
+  var markBack = document.getElementById('mark-back');
+  var cardQ = document.getElementById('card-q');
+  var cardA = document.getElementById('card-a');
+  var posNum = document.getElementById('pos-num');
+  var posTotal = document.getElementById('pos-total');
+  var progressFill = document.getElementById('progress-fill');
+  var knowCount = document.getElementById('know-count');
+  var learningCount = document.getElementById('learning-count');
+  var stage = document.getElementById('stage');
+  var emptyState = document.getElementById('empty-state');
+  var markRow = document.getElementById('mark-row');
+  var navRow = document.getElementById('nav-row');
+
+  function conceptName(n){
+    for (var i=0;i<CONCEPTS.length;i++){ if (CONCEPTS[i].n === n) return CONCEPTS[i].name; }
+    return '';
+  }
+
+  function markIcon(id){
+    var s = progress[id];
+    if (s === 'know') return '&#10003;';
+    if (s === 'learning') return '&#8635;';
+    return '';
+  }
+
+  function buildDeck(){
+    deck = CARDS.filter(function(card){
+      if (conceptFilter !== 'all' && card.c !== conceptFilter) return false;
+      if (statusFilter !== 'all' && progress[card.id] !== statusFilter) return false;
+      return true;
     });
-  })();
+    pos = 0;
+    render();
+  }
+
+  function shuffleDeck(){
+    for (var i = deck.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = deck[i]; deck[i] = deck[j]; deck[j] = tmp;
+    }
+    pos = 0;
+    render();
+  }
+
+  function updateCounts(){
+    var know = 0, learning = 0;
+    CARDS.forEach(function(card){
+      if (progress[card.id] === 'know') know++;
+      else if (progress[card.id] === 'learning') learning++;
+    });
+    knowCount.textContent = know;
+    learningCount.textContent = learning;
+  }
+
+  function render(){
+    updateCounts();
+    flipped = false;
+    flashcard.classList.remove('flipped');
+
+    if (!deck.length){
+      stage.hidden = true; markRow.hidden = true; navRow.hidden = true; emptyState.hidden = false;
+      posNum.textContent = '0'; posTotal.textContent = '0'; progressFill.style.width = '0%';
+      return;
+    }
+    stage.hidden = false; markRow.hidden = false; navRow.hidden = false; emptyState.hidden = true;
+
+    var card = deck[pos];
+    var tag = 'Concept ' + card.c + ' · ' + conceptName(card.c);
+    tagFront.textContent = tag;
+    tagBack.textContent = tag;
+    cardQ.textContent = card.q;
+    cardA.textContent = card.a;
+    markFront.innerHTML = markIcon(card.id);
+    markBack.innerHTML = markIcon(card.id);
+    posNum.textContent = String(pos + 1);
+    posTotal.textContent = String(deck.length);
+    progressFill.style.width = (((pos + 1) / deck.length) * 100) + '%';
+  }
+
+  function flip(){ flipped = !flipped; flashcard.classList.toggle('flipped', flipped); }
+
+  function next(){ if (!deck.length) return; pos = (pos + 1) % deck.length; render(); }
+  function prev(){ if (!deck.length) return; pos = (pos - 1 + deck.length) % deck.length; render(); }
+
+  function mark(status){
+    if (!deck.length) return;
+    var card = deck[pos];
+    progress[card.id] = status;
+    saveProgress();
+    next();
+  }
+
+  flashcard.addEventListener('click', function(){ if (!swiped) flip(); });
+  flashcard.addEventListener('keydown', function(e){
+    if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); flip(); }
+    else if (e.key === 'ArrowRight'){ next(); }
+    else if (e.key === 'ArrowLeft'){ prev(); }
+  });
+
+  var swiped = false, touchStartX = 0, touchStartY = 0, touchStartT = 0;
+  flashcard.addEventListener('touchstart', function(e){
+    swiped = false;
+    var t = e.changedTouches[0];
+    touchStartX = t.clientX; touchStartY = t.clientY; touchStartT = Date.now();
+  }, {passive:true});
+  flashcard.addEventListener('touchend', function(e){
+    var t = e.changedTouches[0];
+    var dx = t.clientX - touchStartX, dy = t.clientY - touchStartY;
+    var dt = Date.now() - touchStartT;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.2 && dt < 800){
+      swiped = true;
+      if (dx < 0) next(); else prev();
+    }
+  }, {passive:true});
+
+  document.getElementById('prev-btn').addEventListener('click', prev);
+  document.getElementById('next-btn').addEventListener('click', next);
+  document.getElementById('shuffle-btn').addEventListener('click', shuffleDeck);
+  document.getElementById('mark-know').addEventListener('click', function(){ mark('know'); });
+  document.getElementById('mark-learning').addEventListener('click', function(){ mark('learning'); });
+
+  document.getElementById('concept-filter').querySelector('.tn').textContent = CARDS.length;
+  document.querySelectorAll('#concept-filter .tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('#concept-filter .tab').forEach(function(t){ t.classList.remove('active'); });
+      tab.classList.add('active');
+      var v = tab.getAttribute('data-concept');
+      conceptFilter = v === 'all' ? 'all' : parseInt(v, 10);
+      buildDeck();
+    });
+  });
+  document.querySelectorAll('#status-filter .tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('#status-filter .tab').forEach(function(t){ t.classList.remove('active'); });
+      tab.classList.add('active');
+      statusFilter = tab.getAttribute('data-status');
+      buildDeck();
+    });
+  });
+
+  buildDeck();
+})();
 </script>

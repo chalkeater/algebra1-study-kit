@@ -1,6 +1,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Miriam's Algebra 1 — Study Kit Index</title>
+<title>Nonlinear Functions, Part Two — The Playground</title>
 <style>
   @font-face{
     font-family:'Anton'; font-style:normal; font-weight:400; font-display:swap;
@@ -16,6 +16,8 @@
     --line:#D5E1DE;
     --accent:#0F7A78; --accent-strong:#095452; --accent-soft:#DFF1EF;
     --gold:#C9821A; --gold-soft:#FBEBCC;
+    --good:#2E7D32; --good-soft:#E4F3E1; --bad:#B23A3A; --bad-soft:#FBE6E6;
+    --net:#0E1B1E;
     --radius:16px;
     --shadow:0 1px 2px rgba(14,27,30,.06), 0 10px 28px -14px rgba(14,27,30,.2);
     --font-display:'Anton', impact, sans-serif;
@@ -29,6 +31,7 @@
       --ink:#E9F3F1; --ink-soft:#A6BEBB; --ink-faint:#6E8583; --line:#213231;
       --accent:#2FC7C0; --accent-strong:#8FE6E1; --accent-soft:#123230;
       --gold:#E0AC52; --gold-soft:#332711;
+      --good:#5FBD5F; --good-soft:#163A18; --bad:#F0685F; --bad-soft:#3B1616;
       --shadow:0 1px 2px rgba(0,0,0,.35), 0 10px 28px -14px rgba(0,0,0,.55);
     }
   }
@@ -37,6 +40,7 @@
     --ink:#E9F3F1; --ink-soft:#A6BEBB; --ink-faint:#6E8583; --line:#213231;
     --accent:#2FC7C0; --accent-strong:#8FE6E1; --accent-soft:#123230;
     --gold:#E0AC52; --gold-soft:#332711;
+    --good:#5FBD5F; --good-soft:#163A18; --bad:#F0685F; --bad-soft:#3B1616;
     --shadow:0 1px 2px rgba(0,0,0,.35), 0 10px 28px -14px rgba(0,0,0,.55);
   }
   :root[data-theme="light"]{
@@ -44,6 +48,7 @@
     --ink:#0E1B1E; --ink-soft:#48595C; --ink-faint:#7C8C8C; --line:#D5E1DE;
     --accent:#0F7A78; --accent-strong:#095452; --accent-soft:#DFF1EF;
     --gold:#C9821A; --gold-soft:#FBEBCC;
+    --good:#2E7D32; --good-soft:#E4F3E1; --bad:#B23A3A; --bad-soft:#FBE6E6;
     --shadow:0 1px 2px rgba(14,27,30,.06), 0 10px 28px -14px rgba(14,27,30,.2);
   }
   *{box-sizing:border-box;}
@@ -52,397 +57,906 @@
     font-size:16px; line-height:1.5; -webkit-font-smoothing:antialiased;
   }
   ::selection{background:var(--gold-soft); color:var(--ink);}
-  a{color:inherit;}
-  button:focus-visible, a:focus-visible{outline:3px solid var(--gold); outline-offset:2px;}
+  button, input, select{font-family:inherit; font-size:1rem;}
+  button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible{
+    outline:3px solid var(--gold); outline-offset:2px;
+  }
 
-  header.hero{padding:2.4rem clamp(1rem,4vw,2.5rem) 1.6rem; border-bottom:1px solid var(--line);}
-  .hero-inner{max-width:1040px; margin:0 auto;}
-  .hero-eyebrow{font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; font-weight:700; color:var(--accent-strong); margin:0 0 .4rem;}
+  /* ---- Hero with net motif ---- */
+  header.hero{
+    position:relative; overflow:hidden;
+    padding: 2.4rem clamp(1rem,4vw,2.5rem) 1.6rem;
+    border-bottom:1px solid var(--line);
+    background:
+      linear-gradient(var(--ground-raised), var(--ground-raised)) padding-box;
+  }
+  header.hero canvas.net{
+    position:absolute; inset:0; width:100%; height:100%; opacity:.5; pointer-events:none;
+  }
+  .hero-inner{position:relative; max-width:1180px; margin:0 auto;}
+  .hero-eyebrow{
+    font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; font-weight:700;
+    color:var(--accent-strong); margin:0 0 .4rem;
+  }
   header.hero h1{
     font-family:var(--font-display); font-weight:400; text-transform:uppercase; letter-spacing:.01em;
-    font-size:clamp(2.1rem,5vw,3.2rem); line-height:.95; margin:0 0 .5rem; text-wrap:balance;
+    font-size:clamp(2.1rem,4.6vw,3.3rem); line-height:.95; margin:0 0 .5rem; text-wrap:balance;
   }
-  header.hero p{color:var(--ink-soft); max-width:60ch; margin:0; font-size:1.03rem;}
+  header.hero p{font-size:1.05rem; color:var(--ink-soft); max-width:56ch; margin:0;}
   .hero-actions{margin-top:1rem;}
+
+  /* ---- Tab / station nav ---- */
+  nav.stations{
+    position:sticky; top:0; z-index:20; background:var(--ground); border-bottom:1px solid var(--line);
+    overflow-x:auto; -webkit-overflow-scrolling:touch;
+  }
+  nav.stations .row{
+    display:flex; gap:.35rem; max-width:1180px; margin:0 auto; padding:.6rem clamp(1rem,4vw,2.5rem);
+  }
+  .tab{
+    flex:none; border:1px solid var(--line); background:var(--ground-raised); color:var(--ink-soft);
+    padding:.5rem .85rem; border-radius:999px; font-weight:700; font-size:.82rem; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; gap:.4rem; white-space:nowrap; min-height:2.75rem;
+  }
+  .tab .tn{font-family:var(--font-mono); color:var(--ink-faint); font-size:.72rem;}
+  .tab.active{background:var(--accent); color:#F4FFFE; border-color:var(--accent);}
+  .tab.active .tn{color:#DFFFFD;}
+
+  main{max-width:1180px; margin:0 auto; padding:1.8rem clamp(1rem,4vw,2.5rem) 4rem;}
+  .station{display:none;}
+  .station.active{display:block; animation: fadein .25s ease;}
+  @keyframes fadein{ from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;} }
+  @media (prefers-reduced-motion: reduce){ .station.active{animation:none;} }
+
+  .station-head{margin-bottom:1.1rem;}
+  .station-head h2{
+    font-family:var(--font-display); font-weight:400; text-transform:uppercase; font-size:1.7rem; margin:0 0 .3rem;
+  }
+  .station-head p{color:var(--ink-soft); margin:0; max-width:68ch;}
+
+  .card{
+    background:var(--ground-raised); border:1px solid var(--line); border-radius:var(--radius);
+    padding:1.3rem 1.4rem; box-shadow:var(--shadow); margin-bottom:1rem;
+  }
+
+  /* equation lab */
+  .eq-display{
+    font-family:var(--font-mono); font-size:1.5rem; background:var(--ground-sunken);
+    border-radius:10px; padding:1rem 1.2rem; text-align:center; letter-spacing:.02em;
+  }
+  .problem-bar{display:flex; align-items:center; gap:1rem; flex-wrap:wrap; justify-content:space-between;}
+  .problem-bar .eq-display{flex:1; min-width:240px;}
+  .controls{display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1rem; align-items:center;}
   .btn{
     border:1px solid var(--line); background:var(--ground-raised); color:var(--ink);
-    padding:.5rem .9rem; border-radius:999px; font-size:.82rem; font-weight:600; cursor:pointer; box-shadow:var(--shadow);
-    min-height:2.75rem; display:inline-flex; align-items:center; justify-content:center;
+    padding:.55rem .9rem; border-radius:10px; font-size:.85rem; font-weight:600; cursor:pointer;
+    box-shadow:var(--shadow); min-height:2.75rem; display:inline-flex; align-items:center; justify-content:center;
   }
+  .btn.primary{background:var(--accent); border-color:var(--accent); color:#F4FFFE;}
+  .btn.ghost{background:transparent; box-shadow:none;}
+  .btn.gold{background:var(--gold); border-color:var(--gold); color:#241a02;}
+  .numin{
+    width:5.5rem; padding:.5rem .6rem; border:1px solid var(--line); border-radius:10px;
+    background:var(--ground-raised); color:var(--ink); font-family:var(--font-mono);
+  }
+  .log{
+    margin-top:.8rem; max-height:120px; overflow-y:auto; font-size:.82rem; color:var(--ink-faint);
+    display:flex; flex-direction:column; gap:.2rem;
+  }
+  .log-line::before{content:"→ "; color:var(--accent-strong);}
+  .celebrate{
+    margin-top:.9rem; padding:.8rem 1rem; border-radius:10px; background:var(--good-soft); color:var(--good);
+    font-weight:700;
+  }
+  .celebrate.bad{background:var(--bad-soft); color:var(--bad);}
 
-  main{max-width:1040px; margin:0 auto; padding:2rem clamp(1rem,4vw,2.5rem) 4rem;}
+  /* literal lab */
+  .lit-formula{font-size:.85rem; color:var(--ink-faint); font-weight:700; text-transform:uppercase; letter-spacing:.06em;}
+  .lit-display{
+    font-family:var(--font-mono); font-size:1.7rem; text-align:center; padding:1.2rem; background:var(--ground-sunken);
+    border-radius:10px; margin:.6rem 0 1rem;
+  }
+  .lit-choices{display:grid; gap:.6rem;}
+  @media (min-width:560px){ .lit-choices{grid-template-columns:1fr 1fr 1fr;} }
+  .btn.choice{width:100%; text-align:left; padding:.8rem .9rem; justify-content:flex-start;}
+  .btn.choice.wrong-flash{background:var(--bad-soft); border-color:var(--bad); color:var(--bad);}
+  @keyframes shake{ 0%,100%{transform:translateX(0);} 25%{transform:translateX(-4px);} 75%{transform:translateX(4px);} }
+  .shake-wrong{animation:shake .3s ease;}
+  @media (prefers-reduced-motion: reduce){ .shake-wrong{animation:none;} }
 
-  .unit-block{margin-bottom:2.4rem;}
-  .unit-head{display:flex; align-items:baseline; gap:.9rem; flex-wrap:wrap; margin-bottom:.4rem;}
-  .unit-badge{
-    font-family:var(--font-mono); font-size:.72rem; font-weight:700; letter-spacing:.06em;
-    background:var(--accent); color:#F4FFFE; padding:.25rem .6rem; border-radius:6px;
-  }
-  .unit-head h2{
-    font-family:var(--font-display); font-weight:400; text-transform:uppercase; font-size:1.5rem; margin:0;
-  }
-  .unit-desc{color:var(--ink-faint); font-size:.88rem; margin:.2rem 0 1.1rem; max-width:70ch;}
+  /* inequality lab */
+  .marker-editors{display:grid; gap:1rem; grid-template-columns:1fr; margin-bottom:.8rem;}
+  @media (min-width:640px){ .marker-editors{grid-template-columns:1fr 1fr;} }
+  .marker-editor{background:var(--ground-sunken); border-radius:10px; padding:.8rem .9rem;}
+  .marker-editor .label{font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-faint); margin-bottom:.5rem;}
+  .marker-editor .row{display:flex; gap:.5rem; flex-wrap:wrap; align-items:center;}
+  .marker-editor select{padding:.4rem .5rem; border-radius:8px; border:1px solid var(--line); background:var(--ground-raised); color:var(--ink);}
+  .numline-wrap{margin:.6rem 0;}
+  .numline-title{font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-faint); margin-bottom:.3rem;}
+  svg text{font-family:var(--font-mono);}
+  .feedback{margin-top:.6rem; padding:.7rem 1rem; border-radius:10px; font-weight:700;}
+  .feedback.good{background:var(--good-soft); color:var(--good);}
+  .feedback.bad{background:var(--bad-soft); color:var(--bad);}
 
-  .card-grid{display:grid; gap:1rem; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));}
-  .card{
-    display:flex; flex-direction:column;
-    background:var(--ground-raised); border:1px solid var(--line); border-radius:var(--radius);
-    box-shadow:var(--shadow); transition:transform .15s ease, border-color .15s ease;
-  }
-  .card:hover{transform:translateY(-2px); border-color:var(--accent);}
-  .card-main{
-    display:flex; flex-direction:column; gap:.5rem;
-    padding:1.2rem 1.3rem 1rem; text-decoration:none; color:var(--ink); flex:1;
-  }
-  .card-icon{font-size:1.6rem; line-height:1;}
-  .card-title{font-family:var(--font-display); font-weight:400; text-transform:uppercase; font-size:1.05rem; letter-spacing:.01em;}
-  .card-desc{color:var(--ink-soft); font-size:.85rem; line-height:1.45; flex:1;}
-  .card-foot{
-    display:flex; align-items:center; justify-content:space-between; gap:.6rem;
-    padding:.7rem 1.3rem; border-top:1px solid var(--line);
-  }
-  .card-file{font-family:var(--font-mono); font-size:.72rem; color:var(--ink-faint);}
+  /* graph lab */
+  .graph-layout{display:flex; gap:1.4rem; flex-wrap:wrap; align-items:flex-start;}
+  canvas.plot{background:var(--ground-sunken); border-radius:12px; touch-action:none; cursor:crosshair; max-width:100%;}
+  .graph-side{flex:1; min-width:220px;}
+  .readout{font-size:.9rem; color:var(--ink-soft); margin-top:.6rem;}
+  .readout .pt{font-family:var(--font-mono);}
+  .legend{display:flex; gap:1rem; flex-wrap:wrap; font-size:.82rem; color:var(--ink-faint); margin-top:.6rem;}
+  .legend span{display:inline-flex; align-items:center; gap:.35rem;}
+  .dot{width:.7rem; height:.7rem; border-radius:50%; display:inline-block;}
 
-  .next-unit{
-    border:1px dashed var(--line); border-radius:var(--radius); padding:1.2rem 1.3rem;
-    color:var(--ink-faint); font-size:.88rem; text-align:center;
+  /* modeling lab */
+  .slider-row{margin-bottom:1rem;}
+  .slider-row label{display:flex; justify-content:space-between; font-size:.9rem; font-weight:600; margin-bottom:.3rem;}
+  .slider-row output{font-family:var(--font-mono); color:var(--accent-strong);}
+  input[type="range"]{width:100%; accent-color:var(--accent);}
+  .status-pill{
+    display:inline-flex; align-items:center; gap:.4rem; padding:.5rem 1rem; border-radius:999px;
+    font-weight:700; font-size:.9rem; margin-top:.4rem;
   }
+  .status-pill.good{background:var(--good-soft); color:var(--good);}
+  .status-pill.bad{background:var(--bad-soft); color:var(--bad);}
+  .total-line{font-family:var(--font-mono); font-size:1.05rem; margin-top:.5rem;}
 
   footer{text-align:center; color:var(--ink-faint); font-size:.78rem; padding:1.5rem;}
+
+  .site-nav{
+    display:flex; align-items:center; gap:.5rem; overflow-x:auto;
+    padding:.5rem clamp(1rem,4vw,2.5rem); border-bottom:1px solid var(--line);
+    background:var(--ground-sunken); -webkit-overflow-scrolling:touch; scrollbar-width:none;
+  }
+  .site-nav::-webkit-scrollbar{display:none;}
+  .site-nav a{
+    flex:none; display:inline-flex; align-items:center; justify-content:center; white-space:nowrap;
+    padding:.5rem .85rem; border-radius:999px; font-size:.78rem; font-weight:700;
+    text-decoration:none; color:var(--ink-soft); min-height:2.75rem;
+  }
+  .site-nav a.home{color:var(--accent-strong); background:var(--ground-raised); border:1px solid var(--line); box-shadow:var(--shadow);}
+  .site-nav a.page:hover{color:var(--ink);}
+  .site-nav a.page.active{background:var(--accent); color:#F4FFFE;}
+</style>
+<style>
+  /* ---- Unit 4 station additions ---- */
+  .graph-wrap{max-width:420px;}
+  .graph-wrap svg{width:100%; height:auto; display:block; background:var(--ground-sunken); border:1px solid var(--line); border-radius:12px; cursor:crosshair;}
+  .graph-wrap.nocursor svg{cursor:default;}
+  .sys-display{
+    font-family:var(--font-mono); font-size:1.02rem; line-height:1.6;
+    background:var(--ground-sunken); border:1px solid var(--line); border-radius:10px;
+    padding:.7rem .9rem; margin:.6rem 0 .8rem; white-space:pre-line;
+  }
+  .readout{font-family:var(--font-mono); font-size:.95rem; display:flex; flex-direction:column; gap:.35rem; margin-top:.6rem;}
+  .readout b{color:var(--accent-strong);}
+  .readout .hit{color:var(--good); font-weight:700;}
+  .stepper-row{display:flex; align-items:center; gap:.5rem; margin:.5rem 0; flex-wrap:wrap;}
+  .stepper-row .lbl{font-family:var(--font-mono); font-size:.9rem; min-width:9.5rem;}
+  .stepper-row button{
+    min-width:2.75rem; min-height:2.75rem; border-radius:10px; border:2px solid var(--line);
+    background:var(--ground-sunken); color:var(--ink); font-size:1.2rem; font-weight:700; cursor:pointer;
+  }
+  .stepper-row output{font-family:var(--font-mono); font-size:1.1rem; font-weight:700; min-width:2.4rem; text-align:center; color:var(--accent-strong);}
+  .sym-line{display:flex; align-items:center; gap:.6rem; flex-wrap:wrap; margin:.55rem 0; font-family:var(--font-mono); font-size:1.05rem;}
+  .sym-toggle{
+    min-width:3.2rem; min-height:2.75rem; border-radius:10px; border:2px dashed var(--gold);
+    background:var(--gold-soft); color:var(--ink); font-size:1.25rem; font-weight:700; cursor:pointer;
+  }
+  .sym-line .hint{font-family:var(--font-body, inherit); font-size:.8rem; color:var(--ink-soft); flex-basis:100%;}
+  .count-pill{
+    display:inline-block; font-family:var(--font-mono); font-size:.85rem; font-weight:700;
+    background:var(--accent-soft); color:var(--accent-strong); border-radius:999px; padding:.25rem .7rem; margin-left:.4rem;
+  }
 </style>
 
+<nav class="site-nav" aria-label="Unit navigation">
+  <a class="home" href="../index.html">&larr; Index</a>
+  <a class="page" href="study-guide.html">Study Guide</a>
+  <a class="page" href="concept-explainers.html">Explainer</a>
+  <a class="page active" href="playground.html">Playground</a>
+  <a class="page" href="flashcards.html">Flashcards</a>
+  <a class="page" href="practice-quiz.html">Quiz</a>
+  <a class="page" href="cheat-sheet.html">Cheat Sheet</a>
+</nav>
+
 <header class="hero">
+  <canvas class="net" id="net-canvas"></canvas>
   <div class="hero-inner">
-    <p class="hero-eyebrow">Study Kit Index</p>
-    <h1>Miriam's Algebra 1</h1>
-    <p>One row per unit test. Each unit gets the same five pieces: a study guide for during the test, an explainer for before it, a playground to practice in, flashcards to drill on the go, and a quiz to prove it stuck.</p>
+    <p class="hero-eyebrow">The Playground · Learn By Touching It</p>
+    <h1>6 Stations.<br>One Skill Each.</h1>
+    <p>Pick a station below. Predict how many solutions an absolute value equation has before you solve it, drag the vertex of a V-graph around, catch someone else's sign mistake — you're not reading about this stuff, you're doing it.</p>
     <div class="hero-actions">
       <button class="btn" id="theme-toggle" type="button">🌓 Theme</button>
     </div>
   </div>
 </header>
 
+<nav class="stations" aria-label="Station picker">
+  <div class="row" id="tab-row">
+    <button class="tab active" data-station="1"><span class="tn">01</span> AV Equations</button>
+    <button class="tab" data-station="2"><span class="tn">02</span> AV Inequalities</button>
+    <button class="tab" data-station="3"><span class="tn">03</span> Translations</button>
+    <button class="tab" data-station="4"><span class="tn">04</span> Rational Exprs.</button>
+    <button class="tab" data-station="5"><span class="tn">05</span> Simplify Radicals</button>
+    <button class="tab" data-station="6"><span class="tn">06</span> Rationalize</button>
+  </div>
+</nav>
+
 <main>
 
-  <section class="unit-block">
-    <div class="unit-head">
-      <span class="unit-badge">Unit 1</span>
-      <h2>Linear Equations &amp; Inequalities</h2>
+  <!-- STATION 1 -->
+  <section class="station active" id="st1">
+    <div class="station-head">
+      <h2>Station 1 — Predict, Then Prove It</h2>
+      <p>Before you solve, look at an isolated absolute value equation and predict how many solutions it has. Positive on the right? Two. Zero on the right? One. Negative on the right? None — no amount of solving fixes that. Then test candidate values in the ORIGINAL equation to prove yourself right.</p>
     </div>
-    <p class="unit-desc">Solving equations, variable on one side, variables on both sides, the distributive property, literal equations, compound inequalities, graphing and modeling two-variable inequalities.</p>
-    <div class="card-grid">
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/study-guide.html">
-          <span class="card-icon">📘</span>
-          <span class="card-title">Study Guide</span>
-          <span class="card-desc">Open-notes reference — one worked example per concept. Use this one during the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">study-guide.html</span>
-        </div>
+    <div class="card">
+      <div class="sys-display" id="av1-eq"></div>
+      <p style="margin:.4rem 0; font-weight:700;">How many solutions?</p>
+      <div class="lit-choices" style="grid-template-columns:1fr 1fr 1fr;">
+        <button class="btn choice" id="av1-c0" type="button">0 solutions</button>
+        <button class="btn choice" id="av1-c1" type="button">1 solution</button>
+        <button class="btn choice" id="av1-c2" type="button">2 solutions</button>
       </div>
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/concept-explainers.html">
-          <span class="card-icon">🧠</span>
-          <span class="card-title">The Explainer</span>
-          <span class="card-desc">ELI5 deep-dive with volleyball analogies, the "why," and common mistakes. Read this before the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">concept-explainers.html</span>
-        </div>
+      <div class="feedback" id="av1-predict-fb" hidden></div>
+      <div id="av1-test-wrap" hidden>
+        <p style="margin:.7rem 0 .4rem; font-weight:700;">Now test these values in the ORIGINAL equation — which ones actually work?</p>
+        <div class="lit-choices" id="av1-candidates" style="grid-template-columns:1fr 1fr 1fr 1fr;"></div>
+        <div class="readout" id="av1-test-readout"></div>
       </div>
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/playground.html">
-          <span class="card-icon">🏐</span>
-          <span class="card-title">The Playground</span>
-          <span class="card-desc">8 hands-on stations — drive an equation solver, build a graph, test points, drag sliders.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">playground.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/practice-quiz.html">
-          <span class="card-icon">🎯</span>
-          <span class="card-title">Practice Quiz</span>
-          <span class="card-desc">33 questions, instant feedback, score + streak tracker. Prove you've got it.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">practice-quiz.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-01-linear-equations-inequalities/flashcards.html">
-          <span class="card-icon">🃏</span>
-          <span class="card-title">Flashcards</span>
-          <span class="card-desc">32 tap-to-flip cards by concept. Swipe through on your phone, mark what's still shaky.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">flashcards.html</span>
-        </div>
+      <div class="controls">
+        <button class="btn ghost" id="av1-new" type="button">🔄 New equation</button>
+        <span class="count-pill" id="av1-count" hidden></span>
       </div>
     </div>
   </section>
 
-  <section class="unit-block">
-    <div class="unit-head">
-      <span class="unit-badge">Unit 2</span>
-      <h2>Sets, Venn Diagrams &amp; Triangle Angles</h2>
+  <!-- STATION 2 -->
+  <section class="station" id="st2">
+    <div class="station-head">
+      <h2>Station 2 — Sort It, Then Test It</h2>
+      <p>"Less than" always joins with <b>and</b> and graphs as ONE connected stretch. "Greater than" always joins with <b>or</b> and graphs as TWO separate rays. Predict both, reveal the real graph, then click points on the number line to check them against the ORIGINAL inequality — that check is exactly what trips people up on the real test.</p>
     </div>
-    <p class="unit-desc">Sets and elements, subsets, union and intersection with Venn diagrams, sets applied to probability and geometry, the triangle angle-sum theorem, and the two proofs of why the angles always make 180°.</p>
-    <div class="card-grid">
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/study-guide.html">
-          <span class="card-icon">📘</span>
-          <span class="card-title">Study Guide</span>
-          <span class="card-desc">Open-notes reference — one worked example per concept. Use this one during the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">study-guide.html</span>
-        </div>
+    <div class="card">
+      <div class="sys-display" id="av2-ineq"></div>
+      <div class="stepper-row">
+        <span class="lbl">Compound form:</span>
+        <button class="btn choice" id="av2-and" type="button" style="min-height:2.75rem; padding:.5rem 1rem;">"and" — between</button>
+        <button class="btn choice" id="av2-or" type="button" style="min-height:2.75rem; padding:.5rem 1rem;">"or" — split apart</button>
       </div>
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/concept-explainers.html">
-          <span class="card-icon">🧠</span>
-          <span class="card-title">The Explainer</span>
-          <span class="card-desc">ELI5 deep-dive with volleyball analogies, the "why," and common mistakes. Read this before the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">concept-explainers.html</span>
-        </div>
+      <div class="feedback" id="av2-fb1" hidden></div>
+      <div class="stepper-row">
+        <span class="lbl">Circle type:</span>
+        <button class="btn choice" id="av2-open" type="button" style="min-height:2.75rem; padding:.5rem 1rem;">open circles</button>
+        <button class="btn choice" id="av2-closed" type="button" style="min-height:2.75rem; padding:.5rem 1rem;">closed circles</button>
       </div>
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/playground.html">
-          <span class="card-icon">🏐</span>
-          <span class="card-title">The Playground</span>
-          <span class="card-desc">6 hands-on stations — build sets, click Venn regions, bend a live triangle, run the 180° proof yourself.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">playground.html</span>
-        </div>
+      <div class="feedback" id="av2-fb2" hidden></div>
+      <div class="graph-wrap">
+        <svg id="av2-svg" viewBox="0 0 340 90" aria-label="Number line — click to test a point"></svg>
       </div>
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/practice-quiz.html">
-          <span class="card-icon">🎯</span>
-          <span class="card-title">Practice Quiz</span>
-          <span class="card-desc">47 questions, two modes: instant-feedback practice and a no-hints exam mode. Plus a printable worksheet.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">practice-quiz.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-02-sets-and-triangle-angles/flashcards.html">
-          <span class="card-icon">🃏</span>
-          <span class="card-title">Flashcards</span>
-          <span class="card-desc">35 tap-to-flip cards by concept. Swipe through on your phone, mark what's still shaky.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">flashcards.html</span>
-        </div>
+      <p style="margin:.4rem 0; font-size:.85rem; color:var(--ink-faint);">Click anywhere on the number line to test that value.</p>
+      <div class="readout" id="av2-readout"></div>
+      <div class="controls">
+        <button class="btn ghost" id="av2-new" type="button">🔄 New inequality</button>
       </div>
     </div>
   </section>
 
-  <section class="unit-block">
-    <div class="unit-head">
-      <span class="unit-badge">Midterm</span>
-      <h2>Cumulative Review — First Half</h2>
+  <!-- STATION 3 -->
+  <section class="station" id="st3">
+    <div class="station-head">
+      <h2>Station 3 — Drag the Vertex</h2>
+      <p>Slide h and k and watch g(x) = |x − h| + k move. Notice h's sign is backwards from what you'd expect (subtract inside → positive h slides RIGHT). Watch the vertex, then answer where the graph is <b>decreasing</b> — the vertex's x-coordinate, not its y.</p>
     </div>
-    <p class="unit-desc">Everything from the first half of the class: solving equations, literal equations &amp; formulas, inequalities, function basics, reading graphs, lines &amp; sequences, and sets. The quiz re-rolls its numbers every time, so it can't be memorized — only learned.</p>
-    <div class="card-grid">
-      <div class="card">
-        <a class="card-main" href="midterm-review/cheat-sheet.html">
-          <span class="card-icon">🗒️</span>
-          <span class="card-title">Cheat Sheet</span>
-          <span class="card-desc">The whole exam on one scannable page — 10 one-sentence big ideas plus "do this" boxes for all 7 topics. Print it.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">cheat-sheet.html</span>
-        </div>
+    <div class="card">
+      <div class="slider-row">
+        <label><span>h (horizontal shift)</span> <output id="av3-h-out">0</output></label>
+        <input type="range" id="av3-h" min="-6" max="6" value="0" step="1">
       </div>
-      <div class="card">
-        <a class="card-main" href="midterm-review/practice-quiz.html">
-          <span class="card-icon">🎲</span>
-          <span class="card-title">Practice Quiz</span>
-          <span class="card-desc">41 questions, 5–6 per topic — with fresh numbers on every deal. Practice mode, exam mode, and printable worksheets that regenerate every print.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">practice-quiz.html</span>
-        </div>
+      <div class="slider-row">
+        <label><span>k (vertical shift)</span> <output id="av3-k-out">0</output></label>
+        <input type="range" id="av3-k" min="-6" max="6" value="0" step="1">
       </div>
-      <div class="card">
-        <a class="card-main" href="midterm-review/flashcards.html">
-          <span class="card-icon">🃏</span>
-          <span class="card-title">Flashcards</span>
-          <span class="card-desc">40 tap-to-flip cards across all 7 topics. Swipe through on your phone, mark what's still shaky.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">flashcards.html</span>
-        </div>
+      <div class="graph-wrap">
+        <svg id="av3-svg" viewBox="0 0 340 340" aria-label="Coordinate grid showing a translated absolute value function"></svg>
+      </div>
+      <div class="sys-display" id="av3-fn"></div>
+      <div class="readout" id="av3-readout"></div>
+      <p style="margin:.7rem 0 .4rem; font-weight:700;">Where is g(x) decreasing?</p>
+      <div class="lit-choices" id="av3-quiz" style="grid-template-columns:1fr 1fr;"></div>
+      <div class="feedback" id="av3-fb" hidden></div>
+    </div>
+  </section>
+
+  <!-- STATION 4 -->
+  <section class="station" id="st4">
+    <div class="station-head">
+      <h2>Station 4 — Catch the Sign Mistake</h2>
+      <p>Subtracting rational expressions goes wrong in one place: distributing the negative sign to the SECOND numerator. It has to hit every term, not just the first. Pick the numerator that distributed it correctly.</p>
+    </div>
+    <div class="card">
+      <div class="sys-display" id="av4-problem"></div>
+      <p style="margin:.4rem 0; font-weight:700;">Which is the correctly distributed numerator?</p>
+      <div class="lit-choices" id="av4-choices" style="grid-template-columns:1fr;"></div>
+      <div class="feedback" id="av4-fb" hidden></div>
+      <div class="controls">
+        <button class="btn ghost" id="av4-new" type="button">🔄 New problem</button>
       </div>
     </div>
   </section>
 
-  <section class="unit-block">
-    <div class="unit-head">
-      <span class="unit-badge">Unit 3</span>
-      <h2>Systems of Equations &amp; Inequalities</h2>
+  <!-- STATION 5 -->
+  <section class="station" id="st5">
+    <div class="station-head">
+      <h2>Station 5 — Find the Biggest Perfect Square</h2>
+      <p>Simplifying a radical is about factoring out the LARGEST perfect-square factor in one move, so nothing's left to simplify. Pick the factor pair that does that.</p>
     </div>
-    <p class="unit-desc">Solving systems of linear equations by graphing, substitution, and elimination (linear combination); systems with one, no, or infinitely many solutions; modeling word problems with systems; and writing, graphing, and interpreting systems of linear inequalities.</p>
-    <div class="card-grid">
-      <div class="card">
-        <a class="card-main" href="unit-03-systems-of-equations-inequalities/study-guide.html">
-          <span class="card-icon">📘</span>
-          <span class="card-title">Study Guide</span>
-          <span class="card-desc">Open-notes reference — one worked example per concept. Use this one during the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">study-guide.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-03-systems-of-equations-inequalities/cheat-sheet.html">
-          <span class="card-icon">🗒️</span>
-          <span class="card-title">Cheat Sheet</span>
-          <span class="card-desc">The whole test on one scannable page — 10 one-sentence big ideas plus "do this" boxes for all 7 topics. Print it.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">cheat-sheet.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-03-systems-of-equations-inequalities/concept-explainers.html">
-          <span class="card-icon">🧠</span>
-          <span class="card-title">The Explainer</span>
-          <span class="card-desc">ELI5 deep-dive with volleyball analogies, the "why," and common mistakes. Read this before the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">concept-explainers.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-03-systems-of-equations-inequalities/playground.html">
-          <span class="card-icon">🏐</span>
-          <span class="card-title">The Playground</span>
-          <span class="card-desc">6 hands-on stations — click the intersection, drive the substitution machine, make variables cancel, build inequality systems.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">playground.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-03-systems-of-equations-inequalities/practice-quiz.html">
-          <span class="card-icon">🎯</span>
-          <span class="card-title">Practice Quiz</span>
-          <span class="card-desc">44 questions, two modes: instant-feedback practice and a no-hints exam mode. Plus a printable worksheet.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">practice-quiz.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-03-systems-of-equations-inequalities/flashcards.html">
-          <span class="card-icon">🃏</span>
-          <span class="card-title">Flashcards</span>
-          <span class="card-desc">36 tap-to-flip cards by concept. Swipe through on your phone, mark what's still shaky.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">flashcards.html</span>
-        </div>
+    <div class="card">
+      <div class="sys-display" id="av5-problem"></div>
+      <p style="margin:.4rem 0; font-weight:700;">Which factor pair fully simplifies it?</p>
+      <div class="lit-choices" id="av5-choices" style="grid-template-columns:1fr;"></div>
+      <div class="feedback" id="av5-fb" hidden></div>
+      <div class="controls">
+        <button class="btn ghost" id="av5-new" type="button">🔄 New radical</button>
       </div>
     </div>
   </section>
 
-  <section class="unit-block">
-    <div class="unit-head">
-      <span class="unit-badge">Unit 4</span>
-      <h2>Nonlinear Functions — Part Two</h2>
+  <!-- STATION 6 -->
+  <section class="station" id="st6">
+    <div class="station-head">
+      <h2>Station 6 — What Do You Multiply By?</h2>
+      <p>Rationalizing means getting rid of the radical in the denominator. A single radical: multiply by itself (or enough of itself to complete the root). A two-term denominator: multiply by its conjugate — same terms, sign flipped in the middle.</p>
     </div>
-    <p class="unit-desc">Solving and graphing absolute value equations and inequalities; absolute value functions and their vertical/horizontal translations; adding and subtracting rational expressions with common denominators; and simplifying, multiplying, and dividing radical expressions (including rationalizing the denominator).</p>
-    <div class="card-grid">
-      <div class="card">
-        <a class="card-main" href="unit-04-nonlinear-functions-part-two/study-guide.html">
-          <span class="card-icon">📘</span>
-          <span class="card-title">Study Guide</span>
-          <span class="card-desc">Open-notes reference — one worked example per concept. Use this one during the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">study-guide.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-04-nonlinear-functions-part-two/cheat-sheet.html">
-          <span class="card-icon">🗒️</span>
-          <span class="card-title">Cheat Sheet</span>
-          <span class="card-desc">The whole test on one scannable page — 10 one-sentence big ideas plus "do this" boxes for all 6 topics. Print it.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">cheat-sheet.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-04-nonlinear-functions-part-two/concept-explainers.html">
-          <span class="card-icon">🧠</span>
-          <span class="card-title">The Explainer</span>
-          <span class="card-desc">ELI5 deep-dive with the odometer/two-way-radio/chess-rook analogies, the "why," and common mistakes. Read this before the test.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">concept-explainers.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-04-nonlinear-functions-part-two/playground.html">
-          <span class="card-icon">🎮</span>
-          <span class="card-title">The Playground</span>
-          <span class="card-desc">6 hands-on stations — predict then prove absolute value solutions, drag the vertex to see translations live, catch the sign mistake.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">playground.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-04-nonlinear-functions-part-two/practice-quiz.html">
-          <span class="card-icon">🎯</span>
-          <span class="card-title">Practice Quiz</span>
-          <span class="card-desc">23 questions, two modes: instant-feedback practice and a no-hints exam mode. Plus a printable worksheet.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">practice-quiz.html</span>
-        </div>
-      </div>
-      <div class="card">
-        <a class="card-main" href="unit-04-nonlinear-functions-part-two/flashcards.html">
-          <span class="card-icon">🃏</span>
-          <span class="card-title">Flashcards</span>
-          <span class="card-desc">42 tap-to-flip cards by concept. Swipe through on your phone, mark what's still shaky.</span>
-        </a>
-        <div class="card-foot">
-          <span class="card-file">flashcards.html</span>
-        </div>
+    <div class="card">
+      <div class="sys-display" id="av6-problem"></div>
+      <p style="margin:.4rem 0; font-weight:700;">Multiply the top and bottom by...</p>
+      <div class="lit-choices" id="av6-choices" style="grid-template-columns:1fr;"></div>
+      <div class="feedback" id="av6-fb" hidden></div>
+      <div class="controls">
+        <button class="btn ghost" id="av6-new" type="button">🔄 New problem</button>
       </div>
     </div>
   </section>
-
-  <div class="next-unit">Unit 5 shows up here once the next test is announced.</div>
 
 </main>
 
-<footer>Miriam's Algebra 1 · Study Kit Index</footer>
+<footer>Miriam's Algebra 1 · Unit 4 Playground</footer>
 
 <script>
-  (function(){
-    var root = document.documentElement;
-    var toggle = document.getElementById('theme-toggle');
-    var stored = null;
-    try { stored = localStorage.getItem('algebra-theme'); } catch(e){}
-    if (stored) root.setAttribute('data-theme', stored);
-    toggle.addEventListener('click', function(){
-      var current = root.getAttribute('data-theme');
-      var next = current === 'dark' ? 'light' : 'dark';
-      if (!current){ next = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark'; }
-      root.setAttribute('data-theme', next);
-      try { localStorage.setItem('algebra-theme', next); } catch(e){}
+(function(){
+  "use strict";
+
+  /* ================= THEME + TABS ================= */
+  var root = document.documentElement;
+  var themeToggle = document.getElementById('theme-toggle');
+  var stored = null;
+  try { stored = localStorage.getItem('algebra-theme'); } catch(e){}
+  if (stored) root.setAttribute('data-theme', stored);
+  themeToggle.addEventListener('click', function(){
+    var current = root.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    if (!current){ next = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark'; }
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('algebra-theme', next); } catch(e){}
+  });
+
+  document.querySelectorAll('.tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+      document.querySelectorAll('.station').forEach(function(s){ s.classList.remove('active'); });
+      tab.classList.add('active');
+      document.getElementById('st'+tab.getAttribute('data-station')).classList.add('active');
     });
+  });
+
+  /* ================= NET BACKGROUND ================= */
+  (function(){
+    var canvas = document.getElementById('net-canvas');
+    if(!canvas || !canvas.getContext) return;
+    function draw(){
+      var w = canvas.offsetWidth, h = canvas.offsetHeight;
+      canvas.width = w; canvas.height = h;
+      var ctx = canvas.getContext('2d');
+      ctx.clearRect(0,0,w,h);
+      ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--line').trim() || '#ccc';
+      ctx.lineWidth = 1;
+      var gap = 34;
+      for(var x=0; x<w+gap; x+=gap){ ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x-14,h); ctx.stroke(); }
+      for(var y=0; y<h+gap; y+=gap){ ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(w,y+6); ctx.stroke(); }
+    }
+    draw();
+    window.addEventListener('resize', draw);
+    new MutationObserver(draw).observe(document.documentElement, {attributes:true, attributeFilter:['data-theme']});
   })();
+
+  function fmt(n){ return String(n).replace('-', '−'); }
+  function shuffle(arr){
+    for (var i=arr.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=arr[i]; arr[i]=arr[j]; arr[j]=t; }
+    return arr;
+  }
+
+  /* ---------- shared 2D grid helpers (13x13 grid, -6..6) ---------- */
+  function GX(x){ return 170 + x*25; }
+  function GY(y){ return 170 - y*25; }
+  function gridBase(){
+    var s = '';
+    for (var i=-6; i<=6; i++){
+      s += '<line x1="'+GX(i)+'" y1="'+GY(-6)+'" x2="'+GX(i)+'" y2="'+GY(6)+'" stroke="currentColor" stroke-opacity=".14" stroke-width="1"/>';
+      s += '<line x1="'+GX(-6)+'" y1="'+GY(i)+'" x2="'+GX(6)+'" y2="'+GY(i)+'" stroke="currentColor" stroke-opacity=".14" stroke-width="1"/>';
+    }
+    s += '<line x1="'+GX(-6)+'" y1="'+GY(0)+'" x2="'+GX(6)+'" y2="'+GY(0)+'" stroke="currentColor" stroke-opacity=".6" stroke-width="2"/>';
+    s += '<line x1="'+GX(0)+'" y1="'+GY(-6)+'" x2="'+GX(0)+'" y2="'+GY(6)+'" stroke="currentColor" stroke-opacity=".6" stroke-width="2"/>';
+    s += '<text x="'+(GX(6)-14)+'" y="'+(GY(0)-8)+'" font-size="13" fill="currentColor">x</text>';
+    s += '<text x="'+(GX(0)+8)+'" y="'+(GY(6)+14)+'" font-size="13" fill="currentColor">y</text>';
+    return s;
+  }
+
+  /* ================= STATION 1: PREDICT, THEN PROVE IT ================= */
+  (function(){
+    var PROBLEMS = [
+      {text:'|x − 3| = 8', m:1, b:-3, c:8},
+      {text:'|x + 5| = 0', m:1, b:5, c:0},
+      {text:'|2x − 1| = −6', m:2, b:-1, c:-6},
+      {text:'|x + 10| = 4', m:1, b:10, c:4},
+      {text:'|3x| = 12', m:3, b:0, c:12},
+      {text:'|x − 6| = 6', m:1, b:-6, c:6},
+      {text:'|−x + 4| = 9', m:-1, b:4, c:9},
+      {text:'|x − 2| = −3', m:1, b:-2, c:-3}
+    ];
+    var eqEl = document.getElementById('av1-eq');
+    var predictFb = document.getElementById('av1-predict-fb');
+    var testWrap = document.getElementById('av1-test-wrap');
+    var candWrap = document.getElementById('av1-candidates');
+    var testReadout = document.getElementById('av1-test-readout');
+    var countPill = document.getElementById('av1-count');
+    var cur = null, lastIdx = -1, foundKeys = {}, foundN = 0, needed = 0;
+
+    function trueCount(c){ return c > 0 ? 2 : (c === 0 ? 1 : 0); }
+
+    function buildCandidates(){
+      var m = cur.m, b = cur.b, c = cur.c;
+      var set = [];
+      function push(v){
+        v = Math.round(v*100)/100;
+        var already = false;
+        for (var i=0;i<set.length;i++){ if (set[i]===v) already = true; }
+        if (!already) set.push(v);
+      }
+      if (c > 0){ push((c-b)/m); push((-c-b)/m); }
+      else if (c === 0){ push((0-b)/m); }
+      push(-b/m);
+      push((Math.abs(c)-b)/m + 2);
+      push(b);
+      shuffle(set);
+      return set.slice(0, 4);
+    }
+
+    function renderCandidates(){
+      candWrap.innerHTML = '';
+      var cands = buildCandidates();
+      cands.forEach(function(x){
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'btn choice';
+        btn.textContent = 'x = ' + fmt(x);
+        btn.addEventListener('click', function(){ testValue(x); });
+        candWrap.appendChild(btn);
+      });
+    }
+
+    function testValue(x){
+      var lhs = Math.abs(cur.m*x + cur.b);
+      var ok = Math.abs(lhs - cur.c) < 1e-9;
+      var line = document.createElement('span');
+      if (ok){
+        line.innerHTML = '<span class="hit">✓ x = '+fmt(x)+':</span> |'+fmt(cur.m===1?'':cur.m)+'x '+(cur.b>=0?'+ '+cur.b:'− '+(-cur.b))+'| = '+fmt(lhs)+' = '+fmt(cur.c)+' — real solution.';
+        var key = String(x);
+        if (!foundKeys[key]){ foundKeys[key] = true; foundN++; }
+      } else if (cur.c < 0){
+        line.innerHTML = 'x = '+fmt(x)+': |...| = '+fmt(lhs)+', which can never equal '+fmt(cur.c)+' — a distance can\'t be negative. Nothing will ever work here.';
+      } else {
+        line.innerHTML = 'x = '+fmt(x)+': |...| = '+fmt(lhs)+', not '+fmt(cur.c)+' — not a solution.';
+      }
+      testReadout.insertBefore(line, testReadout.firstChild);
+      if (needed > 0){
+        countPill.hidden = false;
+        countPill.textContent = 'found ' + Math.min(foundN, needed) + ' / ' + needed;
+      }
+    }
+
+    function newProblem(){
+      var i;
+      do { i = Math.floor(Math.random()*PROBLEMS.length); } while (i === lastIdx);
+      lastIdx = i;
+      cur = PROBLEMS[i];
+      needed = trueCount(cur.c);
+      foundKeys = {}; foundN = 0;
+      eqEl.textContent = cur.text;
+      predictFb.hidden = true;
+      testWrap.hidden = true;
+      testReadout.innerHTML = '';
+      countPill.hidden = true;
+    }
+
+    function predict(k){
+      predictFb.hidden = false;
+      var actual = trueCount(cur.c);
+      if (k === actual){
+        predictFb.className = 'feedback good';
+        var why = cur.c > 0 ? 'The right side is positive — one solution moving in each direction.'
+                : cur.c === 0 ? '0 has no opposite, so the isolated expression can only equal 0 one way.'
+                : 'The right side is negative, and a distance can never be negative — no x will ever work.';
+        predictFb.textContent = '✅ Right — ' + why;
+      } else {
+        predictFb.className = 'feedback bad';
+        predictFb.textContent = '❌ Look at the number on the right BEFORE splitting into cases: positive → 2 solutions, zero → 1 solution, negative → 0 solutions.';
+      }
+      testWrap.hidden = false;
+      renderCandidates();
+    }
+
+    document.getElementById('av1-c0').addEventListener('click', function(){ predict(0); });
+    document.getElementById('av1-c1').addEventListener('click', function(){ predict(1); });
+    document.getElementById('av1-c2').addEventListener('click', function(){ predict(2); });
+    document.getElementById('av1-new').addEventListener('click', newProblem);
+    newProblem();
+  })();
+
+  /* ================= STATION 2: SORT IT, THEN TEST IT ================= */
+  (function(){
+    var PROBLEMS = [
+      {b:3, op:'<=', c:5, text:'|x + 3| ≤ 5'},
+      {b:-4, op:'>', c:2, text:'|x − 4| > 2'},
+      {b:1, op:'<', c:6, text:'|x + 1| < 6'},
+      {b:-2, op:'>=', c:4, text:'|x − 2| ≥ 4'},
+      {b:0, op:'<=', c:3, text:'|x| ≤ 3'},
+      {b:6, op:'>', c:1, text:'|x + 6| > 1'}
+    ];
+    var ineqEl = document.getElementById('av2-ineq');
+    var fb1 = document.getElementById('av2-fb1');
+    var fb2 = document.getElementById('av2-fb2');
+    var svg = document.getElementById('av2-svg');
+    var readout = document.getElementById('av2-readout');
+    var cur = null, lastIdx = -1, marks = [];
+
+    function NX(x){ return 20 + (x+10)*15; }
+    function xFromPx(px){
+      var x = Math.round((px-20)/15 - 10);
+      return Math.max(-10, Math.min(10, x));
+    }
+    function satisfies(x){
+      var lhs = Math.abs(x + cur.b);
+      if (cur.op === '<=') return lhs <= cur.c;
+      if (cur.op === '>=') return lhs >= cur.c;
+      if (cur.op === '<') return lhs < cur.c;
+      return lhs > cur.c;
+    }
+    function bounds(){
+      var lo = Math.min(cur.c - cur.b, -cur.c - cur.b);
+      var hi = Math.max(cur.c - cur.b, -cur.c - cur.b);
+      return {lo:lo, hi:hi};
+    }
+    function draw(){
+      var s = '';
+      for (var i=-10; i<=10; i+=1){
+        var h = (i % 2 === 0) ? 10 : 6;
+        s += '<line x1="'+NX(i)+'" y1="45" x2="'+NX(i)+'" y2="'+(45-h)+'" stroke="currentColor" stroke-opacity=".35" stroke-width="1.5"/>';
+        if (i % 2 === 0) s += '<text x="'+NX(i)+'" y="70" font-size="11" fill="currentColor" text-anchor="middle">'+fmt(i)+'</text>';
+      }
+      s += '<line x1="'+NX(-10)+'" y1="45" x2="'+NX(10)+'" y2="45" stroke="currentColor" stroke-opacity=".5" stroke-width="1.5"/>';
+      var b = bounds();
+      var between = (cur.op === '<=' || cur.op === '<');
+      var closed = (cur.op === '<=' || cur.op === '>=');
+      if (between){
+        s += '<line x1="'+NX(Math.max(b.lo,-10))+'" y1="45" x2="'+NX(Math.min(b.hi,10))+'" y2="45" stroke="var(--good)" stroke-width="5"/>';
+      } else {
+        s += '<line x1="'+NX(-10)+'" y1="45" x2="'+NX(Math.max(b.lo,-10))+'" y2="45" stroke="var(--good)" stroke-width="5"/>';
+        s += '<line x1="'+NX(Math.min(b.hi,10))+'" y1="45" x2="'+NX(10)+'" y2="45" stroke="var(--good)" stroke-width="5"/>';
+      }
+      [b.lo, b.hi].forEach(function(v){
+        if (v < -10 || v > 10) return;
+        s += '<circle cx="'+NX(v)+'" cy="45" r="6" fill="'+(closed?'var(--good)':'var(--ground-sunken)')+'" stroke="var(--good)" stroke-width="2.5"/>';
+      });
+      marks.forEach(function(mk){
+        s += '<circle cx="'+NX(mk.x)+'" cy="25" r="6" fill="'+(mk.ok?'var(--good)':'var(--bad)')+'" stroke="#fff" stroke-width="2"/>';
+      });
+      svg.innerHTML = s;
+    }
+    function newProblem(){
+      var i;
+      do { i = Math.floor(Math.random()*PROBLEMS.length); } while (i === lastIdx);
+      lastIdx = i;
+      cur = PROBLEMS[i];
+      marks = [];
+      ineqEl.textContent = cur.text;
+      fb1.hidden = true; fb2.hidden = true;
+      readout.innerHTML = '';
+      draw();
+    }
+    function pickAndOr(v){
+      fb1.hidden = false;
+      var correct = (cur.op === '<=' || cur.op === '<') ? 'and' : 'or';
+      if (v === correct){
+        fb1.className = 'feedback good';
+        fb1.textContent = '✅ ' + (correct==='and' ? '"Less than" squeezes the values between two boundaries — one connected stretch.' : '"Greater than" pushes values apart in both directions — two separate rays.');
+      } else {
+        fb1.className = 'feedback bad';
+        fb1.textContent = '❌ Less than (< or ≤) → and/between. Greater than (> or ≥) → or/split.';
+      }
+    }
+    function pickCircle(v){
+      fb2.hidden = false;
+      var correct = (cur.op === '<=' || cur.op === '>=') ? 'closed' : 'open';
+      if (v === correct){
+        fb2.className = 'feedback good';
+        fb2.textContent = '✅ ' + (correct==='closed' ? 'The ≤/≥ sign includes the boundary itself — closed (filled) circle.' : 'The strict < or > sign does NOT include the boundary — open circle.');
+      } else {
+        fb2.className = 'feedback bad';
+        fb2.textContent = '❌ ≤ and ≥ include the boundary (closed). < and > do not (open).';
+      }
+    }
+    document.getElementById('av2-and').addEventListener('click', function(){ pickAndOr('and'); });
+    document.getElementById('av2-or').addEventListener('click', function(){ pickAndOr('or'); });
+    document.getElementById('av2-open').addEventListener('click', function(){ pickCircle('open'); });
+    document.getElementById('av2-closed').addEventListener('click', function(){ pickCircle('closed'); });
+    svg.addEventListener('click', function(e){
+      var rect = svg.getBoundingClientRect();
+      var px = (e.clientX - rect.left) * (340 / rect.width);
+      var x = xFromPx(px);
+      var ok = satisfies(x);
+      marks.push({x:x, ok:ok});
+      if (marks.length > 10) marks.shift();
+      draw();
+      var lhs = Math.abs(x + cur.b);
+      var opTxt = cur.op === '<=' ? '≤' : cur.op === '>=' ? '≥' : cur.op;
+      var line = document.createElement('span');
+      line.innerHTML = (ok ? '<span class="hit">✓</span>' : '✗') + ' x = '+fmt(x)+': |x '+(cur.b>=0?'+ '+cur.b:'− '+(-cur.b))+'| = '+fmt(lhs)+' '+opTxt+' '+fmt(cur.c)+' is <b>'+(ok?'TRUE':'FALSE')+'</b> — '+(ok?'inside':'outside')+' the solution set, which matches the graph above.';
+      readout.insertBefore(line, readout.firstChild);
+    });
+    document.getElementById('av2-new').addEventListener('click', newProblem);
+    newProblem();
+  })();
+
+  /* ================= STATION 3: DRAG THE VERTEX ================= */
+  (function(){
+    var hSlider = document.getElementById('av3-h');
+    var kSlider = document.getElementById('av3-k');
+    var hOut = document.getElementById('av3-h-out');
+    var kOut = document.getElementById('av3-k-out');
+    var svg = document.getElementById('av3-svg');
+    var fnEl = document.getElementById('av3-fn');
+    var readout = document.getElementById('av3-readout');
+    var quizWrap = document.getElementById('av3-quiz');
+    var fb = document.getElementById('av3-fb');
+
+    function drawV(h, k, color){
+      var y1 = Math.abs(-6.8-h)+k, y2 = k, y3 = Math.abs(6.8-h)+k;
+      var s = '<polyline points="'+GX(-6.8)+','+GY(y1)+' '+GX(h)+','+GY(y2)+' '+GX(6.8)+','+GY(y3)+'" fill="none" stroke="'+color+'" stroke-width="3"/>';
+      s += '<circle cx="'+GX(h)+'" cy="'+GY(k)+'" r="6" fill="'+color+'" stroke="#fff" stroke-width="2"/>';
+      return s;
+    }
+    function fnText(h, k){
+      var hPart = h===0 ? 'x' : (h>0 ? 'x − '+h : 'x + '+(-h));
+      var kPart = k===0 ? '' : (k>0 ? ' + '+k : ' − '+(-k));
+      return 'g(x) = |'+hPart+'|'+kPart;
+    }
+    function renderQuiz(h, k){
+      quizWrap.innerHTML = '';
+      fb.hidden = true;
+      var opts = shuffle([
+        {v:'h', label:'(−∞, '+fmt(h)+')  — the vertex\'s x'},
+        {v:'k', label:'(−∞, '+fmt(k)+')  — the vertex\'s y'}
+      ]);
+      opts.forEach(function(o){
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'btn choice';
+        btn.textContent = o.label;
+        btn.addEventListener('click', function(){
+          fb.hidden = false;
+          if (o.v === 'h'){
+            fb.className = 'feedback good';
+            fb.textContent = '✅ Right — the V turns at x = '+fmt(h)+', so it\'s decreasing for every x before that and increasing after. The vertex\'s y-value ('+fmt(k)+') only tells you how high or low the turn happens, not where.';
+          } else {
+            fb.className = 'feedback bad';
+            fb.textContent = '❌ That\'s the vertex\'s y-coordinate (k), not where it turns left-to-right. The graph turns at x = '+fmt(h)+' — that\'s the number that belongs in the interval.';
+          }
+        });
+        quizWrap.appendChild(btn);
+      });
+    }
+    function update(){
+      var h = parseInt(hSlider.value, 10);
+      var k = parseInt(kSlider.value, 10);
+      hOut.textContent = fmt(h);
+      kOut.textContent = fmt(k);
+      var s = gridBase() + drawV(h, k, 'var(--accent)');
+      svg.innerHTML = s;
+      fnEl.textContent = fnText(h, k);
+      readout.innerHTML =
+        '<span>vertex: (<b>'+fmt(h)+'</b>, <b>'+fmt(k)+'</b>)</span>' +
+        '<span>domain: all real numbers</span>' +
+        '<span>range: y ≥ '+fmt(k)+'</span>' +
+        '<span>decreasing on (−∞, '+fmt(h)+')  ·  increasing on ('+fmt(h)+', ∞)</span>';
+      renderQuiz(h, k);
+    }
+    hSlider.addEventListener('input', update);
+    kSlider.addEventListener('input', update);
+    update();
+  })();
+
+  /* ================= STATION 4: CATCH THE SIGN MISTAKE ================= */
+  (function(){
+    var PROBLEMS = [
+      {a1:3, b1:-4, c1:1, a2:1, b2:2, c2:2, denom:'t + 3', v:'t'},
+      {a1:5, b1:1, c1:0, a2:2, b2:-3, c2:4, denom:'x − 2', v:'x'},
+      {a1:2, b1:-5, c1:3, a2:-1, b2:4, c2:-2, denom:'y + 1', v:'y'},
+      {a1:4, b1:6, c1:-3, a2:2, b2:-1, c2:5, denom:'p − 6', v:'p'},
+      {a1:1, b1:8, c1:4, a2:3, b2:-2, c2:-6, denom:'m + 7', v:'m'}
+    ];
+    var problemEl = document.getElementById('av4-problem');
+    var choicesEl = document.getElementById('av4-choices');
+    var fb = document.getElementById('av4-fb');
+    var cur = null, lastIdx = -1;
+
+    function poly(a, b, c, v){
+      var parts = [];
+      if (a !== 0) parts.push({c:a, s:v+'²'});
+      if (b !== 0) parts.push({c:b, s:v});
+      if (c !== 0) parts.push({c:c, s:''});
+      if (!parts.length) return '0';
+      var out = '';
+      parts.forEach(function(p, i){
+        var mag = Math.abs(p.c);
+        var magStr = (mag === 1 && p.s) ? '' : String(mag);
+        var term = magStr + p.s;
+        out += (i === 0) ? ((p.c<0?'−':'') + term) : ((p.c<0?' − ':' + ') + term);
+      });
+      return out;
+    }
+    function newProblem(){
+      var i;
+      do { i = Math.floor(Math.random()*PROBLEMS.length); } while (i === lastIdx);
+      lastIdx = i;
+      cur = PROBLEMS[i];
+      fb.hidden = true;
+      problemEl.textContent =
+        '(' + poly(cur.a1,cur.b1,cur.c1,cur.v) + ') / (' + cur.denom + ')   −   (' + poly(cur.a2,cur.b2,cur.c2,cur.v) + ') / (' + cur.denom + ')';
+      var correct = {a: cur.a1-cur.a2, b: cur.b1-cur.b2, c: cur.c1-cur.c2, kind:'correct'};
+      var wrong1 = {a: cur.a1-cur.a2, b: cur.b1+cur.b2, c: cur.c1+cur.c2, kind:'partial'};
+      var wrong2 = {a: cur.a1+cur.a2, b: cur.b1+cur.b2, c: cur.c1+cur.c2, kind:'added'};
+      var opts = shuffle([correct, wrong1, wrong2]);
+      choicesEl.innerHTML = '';
+      opts.forEach(function(o){
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'btn choice';
+        btn.textContent = poly(o.a, o.b, o.c, cur.v) + '  over  (' + cur.denom + ')';
+        btn.addEventListener('click', function(){
+          fb.hidden = false;
+          if (o.kind === 'correct'){
+            fb.className = 'feedback good';
+            fb.textContent = '✅ Right — the negative sign hits every term of the second numerator, not just the first.';
+          } else if (o.kind === 'partial'){
+            fb.className = 'feedback bad';
+            fb.textContent = '❌ Close — this only flips the sign on the first term. The negative has to distribute across ALL of ('+poly(cur.a2,cur.b2,cur.c2,cur.v)+'), not just the leading one.';
+          } else {
+            fb.className = 'feedback bad';
+            fb.textContent = '❌ This just adds the two numerators — the minus sign in the problem got dropped entirely.';
+          }
+        });
+        choicesEl.appendChild(btn);
+      });
+    }
+    document.getElementById('av4-new').addEventListener('click', newProblem);
+    newProblem();
+  })();
+
+  /* ================= STATION 5: FIND THE BIGGEST PERFECT SQUARE ================= */
+  (function(){
+    var PROBLEMS = [
+      {n:72, choices:[[36,2],[9,8],[8,9]]},
+      {n:50, choices:[[25,2],[10,5],[5,9]]},
+      {n:48, choices:[[16,3],[4,12],[6,8]]},
+      {n:45, choices:[[9,5],[5,9],[3,15]]},
+      {n:98, choices:[[49,2],[7,14],[2,49]]},
+      {n:200, choices:[[100,2],[25,8],[4,50]]}
+    ];
+    var problemEl = document.getElementById('av5-problem');
+    var choicesEl = document.getElementById('av5-choices');
+    var fb = document.getElementById('av5-fb');
+    var cur = null, lastIdx = -1;
+
+    function isPerfectSquare(n){ var r = Math.round(Math.sqrt(n)); return r*r === n; }
+    function reducible(n){
+      for (var f=2; f*f<=n; f++){ if (n % (f*f) === 0) return true; }
+      return false;
+    }
+    function newProblem(){
+      var i;
+      do { i = Math.floor(Math.random()*PROBLEMS.length); } while (i === lastIdx);
+      lastIdx = i;
+      cur = PROBLEMS[i];
+      fb.hidden = true;
+      problemEl.textContent = '√' + cur.n;
+      choicesEl.innerHTML = '';
+      shuffle(cur.choices.slice()).forEach(function(pair){
+        var p = pair[0], l = pair[1];
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'btn choice';
+        btn.textContent = '√' + p + ' · √' + l;
+        btn.addEventListener('click', function(){
+          fb.hidden = false;
+          if (p*l !== cur.n){
+            fb.className = 'feedback bad';
+            fb.textContent = '❌ '+p+' × '+l+' = '+(p*l)+', not '+cur.n+' — that\'s not even a valid factor pair.';
+          } else if (!isPerfectSquare(p)){
+            fb.className = 'feedback bad';
+            fb.textContent = '❌ '+p+' isn\'t a perfect square, so √'+p+' doesn\'t simplify to a whole number — nothing to pull out.';
+          } else if (reducible(l)){
+            fb.className = 'feedback bad';
+            fb.textContent = '❌ '+p+' IS a perfect square, but √'+l+' still has a perfect square hiding inside it — you didn\'t pull out the BIGGEST one.';
+          } else {
+            var sq = Math.round(Math.sqrt(p));
+            fb.className = 'feedback good';
+            fb.textContent = '✅ '+p+' is the largest perfect-square factor of '+cur.n+': √'+cur.n+' = √'+p+' · √'+l+' = '+sq+'√'+l+'.';
+          }
+        });
+        choicesEl.appendChild(btn);
+      });
+    }
+    document.getElementById('av5-new').addEventListener('click', newProblem);
+    newProblem();
+  })();
+
+  /* ================= STATION 6: WHAT DO YOU MULTIPLY BY? ================= */
+  (function(){
+    var PROBLEMS = [
+      {denom:'1 / √7', choices:['√7 / √7', '7 / 7', '2√7 / 2√7'], correct:0, note:'√7 · √7 = 7 — rational. Multiplying by a matching radical over itself is really just multiplying by 1.'},
+      {denom:'1 / ∛5', choices:['∛5 / ∛5', '∛25 / ∛25', '5 / 5'], correct:1, note:'∛5 · ∛25 = ∛125 = 5. ∛5 alone would only give you ∛25 — still not rational. You need enough factors to COMPLETE the cube.'},
+      {denom:'5 / (4 − √3)', choices:['4 − √3 (same expression)', '4 + √3 (the conjugate)', '−4 + √3'], correct:1, note:'The conjugate only flips the sign between the terms: 4 + √3. (4−√3)(4+√3) = 16 − 3 = 13 — the middle terms cancel and the root disappears.'},
+      {denom:'3 / (2√5)', choices:['√5 / √5', '2 / 2', '2√5 / 2√5'], correct:0, note:'The 2 was already rational — only √5 needs rationalizing. 2√5 · √5 = 2·5 = 10.'},
+      {denom:'1 / (6 + √10)', choices:['6 + √10', '6 − √10', '−6 − √10'], correct:1, note:'Flip only the sign between the terms: 6 − √10. (6+√10)(6−√10) = 36 − 10 = 26.'},
+      {denom:'1 / ∛9', choices:['∛9', '∛3', '∛27'], correct:1, note:'9 = 3², so ∛9 needs one more factor of 3 to complete a perfect cube: ∛9 · ∛3 = ∛27 = 3.'}
+    ];
+    var problemEl = document.getElementById('av6-problem');
+    var choicesEl = document.getElementById('av6-choices');
+    var fb = document.getElementById('av6-fb');
+    var cur = null, lastIdx = -1;
+
+    function newProblem(){
+      var i;
+      do { i = Math.floor(Math.random()*PROBLEMS.length); } while (i === lastIdx);
+      lastIdx = i;
+      cur = PROBLEMS[i];
+      fb.hidden = true;
+      problemEl.textContent = cur.denom;
+      choicesEl.innerHTML = '';
+      var order = shuffle([0,1,2]);
+      order.forEach(function(idx){
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'btn choice';
+        btn.textContent = cur.choices[idx] + '  (top and bottom)';
+        btn.addEventListener('click', function(){
+          fb.hidden = false;
+          if (idx === cur.correct){
+            fb.className = 'feedback good';
+            fb.textContent = '✅ ' + cur.note;
+          } else {
+            fb.className = 'feedback bad';
+            fb.textContent = '❌ Not quite. ' + cur.note;
+          }
+        });
+        choicesEl.appendChild(btn);
+      });
+    }
+    document.getElementById('av6-new').addEventListener('click', newProblem);
+    newProblem();
+  })();
+
+})();
 </script>
