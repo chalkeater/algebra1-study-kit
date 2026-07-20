@@ -63,6 +63,18 @@ work well as Claude Artifacts if you want a shareable link.
   (including rationalizing the denominator). This unit has six pieces too
   (the standard five plus `cheat-sheet.html`).
 
+- **`unit-05-polynomial-expressions/`** — adding and subtracting polynomials;
+  multiplying monomials, binomials, and trinomials, including the special
+  products (difference of squares, perfect square trinomials, and sum/
+  difference of cubes as multiplication patterns); and factoring — GCF,
+  factoring by grouping, factoring trinomials with a leading coefficient of
+  1 (both positive and negative constants), and factoring the sum/difference
+  of cubes. This unit also has six pieces (the standard five plus
+  `cheat-sheet.html`). The playground's factoring-trinomials station has a
+  real interactive algebra-tile builder — pick a candidate number pair,
+  check it against both conditions (multiply to c, add to b), and the tile
+  rectangle renders itself once you find the right one.
+
 - **`midterm-review/`** — cumulative review for the first half of the class
   (built from the 25-question Edgenuity cumulative exam review). Three pieces
   instead of five: `cheat-sheet.html` (the whole exam on 1–2 scannable,
